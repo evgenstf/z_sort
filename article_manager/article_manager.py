@@ -14,7 +14,7 @@ def main():
     HOST, PORT = 'localhost', 9999
     MAX_REQUEST_LENGTH = 4024
 
-    storage = FileArticleStorage('/Users/evgenstf/nlogn_articles/file_article_storage_metafile.json')
+    storage = FileArticleStorage('/home/evgenstf/articles/metafile.json')
     article_manager = ArticleManager(storage)
 
     class TCPHandler(socketserver.BaseRequestHandler):
