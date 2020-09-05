@@ -1,10 +1,16 @@
+import json
+
+from entities.article import Article
+
 class FileArticleStorage:
-    def __init__(self, metapath):
-        self.metapath = metapath
-        self.article_paths = None
+    def __init__(self, metafile_path):
+        self.articles = None
+        self.reload(metafile_path)
 
-        self.reload()
-
-    def reload(self):
-        article_paths = [path.strip() for path in open(self.metapath).readlines()]
-        self.article_paths = set(article_paths)
+    def reload(self, metafile_path):
+        article_paths = json.load(open(metafile_path))['article_paths']
+        self.articles = dict()
+        for path in article_paths:
+            text = open(path + '/article.md').readlines()
+            attributes = json.load(open(path + '/attributes.json'))
+            self.articles[attributes['id']] = Article(text, attributes)
