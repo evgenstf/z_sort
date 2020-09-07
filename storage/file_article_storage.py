@@ -14,3 +14,6 @@ class FileArticleStorage:
             text = open(path + '/article.md').readlines()
             attributes = json.load(open(path + '/attributes.json'))
             self.articles[attributes['id']] = Article(text, attributes)
+
+    def article_by_id(self, id):
+        return self.articles[id]
