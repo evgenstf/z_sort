@@ -1,5 +1,5 @@
 from markdown import markdown
-from html_factories import MainHtmlFactory
+from html_factories.main import MainHtmlFactory
 
 class ArticleHtmlFactory:
     def __init__(self):
