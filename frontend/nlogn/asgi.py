@@ -1,5 +1,5 @@
 """
-ASGI config for urlshortener project.
+ASGI config for nlogn project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'urlshortener.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nlogn.settings')
 
 application = get_asgi_application()

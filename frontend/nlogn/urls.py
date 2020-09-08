@@ -1,4 +1,4 @@
-"""urlshortener URL Configuration
+"""nlogn URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -16,12 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from urlshortener.handlers import short
+from nlogn.handlers import nlogn_handler
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('short/', short.index, name='index'),
-    path('redirect_to_google', short.redirect_to_google, name='redirect_to_google'),
-    path('short_url/', short.short_url),
-    path('a/<str:short_url>/', short.redirect_from_short)
+    path('a/<str:article_url>/', nlogn_handler.article)
 ]
