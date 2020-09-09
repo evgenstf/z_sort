@@ -1,4 +1,4 @@
-"""nlogn URL Configuration
+"""z_sort URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
@@ -16,8 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from nlogn.handlers import nlogn_handler
+from z_sort.handlers import z_sort_handler
 
 urlpatterns = [
-    path('a/<str:article_url>/', nlogn_handler.article)
+    path('a/<str:article_url>/', z_sort_handler.article)
 ]

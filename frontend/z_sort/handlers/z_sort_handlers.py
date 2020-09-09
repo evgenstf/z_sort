@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 
-from nlogn import settings
+from z_sort import settings
 
 import simplejson as json
 

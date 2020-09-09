@@ -1,1 +1,1 @@
-nlogn
+z_sort
