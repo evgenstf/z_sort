@@ -5,8 +5,8 @@ HEADER = """
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>NlogN</title>
-  <meta name="description" content="NlogN">
+  <title>Z-Sort</title>
+  <meta name="description" content="Z-Sort">
   <meta name="author" content="evgenstf">
 </head>
 
@@ -15,7 +15,7 @@ HEADER = """
     <tr>
       <td>
         <div style="padding:5px;background:black;text-align:center;color:white;font-size:20pt">
-          NlogN
+          Z-SORT
         </div>
       </td>
     </tr>
