@@ -11,7 +11,7 @@ class FileArticleStorage:
         article_paths = json.load(open(metafile_path))['article_paths']
         self.articles = dict()
         for path in article_paths:
-            text = open(path + '/article.md').readlines()
+            text = open(path + '/article.md').read()
             attributes = json.load(open(path + '/attributes.json'))
             self.articles[attributes['id']] = Article(text, attributes)
 

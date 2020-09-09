@@ -18,11 +18,11 @@ HEADER = """
           NlogN
         </div>
       </td>
+    </tr>
     <tr>
       <td>
         {}
       </td>
-    <tr>
     </tr>
   </table>
 </body>
@@ -31,7 +31,7 @@ HEADER = """
 
 
 
-class MainHtmlFactory:
+class BaseHtmlFactory:
     def __init__(self):
         self.template = None
 

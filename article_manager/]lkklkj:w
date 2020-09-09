@@ -8,8 +8,8 @@ class ArticleManager:
 
     def all_article_previews(self):
         previews = []
-        for id, article in self.article_storage.articles.items():
-            previews.append(article.to_preview_dict())
+        for article in self.article_storage.articles:
+            previews.append({'header': article.header, 'id': article.id})
         return previews
 
 def main():
@@ -31,9 +31,9 @@ def main():
 
             response = '{error_message:"unsupported request type"}'
             if request['type'] == 'article':
-                response = json.dumps(article_manager.article_by_id(request['id']).to_full_dict())
+                response = article_manager.article_by_id(request['id'])
             elif request['type'] == 'all_article_previews':
-                response = json.dumps(article_manager.all_article_previews())
+                response = article_manager.all_article_previews()
 
             self.request.sendall(str.encode(response))
 

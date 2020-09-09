@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from z_sort.handlers import z_sort_handler
+from handlers import z_sort_handler
 
 urlpatterns = [
-    path('a/<str:article_url>/', z_sort_handler.article)
+    path('', z_sort_handler.index),
+    path('a/<str:article_id>/', z_sort_handler.article)
 ]

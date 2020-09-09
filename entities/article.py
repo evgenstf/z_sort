@@ -12,3 +12,20 @@ class Article:
         self.date = attributes['date']
         self.authors = attributes['authors']
         self.id = attributes['id']
+
+    def to_full_dict(self):
+        return {
+                'text': self.text,
+                'header': self.header,
+                'date': self.date,
+                'authors': self.authors,
+                'id': self.id
+        }
+
+    def to_preview_dict(self):
+        return {
+                'header': self.header,
+                'date': self.date,
+                'authors': self.authors,
+                'id': self.id
+        }

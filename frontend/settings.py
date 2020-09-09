@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'z_sort',
 ]
 
 MIDDLEWARE = [
@@ -52,13 +50,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'z_sort.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-          os.path.join(BASE_DIR, 'z_sort/templates'),
+          os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -72,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'z_sort.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
