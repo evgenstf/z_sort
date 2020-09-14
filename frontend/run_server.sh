@@ -1,1 +1,1 @@
-python3 manage.py runserver 10.0.2.15:2345
+python3 manage.py runserver localhost:2346

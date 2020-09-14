@@ -1,0 +1,61 @@
+{% load static %}
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Z-Sort</title>
+  <meta name="description" content="Z-Sort">
+  <meta name="author" content="evgenstf">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+
+  <style>
+    {css}
+  </style>
+</head>
+
+<script>
+  {js}
+</script>
+
+
+<body>
+  <div class="header" id="ghost_header">
+  </div>
+  <div class="header" id="z_sort_header">
+    <span style="color:var(--key-color); font-weight:bold">Z</span>-SORT
+  </div>
+  <div class="article">
+    <div class="article_header"><h1>{article_header}</h1></div>
+
+    <div class="article_reading_time"><tr>
+      <table width=100% height=100%><tr>
+        <td style="padding:0px">
+          <img src="{% static "svg/clock.svg" %}" width=16px height=16px style="margin-right:10px"/>
+        </td>
+        <td>
+          {article_reading_time}
+        </td>
+      </tr></table>
+    </div>
+
+    <div class="article_body">
+      {article_body}
+    </div>
+
+    <div class="tail">
+      <div class="article_authors">{article_authors}</div>
+      <div class="article_date">{article_date}</div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    2020, <span style="font-weight:bold">Z</span><span style="font-weight:500">-SORT</span>
+  </div>
+</body>
+
+</html>

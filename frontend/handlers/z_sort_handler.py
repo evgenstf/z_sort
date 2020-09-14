@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.template import Template, Context
 
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -35,4 +36,5 @@ def index(request):
 
 @csrf_exempt
 def article(request, article_id):
-    return HttpResponse(ArticleHtmlFactory.create_from_article(get_article_by_id(article_id)))
+    template = Template(ArticleHtmlFactory.create_from_article(get_article_by_id(article_id)))
+    return HttpResponse(template.render(Context({})))

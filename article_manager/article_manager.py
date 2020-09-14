@@ -4,6 +4,7 @@ class ArticleManager:
         self.image_storage = image_storage
 
     def article_by_id(self, id):
+        self.article_storage.reload() # TODO(evgenstf): remove
         return self.article_storage.article_by_id(id)
 
     def all_article_previews(self):
@@ -20,7 +21,7 @@ def main():
     HOST, PORT = 'localhost', 9999
     MAX_REQUEST_LENGTH = 4024
 
-    storage = FileArticleStorage('/home/evgenstf/articles/metafile.json')
+    storage = FileArticleStorage('/Users/evgenstf/articles/metafile.json')
     article_manager = ArticleManager(storage)
 
     class TCPHandler(socketserver.BaseRequestHandler):
