@@ -27,7 +27,7 @@ DEBUG = True
 
 SITE_NAME = 'localhost'
 
-ALLOWED_HOSTS = ['95.142.45.197', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['95.142.45.197', 'localhost', '127.0.0.1', 'z-sort.ru', 'z-sort.com']
 
 # Application definition
 
