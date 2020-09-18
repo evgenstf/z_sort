@@ -35,6 +35,7 @@ body {
   position: fixed;
   backdrop-filter: blur(5px);
   color: var(--gray-color);
+  background: #ffffff88;
   z-index: 100;
 
   font-size: 36px;
