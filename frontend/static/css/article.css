@@ -34,6 +34,7 @@ body {
 #z_sort_header{
   position: fixed;
   backdrop-filter: blur(5px);
+  z-index: 100;
 
   font-size: 36px;
   font-weight: 500;
@@ -112,4 +113,8 @@ table {
 
 .article_date {
   font-style: italic;
+}
+
+.MathJax_Display {
+  color:black;
 }
