@@ -9,6 +9,7 @@
 
 body {
   background: white;
+  margin: 0;
 }
 
 .header {
@@ -49,13 +50,15 @@ body {
 }
 
 .article {
-  margin-left: var(--article-paddings);
-  margin-right: var(--article-paddings);
+  align: center;
+  width: 960px;
+  margin: 0 auto;
 }
 
 .article_reading_time {
   margin-top: 20px;
   display: inline-block;
+  font-weight: 500;
   line-height: 16px;
 }
 
