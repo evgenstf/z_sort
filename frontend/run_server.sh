@@ -1,1 +1,1 @@
-python3 manage.py runserver localhost:2346
+python3 manage.py runserver 195.2.67.253:80

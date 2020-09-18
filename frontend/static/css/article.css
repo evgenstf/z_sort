@@ -1,10 +1,9 @@
 :root {
-  --key-color: #8000FF;
+  --key-color: #4b0baf;
   --gray-color: #474747;
   --link-color: #4676D4;
   --article-paddings: 240px;
   font-family: Montserrat;
-  color: var(--gray-color);
 }
 
 body {
@@ -35,6 +34,7 @@ body {
 #z_sort_header{
   position: fixed;
   backdrop-filter: blur(5px);
+  color: var(--gray-color);
   z-index: 100;
 
   font-size: 36px;
@@ -56,6 +56,7 @@ body {
 }
 
 .article_reading_time {
+  color: var(--gray-color);
   margin-top: 20px;
   display: inline-block;
   font-weight: 500;
@@ -70,6 +71,7 @@ h1 {
 }
 
 h2 {
+  margin-top: 40px;
   color: black;
   font-weight: bold;
   font-size: 24px;
@@ -91,6 +93,8 @@ table {
 
 .article_body {
   margin-top: 40px;
+  line-height: 155%;
+  font-size: 18px;
 }
 
 .article_body img {
