@@ -9,8 +9,9 @@ import settings
 
 import simplejson as json
 
-from html_factories.article_previews import ArticlePreviewsHtmlFactory
+from html_factories.category import CategoryHtmlFactory
 from html_factories.article import ArticleHtmlFactory
+from html_factories.main import MainHtmlFactory
 
 import socket
 
@@ -39,8 +40,8 @@ def handle_main_request(meta):
     template = Template(MainHtmlFactory.create_from_meta(meta))
     return HttpResponse(template.render(Context({})))
 
-def handle_category_request(meta):
-    template = Template(ArticleHtmlFactory.create_from_article(get_article_by_path(path)))
+def handle_category_request(path):
+    template = Template(CategoryHtmlFactory.create_from_meta(get_meta_by_path(path), path))
     return HttpResponse(template.render(Context({})))
 
 def handle_url(request):
