@@ -32,7 +32,7 @@ def get_meta_by_path(path):
 
 
 def handle_article_request(path):
-    template = Template(ArticleHtmlFactory.create_from_article(get_article_by_path(path)))
+    template = Template(ArticleHtmlFactory.create_from_article(get_article_by_path(path), path, get_meta_by_path(path[:-1])))
     return HttpResponse(template.render(Context({})))
 
 def handle_main_request(meta):

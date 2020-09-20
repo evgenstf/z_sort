@@ -19,7 +19,7 @@ class ArticleHtmlFactory:
         self.template = None
 
     @staticmethod
-    def create_from_article(article):
+    def create_from_article(article, path, parent_meta):
         HTML_TEMPLATE = open('static/html/article.html', 'r').read()
         CSS = open('static/css/article.css', 'r').read()
         JS = open('static/js/article.js', 'r').read()
@@ -31,6 +31,9 @@ class ArticleHtmlFactory:
                 css=CSS,
                 js=JS,
                 article_header=article_header_html,
+                article_parent_link='/' + '/'.join(path[:-1]),
+                article_parent_header=' '.join(parent_meta['header']),
+                article_parent_color=parent_meta['color'] if 'color' in parent_meta else 'var(--gray-color)',
                 article_reading_time=article['reading_time'],
                 article_body=article_body_html,
                 article_authors='<br>'.join(article['authors']),
