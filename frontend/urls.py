@@ -18,7 +18,36 @@ from django.urls import path
 
 from handlers import z_sort_handler
 
-urlpatterns = [
-    path('', z_sort_handler.index),
-    path('a/<str:article_id>/', z_sort_handler.article)
-]
+urlpatterns = [ ]
+
+urls = []
+current_path = []
+
+def discover_urls(path_tree):
+    current_url = '/'.join(current_path) + ('/' if len(current_path) else '')
+    urls.append(current_url)
+
+    if not path_tree:
+        return
+    for node_name, node_tree in path_tree.items():
+        current_path.append(node_name)
+        discover_urls(node_tree)
+        current_path.pop()
+
+def get_all_urls():
+    import socket
+    import json
+
+    sock = socket.socket()
+    sock.connect(('localhost', 9999))
+    sock.send(json.dumps({"type": 'path_tree'}).encode())
+    response = sock.recv(100000).decode("utf-8")
+    sock.close()
+    return discover_urls(json.loads(response))
+
+get_all_urls()
+
+for url in urls:
+    urlpatterns.append(path(url, z_sort_handler.handle_url))
+
+print("urls:", urls)
