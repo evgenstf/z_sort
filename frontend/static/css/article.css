@@ -92,7 +92,6 @@ p {
   border-radius: 3px;
 
   position: relative;
-  display: inline-block;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
