@@ -18,7 +18,11 @@ from django.urls import path
 
 from handlers import z_sort_handler
 
-urlpatterns = [ ]
+from django.views.generic.base import RedirectView
+
+favicon_view = RedirectView.as_view(url='/static/favicon.ico', permanent=True)
+
+urlpatterns = [ path('favicon.ico', favicon_view) ]
 
 urls = []
 current_path = []
@@ -51,3 +55,5 @@ for url in urls:
     urlpatterns.append(path(url, z_sort_handler.handle_url))
 
 print("urls:", urls)
+
+
