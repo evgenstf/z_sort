@@ -1,5 +1,6 @@
 from markdown import markdown
 from html_factories.base import *
+from markdown_extensions.footnote import FootnoteExtension
 
 def patch_article_html(article_html):
     return article_html
@@ -15,7 +16,7 @@ class ArticleHtmlFactory:
         css = open('static/css/article.css', 'r').read()
 
         article_header_html = '<br>'.join(article['header'])
-        article_body_html = patch_article_html(markdown(article['text'], extensions=['fenced_code']))
+        article_body_html = patch_article_html(markdown(article['text'], extensions=['fenced_code', FootnoteExtension()]))
 
         article_html = deescape_django_macroses(escape_django_macroses(html_template).format(
                 article_header=article_header_html,
