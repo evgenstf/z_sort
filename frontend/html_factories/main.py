@@ -41,7 +41,7 @@ class MainHtmlFactory:
                     article_parent_link=article_meta['parent_link'],
                     article_parent_header=' '.join(article_meta['parent_header']),
                     article_reading_time=article_meta['reading_time'],
-                    article_body=markdown(article['text'][:article['text'].find('\n', 100)]),
+                    article_body=markdown(article['text'][:article['text'].find('[//]:<>(preview_end)')]),
                     article_authors='<br>'.join(article_meta['authors']),
                     article_date=article_meta['date']))
 

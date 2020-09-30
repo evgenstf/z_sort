@@ -33,7 +33,7 @@ class CategoryHtmlFactory:
                     article_parent_link='/'+'/'.join(path),
                     article_parent_header=' '.join(meta['header']),
                     article_reading_time=article_meta['reading_time'],
-                    article_body=markdown(article['text'][:article['text'].find('\n', 100)]),
+                    article_body=markdown(article['text'][:article['text'].find('[//]:<>(preview_end)')]),
                     article_authors='<br>'.join(article_meta['authors']),
                     article_date=article_meta['date']))
 

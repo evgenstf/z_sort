@@ -124,3 +124,7 @@ p {
   visibility: visible;
 }
 
+ol {
+  margin-top: 0px;
+}
+
