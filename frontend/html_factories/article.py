@@ -15,7 +15,7 @@ class ArticleHtmlFactory:
         css = open('static/css/article.css', 'r').read()
 
         article_header_html = '<br>'.join(article['header'])
-        article_body_html = patch_article_html(markdown(article['text']))
+        article_body_html = patch_article_html(markdown(article['text'], extensions=['fenced_code']))
 
         article_html = deescape_django_macroses(escape_django_macroses(html_template).format(
                 article_header=article_header_html,

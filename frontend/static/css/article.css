@@ -53,3 +53,8 @@
 .MathJax_Display {
   color:black;
 }
+
+pre {
+  background: #E9F8F9;
+  padding: 20px;
+}
