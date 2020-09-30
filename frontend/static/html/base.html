@@ -20,9 +20,6 @@
   <script src="/static/js/code_highlight.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 
-  {base_js}
-  {content_js}
-
 </head>
 <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 
@@ -39,12 +36,18 @@
   </a>
   </div>
 
-  {content}
+  <div id="content">
+    {content}
+  </div>
 
-  <div class="footer" id="ghost_footer"></div>
+  <div id="ghost_footer"></div>
+
   <div class="footer" id="z_sort_footer">
     2020, <span style="font-weight:bold">Z</span><span style="font-weight:500">-SORT</span>
   </div>
 </body>
+
+{base_js}
+{content_js}
 
 </html>
