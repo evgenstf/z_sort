@@ -39,7 +39,7 @@
       new_height += child.getBoundingClientRect().height;
     }
     console.log(new_height);
-    footnote.style.height = new_height + "px";
+    footnote.style.height = new_height + 10 + "px";
     footnote.style.top = document.getElementById("" + id).getBoundingClientRect().top - new_height - 50 + 'px';
     footnote.style.left = document.getElementById("" + id).getBoundingClientRect().left + 'px';
     if (!footnote.classList.contains("show")) {
