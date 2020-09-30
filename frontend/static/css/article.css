@@ -40,12 +40,14 @@
 }
 
 .article_authors {
-  font-weight: 500;
+  font-weight: 400;
   font-style: italic;
+  font-size: 18px;
 }
 
 .article_date {
   font-style: italic;
+  font-size: 14px;
 }
 
 .MathJax_Display {

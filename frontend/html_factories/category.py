@@ -20,7 +20,7 @@ class CategoryHtmlFactory:
     def create_from_meta(meta, path):
         article_preview_html_template = open('static/html/article_preview.html', 'r').read()
         js = open('static/js/article.js', 'r').read()
-        css = open('static/css/article.css', 'r').read()
+        css = open('static/css/article.css', 'r').read() + open('static/css/article_preview.css', 'r').read()
 
         previews_html = ''
 
@@ -33,6 +33,8 @@ class CategoryHtmlFactory:
                     article_parent_link='/'+'/'.join(path),
                     article_parent_header=' '.join(meta['header']),
                     article_reading_time=article_meta['reading_time'],
-                    article_body=markdown(article['text'][:article['text'].find('\n', 100)])))
+                    article_body=markdown(article['text'][:article['text'].find('\n', 100)]),
+                    article_authors='<br>'.join(article_meta['authors']),
+                    article_date=article_meta['date']))
 
         return BaseHtmlFactory.create_from_content(previews_html, js, css)

@@ -19,8 +19,13 @@ body {
 .footer {
   width: 100%;
   height: 44px;
+  bottom: 0;
+}
+
+#z_sort_footer {
   background: var(--gray-color);
   color: white;
+  position: fixed;
 
   font-size: 18px;
   align-items: center;
