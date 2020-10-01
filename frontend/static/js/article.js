@@ -3,7 +3,6 @@
 </script>
 
 <script>
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
   function addFootnote(id) {
     var footnote_link = document.getElementById(id);
     var footnote_title = footnote_link.getAttribute('footnote-title');

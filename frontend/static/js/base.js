@@ -6,3 +6,7 @@ rect = content.getBoundingClientRect();
 ghost_footer.style.height = Math.max(10, window.innerHeight - rect.bottom - 44) + "px";
 
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"fast-preview": {disabled: true}, tex2jax: {preview: "none", inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
