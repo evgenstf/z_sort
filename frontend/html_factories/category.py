@@ -26,15 +26,17 @@ class CategoryHtmlFactory:
 
         for article_name, article_meta in meta['items'].items():
             article = get_article_by_path(path + [article_name])
-            previews_html += deescape_django_macroses(escape_django_macroses(article_preview_html_template).format(
-                    article_header='<br>'.join(article_meta['header']),
-                    article_parent_color=meta['color'],
-                    article_link='/'+'/'.join(path) + '/' + article_name,
-                    article_parent_link='/'+'/'.join(path),
-                    article_parent_header=' '.join(meta['header']),
-                    article_reading_time=article_meta['reading_time'],
-                    article_body=markdown(article['text'][:article['text'].find('[//]:<>(preview_end)')]),
-                    article_authors='<br>'.join(article_meta['authors']),
-                    article_date=article_meta['date']))
+
+            article_preview_html_template = article_preview_html_template.replace('&article_header&', '<br>'.join(article_meta['header']))
+            article_preview_html_template = article_preview_html_template.replace('&article_parent_color&', meta['color'])
+            article_preview_html_template = article_preview_html_template.replace('&article_link&', '/'+'/'.join(path) + '/' + article_name)
+            article_preview_html_template = article_preview_html_template.replace('&article_parent_link&', '/'+'/'.join(path))
+            article_preview_html_template = article_preview_html_template.replace('&article_parent_header&', ' '.join(meta['header']))
+            article_preview_html_template = article_preview_html_template.replace('&article_reading_time&', article_meta['reading_time'])
+            article_preview_html_template = article_preview_html_template.replace('&article_body&', markdown(article['text'][:article['text'].find('[//]:<>(preview_end)')]))
+            article_preview_html_template = article_preview_html_template.replace('&article_authors&', '<br>'.join(article_meta['authors']))
+            article_preview_html_template = article_preview_html_template.replace('&article_date&', article_meta['date'])
+
+            previews_html += article_preview_html_template
 
         return BaseHtmlFactory.create_from_content(previews_html, js, css)

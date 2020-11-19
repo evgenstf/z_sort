@@ -34,15 +34,18 @@ class MainHtmlFactory:
 
         for article_meta in articles:
             article = get_article_by_path(article_meta['path'])
-            previews_html += deescape_django_macroses(escape_django_macroses(article_preview_html_template).format(
-                    article_header='<br>'.join(article_meta['header']),
-                    article_parent_color=article_meta['parent_color'],
-                    article_link=article_meta['link'],
-                    article_parent_link=article_meta['parent_link'],
-                    article_parent_header=' '.join(article_meta['parent_header']),
-                    article_reading_time=article_meta['reading_time'],
-                    article_body=markdown(article['text'][:article['text'].find('[//]:<>(preview_end)')]),
-                    article_authors='<br>'.join(article_meta['authors']),
-                    article_date=article_meta['date']))
+
+            article_preview = '%s' % article_preview_html_template
+            article_preview = article_preview.replace('&article_header&', '<br>'.join(article_meta['header']))
+            article_preview = article_preview.replace('&article_parent_color&', article_meta['parent_color'])
+            article_preview = article_preview.replace('&article_link&', article_meta['link'])
+            article_preview = article_preview.replace('&article_parent_link&', article_meta['parent_link'])
+            article_preview = article_preview.replace('&article_parent_header&', ' '.join(article_meta['parent_header']))
+            article_preview = article_preview.replace('&article_reading_time&', article_meta['reading_time'])
+            article_preview = article_preview.replace('&article_body&', markdown(article['text'][:article['text'].find('[//]:<>(preview_end)')]))
+            article_preview = article_preview.replace('&article_authors&', '<br>'.join(article_meta['authors']))
+            article_preview = article_preview.replace('&article_date&', article_meta['date'])
+
+            previews_html += article_preview
 
         return BaseHtmlFactory.create_from_content(previews_html, js, css)
