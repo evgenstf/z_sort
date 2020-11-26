@@ -33,7 +33,7 @@ class CategoryHtmlFactory:
             article_preview_html_template = article_preview_html_template.replace('&article_parent_link&', '/'+'/'.join(path))
             article_preview_html_template = article_preview_html_template.replace('&article_parent_header&', ' '.join(meta['header']))
             article_preview_html_template = article_preview_html_template.replace('&article_reading_time&', article_meta['reading_time'])
-            article_preview_html_template = article_preview_html_template.replace('&article_body&', markdown(article['text'][:article['text'].find('[//]:<>(preview_end)')]))
+            article_preview_html_template = article_preview_html_template.replace('&article_body&', markdown(article['items'][0]['content']))
             article_preview_html_template = article_preview_html_template.replace('&article_authors&', '<br>'.join(article_meta['authors']))
             article_preview_html_template = article_preview_html_template.replace('&article_date&', article_meta['date'])
 

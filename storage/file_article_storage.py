@@ -45,6 +45,6 @@ class FileArticleStorage:
     def article_by_path(self, path):
         relative_path = '/'.join(path)
         if relative_path not in self.articles:
-            text = open(self.path + '/' + relative_path + '/article.md').read()
-            self.articles[relative_path] = Article(text, self.meta_by_path(path))
+            items = json.loads(open(self.path + '/' + relative_path + '/items.json').read())
+            self.articles[relative_path] = Article(items, self.meta_by_path(path))
         return self.articles[relative_path]

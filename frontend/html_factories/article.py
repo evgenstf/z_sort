@@ -11,13 +11,16 @@ class ArticleHtmlFactory:
 
     @staticmethod
     def create_from_article(article, path, parent_meta):
-        article_html = open('static/html/article.html', 'r').read()
         js = open('static/js/article.js', 'r').read()
         css = open('static/css/article.css', 'r').read()
 
         article_header_html = '<br>'.join(article['header'])
-        article_body_html = patch_article_html(markdown(article['text'], extensions=['fenced_code', FootnoteExtension()]))
 
+        article_body_html = ''
+        for item in article['items']:
+            article_body_html += patch_article_html(markdown(item['content'], extensions=['fenced_code', FootnoteExtension()]))
+
+        article_html = open('static/html/article.html', 'r').read()
         article_html = article_html.replace('&article_header&', article_header_html)
         article_html = article_html.replace('&article_parent_link&', '/' + '/'.join(path[:-1]))
         article_html = article_html.replace('&article_parent_header&', ' '.join(parent_meta['header']))

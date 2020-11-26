@@ -1,14 +1,14 @@
 class Article:
     def __init__(self):
-        self.text = None
+        self.items = None
         self.header = None
         self.date = None
         self.authors = None
         self.id = None
         self.reading_time = None
 
-    def __init__(self, text, attributes):
-        self.text = text
+    def __init__(self, items, attributes):
+        self.items = items
         self.header = attributes['header']
         self.date = attributes['date']
         self.authors = attributes['authors']
@@ -18,7 +18,7 @@ class Article:
 
     def to_full_dict(self):
         return {
-                'text': self.text,
+                'items': self.items,
                 'header': self.header,
                 'date': self.date,
                 'authors': self.authors,

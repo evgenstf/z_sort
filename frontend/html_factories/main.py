@@ -1,3 +1,5 @@
+import json
+
 from markdown import markdown
 from html_factories.base import *
 from html_factories.category import get_article_by_path
@@ -42,7 +44,7 @@ class MainHtmlFactory:
             article_preview = article_preview.replace('&article_parent_link&', article_meta['parent_link'])
             article_preview = article_preview.replace('&article_parent_header&', ' '.join(article_meta['parent_header']))
             article_preview = article_preview.replace('&article_reading_time&', article_meta['reading_time'])
-            article_preview = article_preview.replace('&article_body&', markdown(article['text'][:article['text'].find('[//]:<>(preview_end)')]))
+            article_preview = article_preview.replace('&article_body&', markdown(article['items'][0]['content']))
             article_preview = article_preview.replace('&article_authors&', '<br>'.join(article_meta['authors']))
             article_preview = article_preview.replace('&article_date&', article_meta['date'])
 
