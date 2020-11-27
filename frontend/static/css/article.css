@@ -1,3 +1,31 @@
+@media screen and (max-width:1000px){
+.article_body{
+  font-size: 25px !important;
+}  
+.article_header{
+  font-size: 50px !important;
+}  
+.article_tail {
+  font-size: 25px !important;
+}
+.article_authors {
+  font-size: 25px !important;
+}
+.article_date {
+  font-size: 25px !important;
+}
+.footnote {
+  font-size: 25px !important;
+  width: 400px !important;
+}
+.footnote_title {
+  font-size: 30px !important;
+}
+.article_subheader {
+  font-size: 25px !important;
+}
+}
+
 .article {
   align: center;
   width: 960px;
@@ -28,6 +56,7 @@
   line-height: 175%;
   font-size: 18px;
 }
+
 
 .article_body img {
   display: block;
