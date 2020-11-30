@@ -34,5 +34,11 @@ def main():
     with open(args.path + '/content.html', 'w') as html_file:
         html_file.write(html_result)
 
+    with open(args.path + '/script.js', 'w') as script_file:
+        script_file.write('{% static js/article.js %}')
+
+    with open(args.path + '/style.css', 'w') as style_file:
+        style_file.write('{% static css/article.css %}')
+
 if __name__ == '__main__':
     main()

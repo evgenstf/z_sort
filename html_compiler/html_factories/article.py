@@ -1,5 +1,4 @@
 from markdown import markdown
-from html_factories.base import *
 from markdown_extensions.footnote import FootnoteExtension
 
 import json
@@ -14,9 +13,6 @@ class ArticleHtmlFactory:
     @staticmethod
     def create_from_article(meta, path, parent_meta):
         sections = json.loads(open('/'.join(path) + '/sections.json').read())
-
-        js = open('static/js/article.js', 'r').read()
-        css = open('static/css/article.css', 'r').read()
 
         article_header_html = '<br>'.join(meta['header'])
 
@@ -34,4 +30,4 @@ class ArticleHtmlFactory:
         article_html = article_html.replace('&article_authors&', '<br>'.join(meta['authors']))
         article_html = article_html.replace('&article_date&', meta['date'])
 
-        return BaseHtmlFactory.create_from_content(article_html, js, css)
+        return article_html
