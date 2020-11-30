@@ -1,10 +1,10 @@
 @media screen and (max-width:1000px){
 .article_body{
   font-size: 25px !important;
-}  
+}
 .article_header{
   font-size: 50px !important;
-}  
+}
 .article_tail {
   font-size: 25px !important;
 }
@@ -115,7 +115,7 @@ p {
 
 .footnote_link {
   background:#8A42B70A;
-  box-shadow: 0px 0px 0px 1px #8A42B740;
+  box-shadow: 0px 0px 0px 1px #8A42B760;
   padding-left:3px;
   padding-right:3px;
   border-radius: 3px;
