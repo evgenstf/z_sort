@@ -1,0 +1,9 @@
+{
+  "id": "mock",
+  "header": ["mock"],
+  "type": "category",
+  "color": "#283593",
+  "items": [
+    "article"
+  ]
+}
