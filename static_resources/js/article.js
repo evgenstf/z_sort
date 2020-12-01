@@ -1,8 +1,3 @@
-<script type="text/javascript"
-    src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<script>
   function addFootnote(id) {
     var footnote_link = document.getElementById(id);
     var footnote_title = footnote_link.getAttribute('footnote-title');
@@ -60,7 +55,4 @@
     }
     opened_footnotes = [];
   });
-
-
-</script>
 

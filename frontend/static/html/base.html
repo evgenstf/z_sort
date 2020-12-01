@@ -16,17 +16,14 @@
       src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
 
-  <link rel="stylesheet" href="/static/css/code_highlight.css">
-  <script src="/static/js/code_highlight.js"></script>
+  <link rel="stylesheet" href="{% static 'css/code_highlight.css' %}">
+  <script src="{% static 'js/code_highlight.js' %}"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 
-
-<style>
-  &base_css&
-  &content_css&
-</style>
+&base_css&
+&content_css&
 
 <body>
   <div class="header" id="ghost_header"></div>

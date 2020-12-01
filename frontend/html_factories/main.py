@@ -10,10 +10,6 @@ def discover_articles_from_meta(meta, path):
     for item_name, item_meta in meta['items'].items():
         if item_meta['type'] == 'article':
             item_meta['path'] = path + [item_meta['id']]
-            item_meta['link'] = '/' + '/'.join(path) + '/' + item_meta['id']
-            item_meta['parent_link'] = '/' + '/'.join(path)
-            item_meta['parent_color'] = meta['color']
-            item_meta['parent_header'] = meta['header']
             articles.append(item_meta)
         else:
             articles.extend(discover_articles_from_meta(item_meta, path + [item_meta['id']]))
@@ -26,27 +22,19 @@ class MainHtmlFactory:
 
     @staticmethod
     def create_from_meta(meta):
-        article_preview_html_template = open('static/html/article_preview.html', 'r').read()
-        js = open('static/js/article.js', 'r').read()
-        css = open('static/css/article.css', 'r').read() + open('static/css/article_preview.css', 'r').read()
-
         previews_html = ''
+
+        js = """
+            <script type="text/javascript"
+                src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+            </script>
+            <script type="text/javascript" src="{% static 'js/article.js' %}"></script>"""
+        css = "<link rel=\"stylesheet\" href=\"{% static 'css/article.css' %}\">"
 
         articles = discover_articles_from_meta(meta, [])
 
         for article_meta in articles:
-            article = get_article_by_path(article_meta['path'])
-
-            article_preview = '%s' % article_preview_html_template
-            article_preview = article_preview.replace('&article_header&', '<br>'.join(article_meta['header']))
-            article_preview = article_preview.replace('&article_parent_color&', article_meta['parent_color'])
-            article_preview = article_preview.replace('&article_link&', article_meta['link'])
-            article_preview = article_preview.replace('&article_parent_link&', article_meta['parent_link'])
-            article_preview = article_preview.replace('&article_parent_header&', ' '.join(article_meta['parent_header']))
-            article_preview = article_preview.replace('&article_reading_time&', article_meta['reading_time'])
-            article_preview = article_preview.replace('&article_body&', markdown(article['items'][0]['content']))
-            article_preview = article_preview.replace('&article_authors&', '<br>'.join(article_meta['authors']))
-            article_preview = article_preview.replace('&article_date&', article_meta['date'])
+            article_preview = open(get_article_by_path(article_meta['path'])['preview_html'], 'r').read()
 
             previews_html += article_preview
 
