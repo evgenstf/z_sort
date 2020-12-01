@@ -19,8 +19,9 @@
     document.getElementById("footnote_container").appendChild(footnote);
   }
 
-  for (let i = 0; i < document.getElementsByClassName('footnote_link').length; ++i) {
-    addFootnote("" + i);
+  for (footnote_link of document.getElementsByClassName('footnote_link')) {
+    console.log(footnote_link);
+    addFootnote(footnote_link['id']);
   }
 
   let opened_footnotes = []
