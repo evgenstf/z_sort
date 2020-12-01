@@ -8,11 +8,17 @@ def get_meta_by_path(path):
 
 def compile_article(path):
     from html_factories.article import ArticleHtmlFactory
+    from html_factories.article_preview import ArticlePreviewHtmlFactory
 
     joined_path = '/'.join(path)
-    with open(joined_path + '/content.html', 'w') as html_file:
-        html_file.write(
+    with open(joined_path + '/content.html', 'w') as content_file:
+        content_file.write(
                 ArticleHtmlFactory.create_from_article(
+                    get_meta_by_path(path), path, get_meta_by_path(path[:-1])))
+
+    with open(joined_path + '/preview.html', 'w') as preview_file:
+        preview_file.write(
+                ArticlePreviewHtmlFactory.create_from_article(
                     get_meta_by_path(path), path, get_meta_by_path(path[:-1])))
 
     with open(joined_path + '/script.js', 'w') as script_file:
