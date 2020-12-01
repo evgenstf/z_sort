@@ -20,7 +20,6 @@
   }
 
   for (footnote_link of document.getElementsByClassName('footnote_link')) {
-    console.log(footnote_link);
     addFootnote(footnote_link['id']);
   }
 
