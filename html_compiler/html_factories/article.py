@@ -11,7 +11,7 @@ class ArticleHtmlFactory:
         self.template = None
 
     @staticmethod
-    def create_from_article(meta, path, parent_meta):
+    def create_from_article(meta, path, relative_path, parent_meta):
         sections = json.loads(open('/'.join(path) + '/sections.json').read())
 
         article_header_html = '<br>'.join(meta['header'])
@@ -22,7 +22,7 @@ class ArticleHtmlFactory:
 
         article_html = open('static/html/article.html', 'r').read()
         article_html = article_html.replace('&article_header&', article_header_html)
-        article_html = article_html.replace('&article_parent_link&', '/' + '/'.join(path[:-1]))
+        article_html = article_html.replace('&article_parent_link&', '/' + '/'.join(relative_path[:-1]))
         article_html = article_html.replace('&article_parent_header&', ' '.join(parent_meta['header']))
         article_html = article_html.replace('&article_parent_color&', parent_meta['color'] if 'color' in parent_meta else 'var(--gray-color)')
         article_html = article_html.replace('&article_reading_time&', meta['reading_time'])

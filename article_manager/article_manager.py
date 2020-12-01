@@ -65,6 +65,7 @@ def main():
             elif request['type'] == 'path_tree':
                 response = json.dumps(article_manager.path_tree())
 
+            print("response length:", len(response))
             self.request.sendall(str.encode(response))
 
     with socketserver.TCPServer((args.host, args.port), TCPHandler) as server:

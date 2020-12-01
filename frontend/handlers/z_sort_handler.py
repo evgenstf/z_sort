@@ -9,8 +9,8 @@ import settings
 
 import simplejson as json
 
+from html_factories.base import BaseHtmlFactory
 from html_factories.category import CategoryHtmlFactory
-from html_factories.article import ArticleHtmlFactory
 from html_factories.main import MainHtmlFactory
 
 import socket
@@ -19,21 +19,27 @@ def get_article_by_path(path):
     sock = socket.socket()
     sock.connect(('localhost', 9999))
     sock.send(json.dumps({"type": 'article', "path": path}).encode())
-    response = sock.recv(100000).decode("utf-8")
+    response = sock.recv(1000000).decode("utf-8")
     sock.close()
+    print("response length:", len(response))
     return json.loads(response)
 
 def get_meta_by_path(path):
     sock = socket.socket()
     sock.connect(('localhost', 9999))
     sock.send(json.dumps({"type": 'meta', "path": path}).encode())
-    response = sock.recv(100000).decode("utf-8")
+    response = sock.recv(1000000).decode("utf-8")
     sock.close()
     return json.loads(response)
 
 
 def handle_article_request(path):
-    template = Template(ArticleHtmlFactory.create_from_article(get_article_by_path(path), path, get_meta_by_path(path[:-1])))
+    article = get_article_by_path(path)
+    content_html = open(article['content_html'], 'r').read()
+    js = open(article['js'], 'r').read()
+    css = open(article['css'], 'r').read()
+
+    template = Template(BaseHtmlFactory.create_from_content(content_html, js, css))
     return HttpResponse(template.render(Context({})))
 
 def handle_main_request(meta):
