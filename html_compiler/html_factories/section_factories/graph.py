@@ -69,8 +69,9 @@ class GraphSectionFactory:
         if not os.path.exists(article_static_resources_path):
             os.makedirs(article_static_resources_path)
 
-        path = article_static_resources_path + '/' + "graph_1.svg"
+        graph_absolute_path = article_static_resources_path + '/' + "graph_1.svg"
+        graph_relative_path = article_relative_path + '/' + "graph_1.svg"
         graph = DrawGraph(section)
-        graph.draw(path)
+        graph.draw(graph_absolute_path)
 
-        return "<div> {% static " + path + " %} </div>"
+        return "<img src=\"{% static \"articles/" + graph_relative_path + "\" %}\" />"
