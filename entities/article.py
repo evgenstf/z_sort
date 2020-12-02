@@ -18,6 +18,8 @@ class Article:
         self.date = meta['date']
         self.authors = meta['authors']
         self.id = meta['id']
+
+        self.reading_time = None
         if 'reading_time' in meta:
             self.reading_time = meta['reading_time']
 
