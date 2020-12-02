@@ -8,8 +8,8 @@ class ArticlePreviewHtmlFactory:
         self.template = None
 
     @staticmethod
-    def create_from_article(meta, path, relative_path, parent_meta):
-        sections = json.loads(open('/'.join(path) + '/sections.json').read())
+    def build_html(*, meta, absolute_path, relative_path, parent_meta):
+        sections = json.loads(open('/'.join(absolute_path) + '/sections.json').read())
 
         article_preview_html_template = open('static/html/article_preview.html', 'r').read()
 

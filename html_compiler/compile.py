@@ -6,54 +6,65 @@ import json
 def get_meta_by_path(path):
     return json.loads(open('/'.join(path) + '/meta.json').read())
 
-def compile_article(path, relative_path):
+def compile_article(absolute_path, relative_path, static_storage_path):
     from html_factories.article import ArticleHtmlFactory
     from html_factories.article_preview import ArticlePreviewHtmlFactory
 
-    joined_path = '/'.join(path)
-    with open(joined_path + '/content.html', 'w') as content_file:
+    joined_absolute_path = '/'.join(absolute_path)
+    with open(joined_absolute_path + '/content.html', 'w') as content_file:
         content_file.write(
-                ArticleHtmlFactory.create_from_article(
-                    get_meta_by_path(path), path, relative_path, get_meta_by_path(path[:-1])))
+                ArticleHtmlFactory.build_html(
+                    meta=get_meta_by_path(absolute_path),
+                    absolute_path=absolute_path,
+                    relative_path=relative_path,
+                    parent_meta=get_meta_by_path(absolute_path[:-1]),
+                    static_storage_absolute_path=static_storage_path))
 
-    with open(joined_path + '/preview.html', 'w') as preview_file:
+    with open(joined_absolute_path + '/preview.html', 'w') as preview_file:
         preview_file.write(
-                ArticlePreviewHtmlFactory.create_from_article(
-                    get_meta_by_path(path), path, relative_path, get_meta_by_path(path[:-1])))
+                ArticlePreviewHtmlFactory.build_html(
+                    meta=get_meta_by_path(absolute_path),
+                    absolute_path=absolute_path,
+                    relative_path=relative_path,
+                    parent_meta=get_meta_by_path(absolute_path[:-1])))
 
-    with open(joined_path + '/script.js', 'w') as script_file:
+    with open(joined_absolute_path + '/script.js', 'w') as script_file:
         script_file.write("""
             <script type="text/javascript"
                 src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
             </script>
             <script type="text/javascript" src="{% static 'js/article.js' %}"></script>""")
 
-
-
-    with open(joined_path + '/style.css', 'w') as style_file:
+    with open(joined_absolute_path + '/style.css', 'w') as style_file:
         style_file.write("<link rel=\"stylesheet\" href=\"{% static 'css/article.css' %}\">")
 
-def compile_item(path, relative_path):
-    print(' ', '/'.join(path))
 
-    meta = get_meta_by_path(path)
+def compile_item(absolute_path, relative_path, static_storage_path):
+    print(' ', '/'.join(absolute_path))
+
+    meta = get_meta_by_path(absolute_path)
 
     if meta['type'] == 'article':
-        return compile_article(path, relative_path)
+        return compile_article(absolute_path, relative_path, static_storage_path)
     elif 'items' in meta:
         for item in meta['items']:
-            compile_item(path + [item], relative_path + [item])
+            compile_item(absolute_path + [item], relative_path + [item], static_storage_path)
 
 def main():
     import argparse
+    import os
 
     parser = argparse.ArgumentParser()
     parser.add_argument('path', type=str)
+    parser.add_argument('--static-storage', type=str, default="../static_resources")
 
     args = parser.parse_args()
 
     print('start compile:')
-    compile_item(args.path.split('/'), [])
+
+    absolute_path = os.path.abspath(args.path)
+    absolute_static_storage_path = os.path.abspath(args.static_storage)
+    compile_item(absolute_path.split('/'), [], absolute_static_storage_path)
 
 if __name__ == '__main__':
     main()

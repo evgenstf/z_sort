@@ -1,8 +1,8 @@
+from markdown import markdown
 from markdown.inlinepatterns import InlineProcessor
 from markdown.extensions import Extension
-import xml.etree.ElementTree as etree
-from markdown import markdown
 
+import xml.etree.ElementTree as etree
 
 class FootnoteInlineProcessor(InlineProcessor):
     footnote_id = 0
@@ -20,3 +20,8 @@ class FootnoteExtension(Extension):
     def extendMarkdown(self, md):
         FOOTNOTE_PATTERN = r'<!(.*?)!>\((.*?)\){(.*?)}'
         md.inlinePatterns.register(FootnoteInlineProcessor(FOOTNOTE_PATTERN, md), 'footnote', 175)
+
+class MarkdownSectionFactory:
+    @staticmethod
+    def build_html(section):
+        return markdown(section['content'], extensions=['fenced_code', FootnoteExtension()])

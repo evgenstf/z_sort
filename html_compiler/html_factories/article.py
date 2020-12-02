@@ -1,10 +1,6 @@
-from markdown import markdown
-from markdown_extensions.footnote import FootnoteExtension
-
 import json
 
-def patch_article_html(article_html):
-    return article_html
+from html_factories.section_factories.markdown import MarkdownSectionFactory
 
 def calculate_reading_time(sections):
     total_length = 0
@@ -18,14 +14,17 @@ class ArticleHtmlFactory:
         self.template = None
 
     @staticmethod
-    def create_from_article(meta, path, relative_path, parent_meta):
-        sections = json.loads(open('/'.join(path) + '/sections.json').read())
+    def build_html(*, meta, absolute_path, relative_path, parent_meta, static_storage_absolute_path):
+        sections = json.loads(open('/'.join(absolute_path) + '/sections.json').read())
 
         article_header_html = '<br>'.join(meta['header'])
 
         article_body_html = ''
         for section in sections:
-            article_body_html += patch_article_html(markdown(section['content'], extensions=['fenced_code', FootnoteExtension()]))
+            if section['type'] == 'markdown' or section['type'] == 'tldr':
+                article_body_html += MarkdownSectionFactory.build_html(section)
+            else:
+                print("[warning] unknown section type:", section['type'])
 
         article_html = open('static/html/article.html', 'r').read()
         article_html = article_html.replace('&article_header&', article_header_html)
