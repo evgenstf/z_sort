@@ -61,7 +61,7 @@ class DrawGraph:
         elif self.graph_type == 'circle':
             pos = nx.circular_layout(G)
         nx.draw_networkx_nodes(G, pos, node_size=self.calculate_node_diameter(),\
-                               node_color='#BF00B0')
+                               node_color=self.node_color)
         nx.draw_networkx_edges(G, pos, edge_color='black', width=4)
         if self.show_labels == 'True':
             nx.draw_networkx_labels(G, pos, font_size=18)
@@ -78,8 +78,8 @@ class GraphSectionFactory:
         if not os.path.exists(article_static_resources_path):
             os.makedirs(article_static_resources_path)
 
-        graph_absolute_path = article_static_resources_path + '/' + "graph_" + str(GraphSectionFactory.graph_id) + "1.svg"
-        graph_relative_path = article_relative_path + '/' + "graph_" + str(GraphSectionFactory.graph_id) + "1.svg"
+        graph_absolute_path = article_static_resources_path + '/' + "graph_" + str(GraphSectionFactory.graph_id) + ".svg"
+        graph_relative_path = article_relative_path + '/' + "graph_" + str(GraphSectionFactory.graph_id) + ".svg"
         graph = DrawGraph(section)
         graph.draw(graph_absolute_path)
         GraphSectionFactory.graph_id += 1
