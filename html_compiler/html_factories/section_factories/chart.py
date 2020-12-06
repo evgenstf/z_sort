@@ -41,19 +41,19 @@ import matplotlib.pyplot as plt
 class DrawChart:
     def __init__(self, data):
         self.chart_type = data['content']['type']
-        try:
-            self.grid = data['content']['grid']
-        except KeyError:
-            self.grid = "False"
+        if 'grid_flag' in data['content']:
+            self.grid_flag = data['content']['grid_flag']
+        else:
+            self.grid_flag = False
 
         if self.chart_type == 'pie':
             self.pie_ratio = data['content']['ratio']
             self.labels = data['content']['labels']
 
         else:
-            try:
+            if 'color' in data['content']:
                 self.plot_color = data['content']['color']
-            except KeyError:
+            else:
                 self.plot_color = '#BF00B0'
             self.x_axis = data['content']['x-axis']
             self.y_axis = data['content']['y-axis']
@@ -66,12 +66,12 @@ class DrawChart:
             explode = list(map(lambda x: x / 8000, self.pie_ratio))
             plt.pie(self.pie_ratio, explode=explode, labels=self.labels, autopct='%1.1f%%')
         elif self.chart_type == 'scatter':
-            plt.scatter(self.x_axis, self.y_axis, s = 250, c=self.plot_color)
+            plt.scatter(self.x_axis, self.y_axis, s = 350, c=self.plot_color)
         elif self.chart_type == 'line':
             plt.plot(self.x_axis, self.y_axis, color=self.plot_color, linewidth=8)
         elif self.chart_type == 'bar':
             plt.bar(self.x_axis, self.y_axis, color=self.plot_color)
-        if self.grid == 'True':
+        if self.grid_flag == True:
             plt.grid()
 
         plt.savefig(path)
