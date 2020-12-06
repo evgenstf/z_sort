@@ -6,7 +6,7 @@ import json
 def get_meta_by_path(path):
     return json.loads(open('/'.join(path) + '/meta.json').read())
 
-def compile_article(absolute_path, relative_path, static_storage_path):
+def compile_article(absolute_path, relative_path, article_static_path):
     from html_factories.article import ArticleHtmlFactory
     from html_factories.article_preview import ArticlePreviewHtmlFactory
 
@@ -18,7 +18,7 @@ def compile_article(absolute_path, relative_path, static_storage_path):
                     absolute_path=absolute_path,
                     relative_path=relative_path,
                     parent_meta=get_meta_by_path(absolute_path[:-1]),
-                    static_storage_absolute_path=static_storage_path))
+                    static_storage_absolute_path=article_static_path))
 
     with open(joined_absolute_path + '/preview.html', 'w') as preview_file:
         preview_file.write(
@@ -39,16 +39,16 @@ def compile_article(absolute_path, relative_path, static_storage_path):
         style_file.write("<link rel=\"stylesheet\" href=\"{% static 'css/article.css' %}\">")
 
 
-def compile_item(absolute_path, relative_path, static_storage_path):
+def compile_item(absolute_path, relative_path, article_static_path):
     print(' ', '/'.join(absolute_path))
 
     meta = get_meta_by_path(absolute_path)
 
     if meta['type'] == 'article':
-        return compile_article(absolute_path, relative_path, static_storage_path)
+        return compile_article(absolute_path, relative_path, article_static_path)
     elif 'items' in meta:
         for item in meta['items']:
-            compile_item(absolute_path + [item], relative_path + [item], static_storage_path)
+            compile_item(absolute_path + [item], relative_path + [item], article_static_path)
 
 def main():
     import argparse
@@ -56,15 +56,14 @@ def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument('path', type=str)
-    parser.add_argument('--static-storage', type=str, default="../static_resources")
 
     args = parser.parse_args()
 
     print('start compile:')
 
     absolute_path = os.path.abspath(args.path)
-    absolute_static_storage_path = os.path.abspath(args.static_storage)
-    compile_item(absolute_path.split('/'), [], absolute_static_storage_path)
+    absolute_article_static_path = absolute_path + '/static'
+    compile_item(absolute_path.split('/'), [], absolute_article_static_path)
 
 if __name__ == '__main__':
     main()
