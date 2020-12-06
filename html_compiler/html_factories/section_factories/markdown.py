@@ -18,7 +18,7 @@ class FootnoteInlineProcessor(InlineProcessor):
 
 class FootnoteExtension(Extension):
     def extendMarkdown(self, md):
-        FOOTNOTE_PATTERN = r'<!(.*?)!>\((.*?)\){(.*?)}'
+        FOOTNOTE_PATTERN = r'<\+(.*?)\+>\((.*?)\){(.*?)}'
         md.inlinePatterns.register(FootnoteInlineProcessor(FOOTNOTE_PATTERN, md), 'footnote', 175)
 
 class MarkdownSectionFactory:
