@@ -2,6 +2,7 @@ import json
 
 from html_factories.section_factories.markdown import MarkdownSectionFactory
 from html_factories.section_factories.graph import GraphSectionFactory
+from html_factories.section_factories.chart import ChartSectionFactory
 
 def calculate_reading_time(sections):
     total_length = 0
@@ -26,6 +27,11 @@ class ArticleHtmlFactory:
                 article_body_html += MarkdownSectionFactory.build_html(section)
             elif section['type'] == 'graph':
                 article_body_html += GraphSectionFactory.build_html(
+                        section,
+                        '/'.join(relative_path),
+                        static_storage_absolute_path)
+            elif section['type'] == 'chart':
+                article_body_html += ChartSectionFactory.build_html(
                         section,
                         '/'.join(relative_path),
                         static_storage_absolute_path)
