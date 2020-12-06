@@ -28,7 +28,10 @@ class DrawGraph:
         self.nodes_count = data['content']['nodes_count']
         self.edges = data['content']['edges']
         self.graph_type = data['content']['type']
-        self.show_labels = data['content']['labels']
+        if 'show_labels' in data['content']:
+            self.show_labels = data['content']['show_labels']
+        else:
+            self.show_labels = False
         try:
             self.node_color = data['content']['color']
         except KeyError:
@@ -63,7 +66,7 @@ class DrawGraph:
         nx.draw_networkx_nodes(G, pos, node_size=self.calculate_node_diameter(),\
                                node_color=self.node_color)
         nx.draw_networkx_edges(G, pos, edge_color='black', width=4)
-        if self.show_labels == 'True':
+        if self.show_labels == True:
             nx.draw_networkx_labels(G, pos, font_size=18)
         plt.savefig(path)
         plt.close()
