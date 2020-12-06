@@ -117,6 +117,7 @@ USE_TZ = True
 STATIC_URL = '/sr/'
 
 STATICFILES_DIRS = [
-    "../static_resources"
+    "../static",
+    os.environ.get('ARTICLE_STATIC')
 ]
 

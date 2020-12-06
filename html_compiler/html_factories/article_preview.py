@@ -11,7 +11,7 @@ class ArticlePreviewHtmlFactory:
     def build_html(*, meta, absolute_path, relative_path, parent_meta):
         sections = json.loads(open('/'.join(absolute_path) + '/sections.json').read())
 
-        article_preview_html_template = open('static/html/article_preview.html', 'r').read()
+        article_preview_html_template = open('templates/html/article_preview.html', 'r').read()
 
         article_preview_html_template = article_preview_html_template.replace('&article_header&', '<br>'.join(meta['header']))
         article_preview_html_template = article_preview_html_template.replace('&article_parent_color&', parent_meta['color'])
