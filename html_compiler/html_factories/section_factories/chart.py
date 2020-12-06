@@ -13,7 +13,7 @@ Types of charts:
         - 'y-axis'
     optional:
         - 'color'
-        - 'grid' ('True' or 'False', 'False' default)
+        - 'grid' (True or False, False default)
 
 - 'scatter' -- Scatter chart
     params:
@@ -21,7 +21,7 @@ Types of charts:
         - 'y-axis'
     optional:
         - 'color'
-        - 'grid' ('True' or 'False', 'False' default)
+        - 'grid' (True or False, False default)
 
 - 'bar' -- Bar chart
     params:
@@ -29,7 +29,7 @@ Types of charts:
         - 'y-axis'
     optional:
         - 'color'
-        - 'grid' ('True' or 'False', 'False' default)
+        - 'grid' (True or False, False default)
 
 '''
 
@@ -41,10 +41,10 @@ import matplotlib.pyplot as plt
 class DrawChart:
     def __init__(self, data):
         self.chart_type = data['content']['type']
-        if 'grid_flag' in data['content']:
-            self.grid_flag = data['content']['grid_flag']
+        if 'show_grid' in data['content']:
+            self.show_grid = data['content']['show_grid']
         else:
-            self.grid_flag = False
+            self.show_grid = False
 
         if self.chart_type == 'pie':
             self.pie_ratio = data['content']['ratio']
@@ -71,7 +71,7 @@ class DrawChart:
             plt.plot(self.x_axis, self.y_axis, color=self.plot_color, linewidth=8)
         elif self.chart_type == 'bar':
             plt.bar(self.x_axis, self.y_axis, color=self.plot_color)
-        if self.grid_flag == True:
+        if self.show_grid == True:
             plt.grid()
 
         plt.savefig(path)
