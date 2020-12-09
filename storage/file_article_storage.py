@@ -67,3 +67,44 @@ class FileArticleStorage:
                     preview_html=preview_html,
                     meta=self.meta_by_path(path))
         return self.articles[relative_path]
+
+    def create_article(self, path):
+        article_absolute_path = self.path + '/' + '/'.join(path)
+        if os.path.exists(article_absolute_path):
+            print('[error] article already exists:', '/'.join(path))
+            return false
+
+        os.makedirs(article_absolute_path)
+
+        open(article_absolute_path + '/meta.json', 'w').write('{"type": "article"}')
+        open(article_absolute_path + 'sections/.json', 'w').write('[{"type": "markdown", "content":"NEW ARTICLE"}]')
+
+        return true
+
+
+    def update_sections(self, path, new_sections):
+        article_absolute_path = self.path + '/' + '/'.join(path)
+        meta_absolute_path = article_absolute_path + '/meta.json'
+        if not os.path.exists(article_absolute_path):
+            print("[error] no article for path:", '/'.join(path))
+            return false
+
+        with open(meta_absolute_path, 'w') as meta_file:
+            meta_file.write(json.dumps(new_meta, indent=2));
+
+        return true
+
+
+    def update_meta(self, path, new_meta):
+        article_absolute_path = self.path + '/' + '/'.join(path)
+        meta_absolute_path = article_absolute_path + '/meta.json'
+        if not os.path.exists(article_absolute_path):
+            print("[error] no article for path:", '/'.join(path))
+            return false
+
+        with open(meta_absolute_path, 'w') as meta_file:
+            meta_file.write(json.dumps(new_meta, indent=2));
+
+        return true
+
+
