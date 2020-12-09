@@ -1,6 +1,7 @@
 import re
 
-from frontend.settings import DEBUG
+from html_compiler.compile import compile_item
+
 
 def validate_id(id):
     return re.match("^[qwertyuiopasdfghjklzxcvbnm_1234567890]*$", id)
@@ -18,6 +19,19 @@ class Editor:
 
     def update_article_sections(self, article_id, new_sections):
         return self.article_storage.update_sections(['editor', article_id], new_sections)
+
+    def compile(self, article_id):
+        article_absolute_path = self.article_storage.path.split('/') + ['editor', article_id]
+        article_relative_path = ['editor', article_id]
+        static_absolute_path = self.article_storage.path.split('/')  + ['static']
+
+        try:
+            compile_item(article_absolute_path, article_relative_path, static_absolute_path)
+            return True
+        except Exception as e:
+            print("[error] Exception:", e)
+            return False
+
 
 def main():
     import socketserver
@@ -66,6 +80,11 @@ def main():
                 elif request['type'] == 'update_sections':
                     response = '{error_message:"error while updating article sections"}'
                     if editor.update_article_sections(request['article_id'], request['new_sections']):
+                        response = '{result:"ok"}'
+
+                elif request['type'] == 'compile':
+                    response = '{error_message:"error while compilation"}'
+                    if editor.compile(request['article_id']):
                         response = '{result:"ok"}'
 
 

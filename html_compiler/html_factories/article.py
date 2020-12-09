@@ -1,8 +1,9 @@
 import json
+import os
 
-from html_factories.section_factories.markdown import MarkdownSectionFactory
-from html_factories.section_factories.graph import GraphSectionFactory
-from html_factories.section_factories.chart import ChartSectionFactory
+from html_compiler.html_factories.section_factories.markdown import MarkdownSectionFactory
+from html_compiler.html_factories.section_factories.graph import GraphSectionFactory
+from html_compiler.html_factories.section_factories.chart import ChartSectionFactory
 
 def calculate_reading_time(sections):
     total_length = 0
@@ -38,7 +39,7 @@ class ArticleHtmlFactory:
             else:
                 print("[warning] unknown section type:", section['type'])
 
-        article_html = open('templates/html/article.html', 'r').read()
+        article_html = open(os.path.dirname(os.path.realpath(__file__)) + '/../templates/html/article.html', 'r').read()
         article_html = article_html.replace('&article_header&', article_header_html)
         article_html = article_html.replace('&article_parent_link&', '/' + '/'.join(relative_path[:-1]))
         article_html = article_html.replace('&article_parent_header&', ' '.join(parent_meta['header']))

@@ -7,8 +7,8 @@ def get_meta_by_path(path):
     return json.loads(open('/'.join(path) + '/meta.json').read())
 
 def compile_article(absolute_path, relative_path, article_static_path):
-    from html_factories.article import ArticleHtmlFactory
-    from html_factories.article_preview import ArticlePreviewHtmlFactory
+    from html_compiler.html_factories.article import ArticleHtmlFactory
+    from html_compiler.html_factories.article_preview import ArticlePreviewHtmlFactory
 
     joined_absolute_path = '/'.join(absolute_path)
     with open(joined_absolute_path + '/content.html', 'w') as content_file:

@@ -1,7 +1,8 @@
 from markdown import markdown
-from html_factories.article import calculate_reading_time
+from html_compiler.html_factories.article import calculate_reading_time
 
 import json
+import os
 
 class ArticlePreviewHtmlFactory:
     def __init__(self):
@@ -11,7 +12,7 @@ class ArticlePreviewHtmlFactory:
     def build_html(*, meta, absolute_path, relative_path, parent_meta):
         sections = json.loads(open('/'.join(absolute_path) + '/sections.json').read())
 
-        article_preview_html_template = open('templates/html/article_preview.html', 'r').read()
+        article_preview_html_template = open(os.path.dirname(os.path.realpath(__file__)) + '/../templates/html/article_preview.html', 'r').read()
 
         article_preview_html_template = article_preview_html_template.replace('&article_header&', '<br>'.join(meta['header']))
         article_preview_html_template = article_preview_html_template.replace('&article_parent_color&', parent_meta['color'])
