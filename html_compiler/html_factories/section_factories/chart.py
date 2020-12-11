@@ -61,10 +61,9 @@ class DrawChart:
             self.x_axis = data['content']['x-axis']
             self.y_axis = data['content']['y-axis']
 
+        self.line_smooth = False
         if 'line_smooth' in data['content'] and data['content']['line_smooth'] == True:
             self.line_smooth = True
-        else:
-            self.line_smooth = False
 
     def draw(self, path):
         plt.figure(figsize=(16, 12))
@@ -78,7 +77,7 @@ class DrawChart:
             plt.scatter(self.x_axis, self.y_axis, s = 350, c=self.plot_color)
 
         elif self.chart_type == 'line':
-            if self.line_smooth == True:
+            if self.line_smooth:
                 x_new = np.linspace(min(self.x_axis), max(self.x_axis), 300)
                 spl = make_interp_spline(self.x_axis, self.y_axis, k=3)
                 y_smooth = spl(x_new)
