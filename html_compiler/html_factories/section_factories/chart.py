@@ -36,6 +36,8 @@ Types of charts:
 
 import os
 import matplotlib.pyplot as plt
+import numpy as np
+from scipy.interpolate import make_interp_spline, BSpline
 
 
 class DrawChart:
@@ -58,6 +60,11 @@ class DrawChart:
             self.x_axis = data['content']['x-axis']
             self.y_axis = data['content']['y-axis']
 
+        if 'line_smooth' in data['content'] and data['content']['line_smooth'] == True:
+            self.line_smooth = True
+        else:
+            self.line_smooth = False
+
     def draw(self, path):
         plt.figure(figsize=(16, 12))
         plt.rcParams.update({'font.size': 30})
@@ -65,12 +72,21 @@ class DrawChart:
         if self.chart_type == 'pie':
             explode = list(map(lambda x: x / 8000, self.pie_ratio))
             plt.pie(self.pie_ratio, explode=explode, labels=self.labels, autopct='%1.1f%%')
+
         elif self.chart_type == 'scatter':
             plt.scatter(self.x_axis, self.y_axis, s = 350, c=self.plot_color)
+
         elif self.chart_type == 'line':
-            plt.plot(self.x_axis, self.y_axis, color=self.plot_color, linewidth=8)
+            if self.line_smooth == True:
+                x_new = np.linspace(min(self.x_axis), max(self.x_axis), 300)
+                spl = make_interp_spline(self.x_axis, self.y_axis, k=3)
+                y_smooth = spl(x_new)
+                plt.plot(x_new, y_smooth, color=self.plot_color, linewidth=8)
+            else:
+                plt.plot(self.x_axis, self.y_axis, color=self.plot_color, linewidth=8)
         elif self.chart_type == 'bar':
             plt.bar(self.x_axis, self.y_axis, color=self.plot_color)
+
         if self.show_grid == True:
             plt.grid()
 
