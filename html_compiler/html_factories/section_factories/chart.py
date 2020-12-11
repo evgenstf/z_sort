@@ -14,6 +14,7 @@ Types of charts:
     optional:
         - 'color'
         - 'grid' (True or False, False default)
+        - 'line_smooth' (True or False, False default)
 
 - 'scatter' -- Scatter chart
     params:
