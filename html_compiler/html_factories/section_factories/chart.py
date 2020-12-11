@@ -62,8 +62,8 @@ class DrawChart:
             self.y_axis = data['content']['y-axis']
 
         self.line_smooth = False
-        if 'line_smooth' in data['content'] and data['content']['line_smooth'] == True:
-            self.line_smooth = True
+        if 'line_smooth' in data['content']:
+            self.line_smooth = data['content']['line_smooth']
 
     def draw(self, path):
         plt.figure(figsize=(16, 12))
