@@ -1,11 +1,12 @@
 @media screen and (max-width:1000px){
-.article_body{
+.article_body {
   font-size: 25px !important;
 }
-.article_header{
+.article_header {
   font-size: 50px !important;
 }
-.article_tail { font-size: 25px !important;
+.article_tail {
+  font-size: 25px !important;
 }
 .article_authors {
   font-size: 25px !important;
