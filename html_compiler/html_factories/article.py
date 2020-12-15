@@ -19,25 +19,25 @@ class ArticleHtmlFactory:
 
     @staticmethod
     def compile_section(sections, absolute_path, relative_path, static_storage_absolute_path):
-        article_body_html = ''
+        section_html = ''
         for section in sections:
             if section['type'] == 'markdown' or section['type'] == 'tldr':
-                article_body_html += MarkdownSectionFactory.build_html(section)
+                section_html += MarkdownSectionFactory.build_html(section)
             elif section['type'] == 'graph':
-                article_body_html += GraphSectionFactory.build_html(
+                section_html += GraphSectionFactory.build_html(
                         section,
                         '/'.join(relative_path),
                         static_storage_absolute_path)
             elif section['type'] == 'chart':
-                article_body_html += ChartSectionFactory.build_html(
+                section_html += ChartSectionFactory.build_html(
                         section,
                         '/'.join(relative_path),
                         static_storage_absolute_path)
             elif section['type'] == 'steps':
-                article_body_html += StepSectionFactory.build_html(section['content'], absolute_path, relative_path, static_storage_absolute_path, ArticleHtmlFactory.compile_section)
+                section_html += StepSectionFactory.build_html(section['content'], absolute_path, relative_path, static_storage_absolute_path, ArticleHtmlFactory.compile_section)
             else:
                 print("[warning] unknown section type:", section['type'])
-        return article_body_html
+        return section_html
 
 
     @staticmethod

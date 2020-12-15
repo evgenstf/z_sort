@@ -5,8 +5,7 @@
 .article_header{
   font-size: 50px !important;
 }
-.article_tail {
-  font-size: 25px !important;
+.article_tail { font-size: 25px !important;
 }
 .article_authors {
   font-size: 25px !important;
@@ -188,3 +187,32 @@ ol {
   font-size: 14px;
 }
 
+
+
+.first-step {
+  clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 50px), 50% 100%, 0% calc(100% - 50px));
+  margin-bottom: -40px;
+  padding-top: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 60px;
+  background-color: #41dddb;
+}
+.middle-step {
+  clip-path: polygon(0% 0%, 50% 50px, 100% 0%, 100% calc(100% - 50px), 50% 100%, 0% calc(100% - 50px));
+  padding-top: 50px;
+  padding-bottom: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: -40px;
+  background-color: #41dddb;
+}
+.last-step {
+  clip-path: polygon(0% 0%, 50% 50px, 100% 0%, 100% 100%, 0% 100%);
+  padding-top: 50px;
+  margin-bottom: -40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 1px;
+  background-color: #41dddb;
+}
