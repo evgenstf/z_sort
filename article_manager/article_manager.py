@@ -1,4 +1,4 @@
-from frontend.settings import DEBUG
+from frontend_server.settings import DEBUG
 
 
 def create_path_tree(meta_tree):
