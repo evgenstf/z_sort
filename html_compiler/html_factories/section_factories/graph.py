@@ -74,7 +74,7 @@ class DrawGraph:
         nx.draw_networkx_edges(G, pos, edge_color=self.edge_color, width=4)
         if self.show_labels == True:
             nx.draw_networkx_labels(G, pos, font_size=18)
-        plt.savefig(path)
+        plt.savefig(path, transparent=True)
         plt.close()
 
 
