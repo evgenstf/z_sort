@@ -12,7 +12,7 @@ class Step:
     def build_middle_steps(subsections, absolute_path, relative_path, static_storage_absolute_path, compile_section):
         step_subbody_html = ''
 
-        for subsection in subsections[1:-1]:
+        for subsection in subsections:
             step_subbody_html += '<div class="middle-step">'
             step_subbody_html += compile_section([subsection], absolute_path, relative_path, static_storage_absolute_path)
             step_subbody_html += '</div>'
@@ -35,7 +35,7 @@ class StepSectionFactory:
     def build_html(subsections, absolute_path, relative_path, static_storage_absolute_path, compile_section):
         step_body_html = ''
         step_body_html += Step.build_first_step(subsections[0], absolute_path, relative_path, static_storage_absolute_path, compile_section)
-        step_body_html += Step.build_middle_steps(subsections, absolute_path, relative_path, static_storage_absolute_path, compile_section)
+        step_body_html += Step.build_middle_steps(subsections[1:-1], absolute_path, relative_path, static_storage_absolute_path, compile_section)
         step_body_html += Step.build_last_step(subsections[-1], absolute_path, relative_path, static_storage_absolute_path, compile_section)
 
         return step_body_html
