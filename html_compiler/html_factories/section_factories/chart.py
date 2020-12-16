@@ -90,7 +90,7 @@ class DrawChart:
         if self.show_grid == True:
             plt.grid()
 
-        plt.savefig(path)
+        plt.savefig(path, transparent=True)
         plt.close()
 
 
