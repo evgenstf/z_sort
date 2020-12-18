@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "line",
+        "pie",
+        "scatter",
+        "bar"
+      ]
+    },
+    "color": {
+      "type": "string"
+    },
+    "line_smooth": {
+      "type": "boolean"
+    },
+    "show_grid": {
+      "type": "boolean"
+    },
+    "x-axis": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "y-axis": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ratio": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    }
+  },
+  "additionalProperties": false
+}
