@@ -29,7 +29,8 @@
       "edge_color": {
         "type": "string"
       }
+    }
   },
-    "additionalProperties": false
-  }
+  "additionalProperties": false
+
 }
