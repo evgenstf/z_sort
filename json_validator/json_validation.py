@@ -5,7 +5,7 @@ import sys
 
 class JsonValidator:
     @staticmethod
-    def json_string_to_file(json_string):
+    def json_string_to_dict(json_string):
         if sys.getsizeof(json_string) > 500 * 1024:
             raise KeyboardInterrupt("The size of the article is too large")
         try:
@@ -17,7 +17,7 @@ class JsonValidator:
         return json_file
 
     def validate_sections(json_string):
-        json_file = JsonValidator.json_string_to_file(json_string)
+        json_file = JsonValidator.json_string_to_dict(json_string)
         for section in json_file:
             with open("schemas/sections/section_schema.json", "r") as graph_schema:
                 jsonschema.validate(section, json.load(graph_schema))
@@ -40,7 +40,7 @@ class JsonValidator:
                 JsonValidator.validate_sections(str(section['content']).replace("\'", "\""))
 
     def validate_meta(json_string):
-        meta_file = JsonValidator.json_string_to_file(json_string)
+        meta_file = JsonValidator.json_string_to_dict(json_string)
         with open("schemas/meta_schema.json", "r") as chart_schema:
             jsonschema.validate(meta_file, json.load(chart_schema))
         if len(meta_file['header']) > 100:
