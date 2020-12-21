@@ -9,16 +9,16 @@ class JsonValidator:
         if sys.getsizeof(json_string) > 500 * 1024:
             raise KeyboardInterrupt("The size of the article is too large")
         try:
-            json_file = json.loads(json_string)
+            json_dict = json.loads(json_string)
         except:
             print(json_string)
-            raise KeyboardInterrupt("Invalid json file")
+            raise KeyboardInterrupt("Invalid json string")
 
-        return json_file
+        return json_dict
 
     def validate_sections(json_string):
-        json_file = JsonValidator.json_string_to_dict(json_string)
-        for section in json_file:
+        json_dict = JsonValidator.json_string_to_dict(json_string)
+        for section in json_dict:
             with open("schemas/sections/section_schema.json", "r") as graph_schema:
                 jsonschema.validate(section, json.load(graph_schema))
 
