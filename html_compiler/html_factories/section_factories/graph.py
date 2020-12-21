@@ -25,9 +25,12 @@ import os
 
 class DrawGraph:
     def __init__(self, data):
-        self.nodes_count = data['content']['nodes_count']
         self.edges = data['content']['edges']
         self.graph_type = data['content']['type']
+        if 'nodes_count' in data['content']:
+            self.nodes_count = data['content']['nodes_count']
+        else:
+            self.nodes_count = max(list(map(lambda pair: max(pair), self.edges)))
         if 'show_labels' in data['content']:
             self.show_labels = data['content']['show_labels']
         else:

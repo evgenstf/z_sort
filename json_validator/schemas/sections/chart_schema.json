@@ -44,5 +44,10 @@
       }
     }
   },
+  "required": [
+    "type",
+    "x-axis",
+    "y-axis"
+  ],
   "additionalProperties": false
 }

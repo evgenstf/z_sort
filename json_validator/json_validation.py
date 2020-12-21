@@ -1,40 +1,81 @@
 import json
 import jsonschema
-import os
+import sys
 
 
 class JsonValidator:
-    def __init__(self, json_path):
-        with open(json_path, "r") as input_json:
-            self.data = json.load(input_json)
-        if isinstance(self.data, dict):
-            self.data = [self.data]
-        self.file_size = os.stat(json_path).st_size
-
-    def sections_validate(self, sections):
-        if self.file_size > 500 * 1024:
-            raise KeyboardInterrupt("The size of the article is too large")
-
-        for section in sections:
-            if section['type'] == 'graph':
-                with open("json_schemas/graph.json", "r") as graph_schema:
-                    jsonschema.validate(section['content'], json.load(graph_schema))
-            elif section['type'] == 'chart':
-                with open("json_schemas/chart.json", "r") as chart_schema:
-                    jsonschema.validate(section['content'], json.load(chart_schema))
-            elif section['type'] == 'steps':
-                self.sections_validate(section['content'])
-            elif section['type'] == 'article':
-                self.meta_validate()
-
-    def meta_validate(self):
-        if len(self.data['header']) > 50:
-            raise KeyboardInterrupt("The size of the article header is too large")
-
-    def validate(self):
-        self.sections_validate(self.data)
-
     @staticmethod
-    def run(path):
-        validator = JsonValidator(path)
-        validator.validate()
+    def json_string_to_file(json_string):
+        if sys.getsizeof(json_string) > 500 * 1024:
+            raise KeyboardInterrupt("The size of the article is too large")
+        try:
+            json_file = json.loads(json_string)
+        except:
+            print(json_string)
+            raise KeyboardInterrupt("Invalid json file")
+
+        return json_file
+
+    def validate_sections(json_string):
+        json_file = JsonValidator.json_string_to_file(json_string)
+        for section in json_file:
+            with open("schemas/sections/section_schema.json", "r") as graph_schema:
+                jsonschema.validate(section, json.load(graph_schema))
+
+            if section['type'] == 'graph':
+                with open("schemas/sections/graph_schema.json", "r") as graph_schema:
+                    jsonschema.validate(section['content'], json.load(graph_schema))
+
+            elif section['type'] == 'chart':
+                if 'type' in section['content'] and section['content']['type'] == 'pie':
+                    with open("schemas/sections/pie_schema.json", "r") as chart_schema:
+                        jsonschema.validate(section['content'], json.load(chart_schema))
+                elif 'type' in section['content'] and section['content']['type'] in ['scatter', 'bar', 'line']:
+                    with open("schemas/sections/chart_schema.json", "r") as chart_schema:
+                        jsonschema.validate(section['content'], json.load(chart_schema))
+                else:
+                    raise KeyboardInterrupt("Unrecognize chart type")
+
+            elif section['type'] == 'steps':
+                JsonValidator.validate_sections(str(section['content']).replace("\'", "\""))
+
+    def validate_meta(json_string):
+        meta_file = JsonValidator.json_string_to_file(json_string)
+        with open("schemas/meta_schema.json", "r") as chart_schema:
+            jsonschema.validate(meta_file, json.load(chart_schema))
+        if len(meta_file['header']) > 100:
+            raise KeyboardInterrupt("The size of the article name is too large")
+
+def main():
+    import argparse
+    import os
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('path', type=str)
+
+    args = parser.parse_args()
+
+    print('Start validate:')
+    absolute_path = os.path.abspath(args.path)
+
+    try:
+        input_file = open(absolute_path, 'r')
+    except FileNotFoundError:
+        return print("File not found")
+
+    json_string = input_file.read()
+
+    if 'meta.json' in absolute_path:
+        JsonValidator.validate_meta(json_string)
+    elif 'sections.json' in absolute_path:
+        JsonValidator.validate_sections(json_string)
+    else:
+        return print("Incorrect path")
+
+    input_file.close()
+
+    print('Successful validation!')
+
+
+if __name__ == '__main__':
+    main()
