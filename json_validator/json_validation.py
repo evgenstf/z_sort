@@ -11,7 +11,6 @@ class JsonValidator:
         try:
             json_dict = json.loads(json_string)
         except:
-            print(json_string)
             raise KeyboardInterrupt("Invalid json string")
 
         return json_dict
