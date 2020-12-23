@@ -6,6 +6,11 @@
   font-family: Montserrat;
 }
 
+* {
+  -webkit-locale: auto;
+  white-space: normal;
+}
+
 body {
   background: white;
   margin: 0;
