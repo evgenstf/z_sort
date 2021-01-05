@@ -26,31 +26,19 @@ import os
 class DrawGraph:
     def __init__(self, data):
         self.edges = data['content']['edges']
+        self.node_count = data['content']['node_count']
+        self.node_attributes = data['content']['node_attributes']
         self.graph_type = data['content']['type']
-        if 'nodes_count' in data['content']:
-            self.nodes_count = data['content']['nodes_count']
-        else:
-            self.nodes_count = max(list(map(lambda pair: max(pair), self.edges)))
-        if 'show_labels' in data['content']:
-            self.show_labels = data['content']['show_labels']
-        else:
-            self.show_labels = False
 
-        if 'node_color' in data['content']:
-            self.node_color = data['content']['node_color']
-        else:
-            self.node_color = '#BF00B0'
-
-        if 'edge_color' in data['content']:
-            self.edge_color = data['content']['edge_color']
-        else:
-            self.edge_color = '#BF00B0'
+        self.show_default_labels = data['content'].get('show_default_labels', False)
+        self.node_color = data['content'].get('node_color', '#BF00B0')
+        self.edge_color = data['content'].get('edge_color', '#BF00B0')
 
     def add_data_to_graph(self, graph):
-        for node in range(self.nodes_count):
-            graph.add_node(node)
+        for id in range(self.node_count):
+            graph.add_node(id)
         for edge in self.edges:
-            graph.add_edge(*edge)
+            graph.add_edge(edge['from'], edge['to'])
 
     def initialize_graph(self):
         graph = nx.Graph()
@@ -58,9 +46,9 @@ class DrawGraph:
         return graph
 
     def calculate_node_diameter(self):
-        if 16000 / self.nodes_count > 2000:
+        if 16000 / self.node_count > 2000:
             return 2000
-        return 16000 / self.nodes_count
+        return 16000 / self.node_count
 
     def draw(self, path):
         G = self.initialize_graph()
@@ -72,11 +60,29 @@ class DrawGraph:
             pos = graphviz_layout(G, prog="twopi")
         elif self.graph_type == 'circle':
             pos = nx.circular_layout(G)
-        nx.draw_networkx_nodes(G, pos, node_size=self.calculate_node_diameter(),\
-                               node_color=self.node_color)
+
+        node_labels = {}
+        node_colors = {id: self.node_color for id in range(self.node_count)}
+
+        for id in range(self.node_count):
+            str_id = str(id)
+            if str_id in self.node_attributes:
+                if 'label' in self.node_attributes[str_id]:
+                    node_labels[id] = self.node_attributes[str_id]['label']
+                if 'color' in self.node_attributes[str_id]:
+                    node_colors[id] = self.node_attributes[str_id]['color']
+
+
+        nx.draw_networkx_nodes(G, pos, node_size=self.calculate_node_diameter(),
+            node_color=[node_colors[id] for id in range(self.node_count)])
         nx.draw_networkx_edges(G, pos, edge_color=self.edge_color, width=4)
-        if self.show_labels == True:
-            nx.draw_networkx_labels(G, pos, font_size=18)
+
+        if self.show_default_labels == True:
+            nx.draw_networkx_labels(G, pos, font_size=18,
+                    labels={id: node_labels.get(id, id) for id in range(self.node_count)})
+        else:
+            nx.draw_networkx_labels(G, pos, labels=node_labels)
+
         plt.savefig(path, transparent=True)
         plt.close()
 

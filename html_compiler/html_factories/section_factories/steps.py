@@ -1,34 +1,34 @@
-def build_first_step(subsection,
+def build_first_step(subsections,
         absolute_path, relative_path, static_storage_absolute_path, compile_section):
     step_subbody_html = ''
 
     step_subbody_html += '<div class="first-step">'
-    step_subbody_html += compile_section([subsection],
+    step_subbody_html += compile_section(subsections,
             absolute_path, relative_path, static_storage_absolute_path)
     step_subbody_html += '</div>'
 
     return step_subbody_html
 
 
-def build_middle_steps(subsections,
+def build_middle_steps(steps,
         absolute_path, relative_path, static_storage_absolute_path, compile_section):
     step_subbody_html = ''
 
-    for subsection in subsections:
+    for subsections in steps:
         step_subbody_html += '<div class="middle-step">'
-        step_subbody_html += compile_section([subsection],
+        step_subbody_html += compile_section(subsections,
                 absolute_path, relative_path, static_storage_absolute_path)
         step_subbody_html += '</div>'
 
     return step_subbody_html
 
 
-def build_last_step(subsection,
+def build_last_step(subsections,
         absolute_path, relative_path, static_storage_absolute_path, compile_section):
     step_subbody_html = ''
 
     step_subbody_html += '<div class="last-step">'
-    step_subbody_html += compile_section([subsection],
+    step_subbody_html += compile_section(subsections,
             absolute_path, relative_path, static_storage_absolute_path)
     step_subbody_html += '</div>'
 
