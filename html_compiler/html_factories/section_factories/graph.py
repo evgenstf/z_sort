@@ -52,7 +52,7 @@ class DrawGraph:
 
     def draw(self, path):
         G = self.initialize_graph()
-        plt.figure(figsize=(16,12))
+        plt.figure(figsize=(16,9))
         plt.axis('off')
         if self.graph_type == 'dot':
             pos = graphviz_layout(G, prog="dot")
