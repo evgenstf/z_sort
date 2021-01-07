@@ -1,0 +1,68 @@
+{% load static %}
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Z-Sort Editor</title>
+  <meta name="description" content="Z-Sort">
+  <meta name="author" content="evgenstf">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:600" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+
+  <script type="text/javascript"
+      src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+
+  <link rel="stylesheet" href="{% static 'css/code_highlight.css' %}">
+  <script src="{% static 'js/code_highlight.js' %}"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
+
+&base_css&
+&content_css&
+
+<body>
+  <div class="header" id="ghost_header"></div>
+  <div class="header" id="z_sort_header">
+  <a href="/" style="color:inherit;">
+      <span style="color:var(--key-color); font-weight:bold">Z</span>-SORT
+  </a>
+  </div>
+  <h1>
+    Editor
+  </h1>
+
+  <div id="editor_window">
+    <form>
+      <label for="editor_window"><h3>Editor window:</h3></label><br>
+      <input type="text" id="editor_window_input" name="editor_window_input"><br>
+    </form>
+  </div>
+
+  <div id="view_window">
+    <form>
+      <label for="view_window"><h3>View window:</h3></label><br>
+      <input type="text" id="view_window_input" name="view_window_input"><br>
+    </form>
+  </div>
+
+
+  <div id="content">
+    &content&
+  </div>
+
+  <div id="ghost_footer"></div>
+
+  <div class="footer" id="z_sort_footer">
+    2020, <span style="font-weight:bold">Z</span><span style="font-weight:500">-SORT</span>
+  </div>
+</body>
+
+&base_js&
+&content_js&
+
+</html>
