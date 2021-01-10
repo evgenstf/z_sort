@@ -52,10 +52,6 @@ def handle_category_request(path):
     return HttpResponse(template.render(Context({})))
 
 def handle_editor_request():
-    editor_template_path = 'z_sort'
-    # editor_html = open(editor_template, 'r').read()
-    # js = open(article['js'], 'r').read()
-    # css = open(article['css'], 'r').read()
     editor_html = ''
     js = ''
     css = ''
