@@ -1,82 +1,22 @@
-<!doctype html>
+&editor_css&
 
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Z-Sort Editor</title>
-  <meta name="description" content="Z-Sort">
-  <meta name="author" content="evgenstf">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:600" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+<h1 id='editor_header'>
+Editor
+</h1>
 
-  <script type="text/javascript"
-      src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-  </script>
+<div id="editor">
+<div id="editor_window">
+  <h3>Editor window:</h3>
+</div>
 
-  <link rel="stylesheet" href="{% static 'css/code_highlight.css' %}">
-  <script src="{% static 'js/code_highlight.js' %}"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-</head>
-<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
+<script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
 
-&base_css&
-<!--&content_css&-->
+<div id="view_window">
+  <form>
+    <label for="view_window"><h3>View window:</h3></label><br>
+    <input type="text" id="view_window_input" name="view_window_input"><br>
+  </form>
+</div>
+</div>
 
-<body>
-  </div>
-  <h1>
-    Editor
-  </h1>
-
-  <div id="editor">
-    <div id="editor_window">
-      <h3>Editor window:</h3>
-    </div>
-    <script>
-      let num_section = 1;
-      function add_section() {
-      let current_div = document.getElementById("editor_window");
-      let newDiv = document.createElement("div");
-      let  newContent = document.createTextNode("Section " + num_section);
-      num_section++;
-
-      newDiv.appendChild(newContent);
-      current_div.appendChild(newDiv);
-
-      let form = document.createElement('form');
-      form.name='myForm';
-      // my_form.method = 'POST';
-      // my_form.action = 'http://z-sort.com';
-
-      let input = document.createElement('INPUT');
-      input.type='TEXT';
-      input.name='myInput';
-      input.value='z-sort editor input';
-      form.appendChild(input);
-
-      current_div.appendChild(form);
-      // form.submit();
-      }
-      add_section();
-    </script>
-
-    <div id="view_window">
-      <form>
-        <label for="view_window"><h3>View window:</h3></label><br>
-        <input type="text" id="view_window_input" name="view_window_input"><br>
-      </form>
-    </div>
-  </div>
-  <button onclick="add_section()" id="add_section_button"> Add section </button>
-
-  <div id="content">
-<!--    &content&-->
-  </div>
-
-</body>
-
-<!--&content_js&-->
-
-</html>
+<button onclick="add_section()" id="add_section_button"> Add section </button>

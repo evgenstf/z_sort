@@ -1,94 +1,14 @@
 <style>
-:root {
-  --key-color: #8A42B7;
-  --gray-color: #474747;
-  --link-color: #4676D4;
-  font-family: Montserrat;
-}
-
-body {
-  background: white;
-  margin: 0;
-}
-
-.header {
-  width: 100%;
-  top: 0px;
-  height: 60px;
-}
-
-.footer {
-  width: 100%;
-  bottom: 0;
-}
-
-#z_sort_footer {
-  background: var(--gray-color);
-  color: white;
-  height: 44px;
-
-  font-size: 18px;
-  align-items: center;
-  text-align: center;
-  text-transform: uppercase;
-  line-height: 44px;
-}
-
-#z_sort_header{
-  position: fixed;
-  backdrop-filter: blur(5px);
-  color: var(--gray-color);
-  background: #ffffff88;
-  z-index: 100;
-
-  font-size: 36px;
-  font-weight: 500;
-  align-items: center;
-  text-align: center;
-  text-transform: uppercase;
-  line-height: 60px;
-}
-
-.fixed_position {
-  position: fixed;
-}
-
-h1 {
-  color: black;
-  font-weight: bold;
-  font-size: 30px;
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-
-h2 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  color: black;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-strong {
-  font-weight: 500 !important;
-}
-
-a {
-  color: var(--link-color);
-  text-decoration: none
-}
-
-table {
-  border: none;
-  rules: none;
-}
-
 #editor {
   position: relative;
   width: 95%;
   display: table;
   text-align: center;
   margin: 0 auto;
+}
+
+#editor_header {
+    text-align: center;
 }
 
 #editor_window, #view_window {
@@ -113,6 +33,7 @@ input {
   width: 90%;
   height: 400px;
   resize: none;
+  margin-bottom: 10px;
 }
 
 #add_section_button{
@@ -125,5 +46,4 @@ input {
   margin-left: 20%;
   border-radius: 10%;
 }
-
 </style>
