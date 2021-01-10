@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="{% static 'css/editor.css' %}">
+  
+<h1 id='editor_header'>
+Editor
+</h1>
+
+<div id="editor">
+<div id="editor_window">
+  <h3>Editor window:</h3>
+</div>
+
+<script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
+
+<div id="view_window">
+  <form>
+    <label for="view_window"><h3>View window:</h3></label><br>
+    <input type="text" id="view_window_input" name="view_window_input"><br>
+  </form>
+</div>
+</div>
+
+<button onclick="add_section()" id="add_section_button"> Add section </button>

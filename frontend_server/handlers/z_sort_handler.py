@@ -12,6 +12,7 @@ import simplejson as json
 from html_factories.base import BaseHtmlFactory
 from html_factories.category import CategoryHtmlFactory
 from html_factories.main import MainHtmlFactory
+from html_factories.editor import EditorHtmlFactory
 
 import socket
 
@@ -50,13 +51,26 @@ def handle_category_request(path):
     template = Template(CategoryHtmlFactory.create_from_meta(get_meta_by_path(path), path))
     return HttpResponse(template.render(Context({})))
 
+def handle_editor_request():
+    editor_html = ''
+    js = ''
+    css = ''
+    template = Template(EditorHtmlFactory.create(editor_html, js, css))
+    return HttpResponse(template.render(Context({})))
+
 def handle_url(request):
     path = request.path.strip('/').split('/') if request.path != '/' else []
+    print('path:', path)
     meta = get_meta_by_path(path)
     print('meta:', meta)
+
+    if path == ['editor']:
+        return handle_editor_request()
+
     if meta['type'] == 'article':
         return handle_article_request(path)
     elif meta['type'] == 'category':
         return handle_category_request(path)
     elif meta['type'] == 'main':
         return handle_main_request(meta)
+

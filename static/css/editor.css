@@ -1,0 +1,47 @@
+#editor {
+  position: relative;
+  width: 95%;
+  display: table;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#editor_header {
+    text-align: center;
+}
+
+#editor_window, #view_window {
+  display: table-cell;
+  text-align: center;
+  width: 40%;
+  height: auto;
+  background: purple;
+  color: white;
+  padding-bottom: 30px;
+}
+
+#editor_window {
+  left: 0;
+}
+
+#view_window{
+  right: 0;
+}
+
+input {
+  width: 90%;
+  height: 400px;
+  resize: none;
+  margin-bottom: 10px;
+}
+
+#add_section_button{
+  background: white;
+  font-size: 20px;
+  color: black;
+  border-color: black;
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 20%;
+  border-radius: 10%;
+}
