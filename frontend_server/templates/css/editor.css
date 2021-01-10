@@ -92,7 +92,6 @@ table {
 }
 
 #editor_window, #view_window {
-  /*display: inline-block;*/
   display: table-cell;
   text-align: center;
   width: 40%;
@@ -126,6 +125,5 @@ input {
   margin-left: 20%;
   border-radius: 10%;
 }
-
 
 </style>

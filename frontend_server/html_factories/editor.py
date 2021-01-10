@@ -1,3 +1,5 @@
+from html_factories.base import *
+
 class EditorHtmlFactory:
     @staticmethod
     def create(editor_html, editor_js, editor_css):
@@ -12,4 +14,4 @@ class EditorHtmlFactory:
         # html_template = html_template.replace('&content_js&', editor_js)
         # html_template = html_template.replace('&content_css&', editor_css)
 
-        return html_template
+        return BaseHtmlFactory.create_from_content(html_template, editor_js, editor_css)
