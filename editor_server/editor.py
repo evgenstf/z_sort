@@ -1,4 +1,5 @@
 import re
+import json
 
 from html_compiler.compile import compile_item
 
@@ -22,7 +23,7 @@ class Editor:
 
     def compile(self, article_id):
         article_absolute_path = self.article_storage.path.split('/') + ['editor', article_id]
-        article_relative_path = ['editor', article_id]
+        article_relative_path = ['in_editing', article_id]
         static_absolute_path = self.article_storage.path.split('/')  + ['static']
 
         try:
@@ -31,6 +32,21 @@ class Editor:
         except Exception as e:
             print("[error] Exception:", e)
             return False
+
+    def get(self, article_id):
+        content_path = self.article_storage.path + '/editor/' + article_id + '/content.html'
+
+        with open(content_path, 'r') as file:
+            return file.read()
+
+    def save(self, article_id):
+        from distutils.dir_util import copy_tree
+
+        from_article_path = self.article_storage.path + '/editor/' + article_id
+        to_article_path = self.article_storage.path + '/in_editing/editor_result'
+
+        copy_tree(from_article_path, to_article_path)
+        return True
 
 
 def main():
@@ -86,6 +102,16 @@ def main():
                     response = '{error_message:"error while compilation"}'
                     if editor.compile(request['article_id']):
                         response = '{result:"ok"}'
+
+                elif request['type'] == 'get':
+                    response = json.dumps({"result":editor.get(request['article_id'])})
+
+
+                elif request['type'] == 'save':
+                    response = '{error_message:"error while compilation"}'
+                    if editor.save(request['article_id']):
+                        response = '{result:"ok"}'
+
 
 
             print("response length:", len(response))
