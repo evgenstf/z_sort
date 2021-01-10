@@ -23,7 +23,7 @@
 <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 
 &base_css&
-&content_css&
+<!--&content_css&-->
 
 <body>
   <div class="header" id="ghost_header"></div>
@@ -36,23 +36,51 @@
     Editor
   </h1>
 
-  <div id="editor_window">
-    <form>
-      <label for="editor_window"><h3>Editor window:</h3></label><br>
-      <input type="text" id="editor_window_input" name="editor_window_input"><br>
-    </form>
-  </div>
+  <div id="editor">
+    <div id="editor_window">
+      <h3>Editor window:</h3>
+    </div>
+    <script>
+      let num_section = 1;
+      function add_section() {
+      let current_div = document.getElementById("editor_window");
+      let newDiv = document.createElement("div");
+      let  newContent = document.createTextNode("Section " + num_section);
+      num_section++;
 
-  <div id="view_window">
-    <form>
-      <label for="view_window"><h3>View window:</h3></label><br>
-      <input type="text" id="view_window_input" name="view_window_input"><br>
-    </form>
+      newDiv.appendChild(newContent);
+      current_div.appendChild(newDiv);
+
+      let form = document.createElement('form');
+      form.name='myForm';
+      // my_form.method = 'POST';
+      // my_form.action = 'http://z-sort.com';
+
+      let input = document.createElement('INPUT');
+      input.type='TEXT';
+      input.name='myInput';
+      input.value='z-sort editor input';
+      form.appendChild(input);
+
+      current_div.appendChild(form);
+      // form.submit();
+      }
+      add_section();
+    </script>
+
+    <div id="view_window">
+      <form>
+        <label for="view_window"><h3>View window:</h3></label><br>
+        <input type="text" id="view_window_input" name="view_window_input"><br>
+      </form>
+    </div>
   </div>
+  <button onclick="add_section()" id="add_section_button"> Add section </button>
+
 
 
   <div id="content">
-    &content&
+<!--    &content&-->
   </div>
 
   <div id="ghost_footer"></div>
@@ -63,6 +91,6 @@
 </body>
 
 &base_js&
-&content_js&
+<!--&content_js&-->
 
 </html>
