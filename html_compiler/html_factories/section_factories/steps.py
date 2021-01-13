@@ -6,6 +6,9 @@ def build_first_step(subsections,
     step_subbody_html += '<div class="step_number">'
     step_subbody_html += '1'
     step_subbody_html += '</div>'
+    if not (subsections[0]['type'] == 'markdown' and subsections[0]['content'][
+        0] == '#'):
+        step_subbody_html += '<h1></h1>'
     step_subbody_html += '<div class="step_content">'
     step_subbody_html += compile_section(subsections,
             absolute_path, relative_path, static_storage_absolute_path)
@@ -27,6 +30,8 @@ def build_middle_steps(steps,
         step_subbody_html += '<div class="step_number">'
         step_subbody_html += str(num_step + 2)
         step_subbody_html += '</div>'
+        if not (subsections[0]['type'] == 'markdown' and subsections[0]['content'][0] == '#'):
+            step_subbody_html += '<h1></h1>'
         step_subbody_html += '<div class="step_content">'
         step_subbody_html += compile_section(subsections,
                 absolute_path, relative_path, static_storage_absolute_path)
@@ -47,6 +52,9 @@ def build_last_step(subsections, subsections_length,
     step_subbody_html += '<div class="step_number">'
     step_subbody_html += str(subsections_length + 1)
     step_subbody_html += '</div>'
+    if not (subsections[0]['type'] == 'markdown' and subsections[0]['content'][
+        0] == '#'):
+        step_subbody_html += '<h1></h1>'
     step_subbody_html += '<div class="step_content">'
     step_subbody_html += compile_section(subsections,
             absolute_path, relative_path, static_storage_absolute_path)
