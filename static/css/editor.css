@@ -13,7 +13,7 @@
 #editor_window, #view_window {
   display: table-cell;
   text-align: center;
-  width: 40%;
+  width: 45%;
   height: auto;
   background: purple;
   color: white;
@@ -30,12 +30,12 @@
 
 input {
   width: 90%;
-  height: 400px;
+  height: 300px;
   resize: none;
   margin-bottom: 10px;
 }
 
-#add_section_button{
+#add_section_button {
   background: white;
   font-size: 20px;
   color: black;
@@ -43,5 +43,24 @@ input {
   display: inline-block;
   margin-top: 10px;
   margin-left: 20%;
-  border-radius: 10%;
+  border-radius: 5%;
+}
+
+#compile_button {
+  background: white;
+  font-size: 20px;
+  color: black;
+  border-color: black;
+  display: inline-block;
+  border-radius: 5%;
+}
+
+.editor_text_area {
+  font-family: Montserrat;
+  color: black;
+  font-size: 18px;
+  width: 90%;
+  min-height: 300px;
+  height: 100%;
+  resize: vertical;
 }

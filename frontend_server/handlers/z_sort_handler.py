@@ -51,11 +51,13 @@ def handle_category_request(path):
     template = Template(CategoryHtmlFactory.create_from_meta(get_meta_by_path(path), path))
     return HttpResponse(template.render(Context({})))
 
-def handle_editor_request():
+def handle_editor_request(request):
     editor_html = ''
     js = ''
     css = ''
     template = Template(EditorHtmlFactory.create(editor_html, js, css))
+    if len(request.POST):
+        print(request.POST.dict())
     return HttpResponse(template.render(Context({})))
 
 def handle_url(request):
@@ -65,7 +67,7 @@ def handle_url(request):
     print('meta:', meta)
 
     if path == ['editor']:
-        return handle_editor_request()
+        return handle_editor_request(request)
 
     if meta['type'] == 'article':
         return handle_article_request(path)
@@ -73,4 +75,3 @@ def handle_url(request):
         return handle_category_request(path)
     elif meta['type'] == 'main':
         return handle_main_request(meta)
-
