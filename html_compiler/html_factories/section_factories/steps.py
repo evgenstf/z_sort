@@ -50,7 +50,7 @@ def build_last_step(subsections, subsections_length,
     else:
         step_subbody_html += '<div class="last-step-colorized">'
     step_subbody_html += '<div class="step_number">'
-    step_subbody_html += str(subsections_length + 1)
+    step_subbody_html += str(subsections_length)
     step_subbody_html += '</div>'
     if not (subsections[0]['type'] == 'markdown' and subsections[0]['content'][
         0] == '#'):
