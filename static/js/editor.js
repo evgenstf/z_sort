@@ -25,24 +25,21 @@ function add_section() {
 add_section();
 
 function compile() {
+    let sections = []
     for (let index = 1; index < num_section; ++index) {
         let text = document.getElementById('text_area_' + String(index)).value;
-        let json_file = {
+        let section = {
             "type": "markdown",
-            "content": ""
+            "content": text
         }
-        json_file["content"] += text;
-        json_file = JSON.stringify(json_file);
-        console.log(json_file);
-
-        $.ajax({
-            url: '/editor/',
-            data: {
-                "type": "markdown",
-                "content": text
-            },
-            dataType: 'json',
-        });
+        sections.push(section)
     }
+
+    $.ajax({
+        type: 'post',
+        url: '/editor/',
+        data: JSON.stringify(sections),
+        dataType: 'json',
+    });
 }
 

@@ -51,15 +51,21 @@ def handle_category_request(path):
     template = Template(CategoryHtmlFactory.create_from_meta(get_meta_by_path(path), path))
     return HttpResponse(template.render(Context({})))
 
+@csrf_exempt
 def handle_editor_request(request):
     editor_html = ''
     js = ''
     css = ''
     template = Template(EditorHtmlFactory.create(editor_html, js, css))
-    if len(request.POST):
-        print(request.POST.dict())
+
+    if (request.method == "POST"):
+        body_unicode = request.body.decode('utf-8')
+        received_json = json.loads(body_unicode)
+        print("received_json:", received_json)
+
     return HttpResponse(template.render(Context({})))
 
+@csrf_exempt
 def handle_url(request):
     path = request.path.strip('/').split('/') if request.path != '/' else []
     print('path:', path)
