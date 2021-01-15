@@ -23,7 +23,7 @@ def build_middle_steps(steps,
     step_subbody_html = ''
 
     for num_step, subsections in enumerate(steps):
-        if num_step % 2 == 0:
+        if num_step % 2 != 0:
             step_subbody_html += '<div class="middle-step">'
         else:
             step_subbody_html += '<div class="middle-step-colorized">'
@@ -45,7 +45,7 @@ def build_last_step(subsections, subsections_length,
         absolute_path, relative_path, static_storage_absolute_path, compile_section):
     step_subbody_html = ''
 
-    if subsections_length % 2 == 0:
+    if subsections_length % 2 != 0:
         step_subbody_html += '<div class="last-step">'
     else:
         step_subbody_html += '<div class="last-step-colorized">'

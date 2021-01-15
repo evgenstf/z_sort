@@ -198,7 +198,7 @@ ol {
   padding-right: 10px;
   padding-bottom: 60px;
   display: inline-block;
-  background-color: #E5F0F1;
+  background-color: white;
 }
 .middle-step {
   clip-path: polygon(0% 0%, 50% 50px, 100% 0%, 100% calc(100% - 50px), 50% 100%, 0% calc(100% - 50px));
