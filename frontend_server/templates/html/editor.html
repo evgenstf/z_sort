@@ -1,13 +1,13 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/editor.css' %}">
   
-<h1 id='editor_header'>
+<h1 class="editor_header">
 Editor
 </h1>
 
 <div id="editor">
 <div id="editor_window">
-  <h3>Editor window:</h3>
+  <h3 class="editor_header">Editor window:</h3>
 </div>
 
 <div id="editor_buttons">
@@ -17,10 +17,10 @@ Editor
   <script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
 
 <div id="view_window">
-  <form>
-    <label for="view_window"><h3>View window:</h3></label><br>
-    <input type="text" id="view_window_input" name="view_window_input"><br>
-  </form>
+    <h3 class="editor_header">Editing article window:</h3>
+    <div id="view_window_background">
+        &editor_article&
+    </div>
 </div>
 </div>
 
