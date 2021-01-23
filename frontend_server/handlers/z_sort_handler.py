@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.template import Template, Context
 
 from django.shortcuts import redirect
@@ -51,17 +52,41 @@ def handle_category_request(path):
     template = Template(CategoryHtmlFactory.create_from_meta(get_meta_by_path(path), path))
     return HttpResponse(template.render(Context({})))
 
+def update_article_from_editor(article_to_update):
+    sock = socket.socket()
+    sock.connect(('localhost', 9996))
+    sock.send(json.dumps({"type": "update_sections", "new_sections": article_to_update, "article_id": "editor_result"}).encode())
+    sock.close()
+    sock = socket.socket()
+    sock.connect(('localhost', 9996))
+    sock.send(json.dumps({"type": "compile", "article_id": "editor_result"}).encode())
+    sock.close()
+    sock = socket.socket()
+    sock.connect(('localhost', 9996))
+    sock.send(json.dumps({"type": "get", "article_id": "editor_result"}).encode())
+    result = sock.recv(1000000)
+    sock.close()
+    return result
+
 @csrf_exempt
 def handle_editor_request(request):
-    editor_html = ''
-    js = ''
-    css = ''
-    template = Template(EditorHtmlFactory.create(editor_html, js, css))
-
     if (request.method == "POST"):
         body_unicode = request.body.decode('utf-8')
         received_json = json.loads(body_unicode)
-        print("received_json:", received_json)
+        result = update_article_from_editor(received_json)
+
+
+        template = Template('{% load static %}\n' + json.loads(result)['result'])
+        rendered_page = template.render(Context({}))
+
+        return JsonResponse({'result': rendered_page})
+
+    path = ['editor', 'editor_result']
+    editing_article = get_article_by_path(path)
+    content_html = open(editing_article['content_html'], 'r').read()
+    js = ''
+    css = ''
+    template = Template(EditorHtmlFactory.create(content_html, js, css))
 
     return HttpResponse(template.render(Context({})))
 
@@ -72,7 +97,7 @@ def handle_url(request):
     meta = get_meta_by_path(path)
     print('meta:', meta)
 
-    if path == ['editor']:
+    if meta['id'] == 'editor':
         return handle_editor_request(request)
 
     if meta['type'] == 'article':
