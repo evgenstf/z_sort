@@ -40,6 +40,12 @@ function compile() {
         url: '/editor/',
         data: JSON.stringify(sections),
         dataType: 'json',
+        success: function (result) {
+          console.log("editor result:", result)
+          let article_preview = document.getElementById("view_window_background");
+
+          article_preview.innerHTML = result['result'];
+        }
     });
 }
 
