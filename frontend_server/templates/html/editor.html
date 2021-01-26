@@ -2,9 +2,7 @@
 <link rel="stylesheet" href="{% static 'css/editor.css' %}">
 
 <div id="editor">
-<div id="editor_window">
-</div>
-
+<div id="editor_window"></div>
 
 <div id="view_window">
     <div id="view_window_background">
@@ -13,17 +11,33 @@
 </div>
 </div>
 
-<div id="editor_buttons">
-    <button onclick="compile()" id="compile_button"> Compile an article </button>
-</div>
-
-<script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
 
 
 <div id="add_section_buttons">
     add section <br><br>
-    <button onclick="add_section()" class="add_section_button"> markdown </button>
-    <button onclick="add_section()" class="add_section_button"> graph </button>
-    <button onclick="add_section()" class="add_section_button"> chart </button>
-    <button onclick="add_section()" class="add_section_button"> steps </button>
+    <button onclick="add_section()" class="add_section_button">
+        <img class="add_section_ico" src="{% static 'svg/icon_markdown.svg' %}">
+        markdown
+    </button>
+    <button onclick="add_section()" class="add_section_button">
+        <img class="add_section_ico" src="{% static 'svg/icon_graph.svg' %}">
+        graph
+    </button>
+    <button onclick="add_section()" class="add_section_button">
+        <img class="add_section_ico" src="{% static 'svg/icon_chart.svg' %}">
+        chart
+    </button>
+    <button onclick="add_section()" class="add_section_button">
+        <img class="add_section_ico" src="{% static 'svg/icon_steps.svg' %}">
+        steps
+    </button>
 </div>
+
+<div id="editor_buttons">
+    <button onclick="compile()" id="compile_button"> Compile </button>
+    <button onclick="compile()" id="publish_button"> Publish </button>
+    <button onclick="compile()" id="export_button"> Export </button>
+</div>
+
+
+<script type="text/javascript" src="{% static 'js/editor.js' %}"></script>

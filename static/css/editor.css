@@ -28,6 +28,13 @@
   right: 0;
 }
 
+#view_window_background {
+  position: absolute;
+  margin-top: 5px;
+  color: black;
+  text-align: left;
+}
+
 #editor_buttons {
   position: fixed;
   left: 0;
@@ -36,29 +43,53 @@
   padding: 10px;
   background: white;
   color: white;
-  text-align: center;
+  //text-align: center;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#compile_button, #publish_button, #export_button {
+  padding: 10px;
+  overflow: hidden;
+  outline:none;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 #compile_button {
   background: #3CCF7F;
-  font-size: 20px;
   color: white;
-  display: inline-block;
-  padding: 10px;
   border: 0 none;
-  overflow: hidden;
-  outline:none;
+  width: 150px;
+  margin-left: 20%;
 }
+
 #compile_button:active {
   background: #298e57;
 }
 
-#view_window_background {
-  position: absolute;
-  margin-top: 10px;
-  color: black;
-  text-align: left;
+#publish_button, #export_button {
+  background: white;
+  color: #4676D4;
+  border: 1px solid #4676D4;
+  width: 150px;
 }
+
+#publish_button {
+  margin-left: 30%;
+}
+
+#export_button {
+}
+
+#publish_button:active, #export_button:active {
+  background: #dee8fa;
+}
+
 
 input {
   width: 90%;
@@ -70,18 +101,25 @@ input {
 #add_section_buttons {
   width: 50%;
   text-align: center;
+  display: inline-block;
 }
 
 .add_section_button {
   background: #F7F7F7;
   border-radius: 50px;
-  font-family: Roboto Mono;
   font-size: 14px;
   color: #4676D4;
   padding: 10px;
   border: 0 none;
   overflow: hidden;
   outline:none;
+  margin-right: 2%;
+  margin-left: 2%;
+  margin-bottom: 4%;
+}
+
+.add_section_ico {
+ margin-bottom: -4px;
 }
 
 .editor_text_area {
@@ -99,11 +137,40 @@ input {
 }
 
 .section_name {
-  font-family: Roboto Mono;
   font-size: 12px;
   margin-top: 10px;
   padding: 5px 0px 5px 20px;
   width: calc(100% - 16px);
   text-align: left;
   background: #E5F0F1;
+}
+
+#article_tittle_text_area, #article_section_text_area, #author_name_text_area {
+  font-family: Montserrat;
+  color: black;
+  background: #E9F8F9;
+  font-size: 18px;
+  padding: 9px;
+  width: 100%;
+  height: 18px;
+  resize: none;
+  border: 0 none;
+  overflow: hidden;
+  outline:none;
+}
+
+#article_tittle, #article_section, #author_name {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  padding-bottom: 7px;
+  padding-left: 10px;
+  color: #474747;
+  text-align: left;
+  width: calc(100% - 16px);
+}
+
+#article_tittle_form, #article_section_form, #author_name_form {
+  width: calc(100% - 16px);
 }
