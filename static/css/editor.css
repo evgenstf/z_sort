@@ -6,36 +6,57 @@
 }
 
 .editor_header {
-    text-align: center;
+  text-align: center;
 }
 
 #editor_window, #view_window {
   display: table-cell;
   width: 45%;
   height: auto;
-  background: purple;
   color: white;
-  padding-bottom: 30px;
+  padding: 20px;
 }
 
 #editor_window {
   text-align: center;
+  color: black;
   left: 0;
 }
 
-#editor_buttons {
-  text-align: center;
-}
-
 #view_window{
+  background: white;
   right: 0;
 }
 
-#view_window_background {
+#editor_buttons {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
   background: white;
+  color: white;
+  text-align: center;
+}
+
+#compile_button {
+  background: #3CCF7F;
+  font-size: 20px;
+  color: white;
+  display: inline-block;
+  padding: 10px;
+  border: 0 none;
+  overflow: hidden;
+  outline:none;
+}
+#compile_button:active {
+  background: #298e57;
+}
+
+#view_window_background {
+  position: absolute;
+  margin-top: 10px;
   color: black;
-  margin: 5%;
-  padding: 5%;
   text-align: left;
 }
 
@@ -46,32 +67,43 @@ input {
   margin-bottom: 10px;
 }
 
-#add_section_button {
-  background: white;
-  font-size: 20px;
-  color: black;
-  border-color: black;
-  display: inline-block;
-  margin-top: 10px;
-  margin-left: 20%;
-  border-radius: 5%;
+#add_section_buttons {
+  width: 50%;
+  text-align: center;
 }
 
-#compile_button {
-  background: white;
-  font-size: 20px;
-  color: black;
-  border-color: black;
-  display: inline-block;
-  border-radius: 5%;
+.add_section_button {
+  background: #F7F7F7;
+  border-radius: 50px;
+  font-family: Roboto Mono;
+  font-size: 14px;
+  color: #4676D4;
+  padding: 10px;
+  border: 0 none;
+  overflow: hidden;
+  outline:none;
 }
 
 .editor_text_area {
   font-family: Montserrat;
   color: black;
+  background: #E9F8F9;
   font-size: 18px;
-  width: 90%;
+  width: 100%;
   min-height: 300px;
   height: 100%;
   resize: vertical;
+  border: 0 none;
+  overflow: hidden;
+  outline:none;
+}
+
+.section_name {
+  font-family: Roboto Mono;
+  font-size: 12px;
+  margin-top: 10px;
+  padding: 5px 0px 5px 20px;
+  width: calc(100% - 16px);
+  text-align: left;
+  background: #E5F0F1;
 }

@@ -1,11 +1,12 @@
 let num_section = 1;
 function add_section() {
-    let current_div = document.getElementById("editor_window");
-    let new_div = document.createElement("div");
-    let new_content = document.createTextNode("Section " + num_section);
+    let current_section = document.getElementById("editor_window");
+    let new_section = document.createElement("div");
+    new_section.classList.add('section_name');
+    let section_name = document.createTextNode("Markdown ");
 
-    new_div.appendChild(new_content);
-    current_div.appendChild(new_div);
+    new_section.appendChild(section_name);
+    current_section.appendChild(new_section);
 
     let form = document.createElement('form')
     form.method = 'post'
@@ -18,7 +19,7 @@ function add_section() {
     text_area.classList.add('editor_text_area');
 
     form.appendChild(text_area);
-    current_div.appendChild(form);
+    current_section.appendChild(form);
 
     num_section++;
 }

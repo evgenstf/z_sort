@@ -1,28 +1,29 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <link rel="stylesheet" href="{% static 'css/editor.css' %}">
 
-<h1 class="editor_header">
-Editor
-</h1>
-
 <div id="editor">
 <div id="editor_window">
-  <h3 class="editor_header">Editor window:</h3>
 </div>
 
-<div id="editor_buttons">
-  <button onclick="compile()" id="compile_button"> Compile </button>
-</div>
-
-  <script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
 
 <div id="view_window">
-    <h3 class="editor_header">Editing article window:</h3>
     <div id="view_window_background">
         &editor_article&
     </div>
 </div>
 </div>
 
+<div id="editor_buttons">
+    <button onclick="compile()" id="compile_button"> Compile an article </button>
+</div>
 
-<button onclick="add_section()" id="add_section_button"> Add section </button>
+<script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
+
+
+<div id="add_section_buttons">
+    add section <br><br>
+    <button onclick="add_section()" class="add_section_button"> markdown </button>
+    <button onclick="add_section()" class="add_section_button"> graph </button>
+    <button onclick="add_section()" class="add_section_button"> chart </button>
+    <button onclick="add_section()" class="add_section_button"> steps </button>
+</div>
