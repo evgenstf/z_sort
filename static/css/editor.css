@@ -123,7 +123,8 @@ input {
   color: black;
   background: #E9F8F9;
   font-size: 18px;
-  width: 100%;
+  width: calc(100% - 14px);
+  padding: 9px;
   min-height: 300px;
   height: 100%;
   resize: vertical;
