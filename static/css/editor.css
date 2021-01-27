@@ -43,7 +43,7 @@
   padding: 10px;
   background: white;
   color: white;
-  //text-align: center;
+  text-align: center;
   font-family: Montserrat;
   font-style: normal;
   font-weight: bold;
@@ -65,7 +65,7 @@
   color: white;
   border: 0 none;
   width: 150px;
-  margin-left: 20%;
+  margin-left: -3%;
 }
 
 #compile_button:active {
@@ -79,17 +79,13 @@
   width: 150px;
 }
 
-#publish_button {
-  margin-left: 30%;
-}
-
-#export_button {
+#left_side_buttons, #right_side_buttons {
+  width: 50%;
 }
 
 #publish_button:active, #export_button:active {
   background: #dee8fa;
 }
-
 
 input {
   width: 90%;
@@ -119,7 +115,7 @@ input {
 }
 
 .add_section_ico {
- margin-bottom: -4px;
+  margin-bottom: -4px;
 }
 
 .editor_text_area {
@@ -173,4 +169,21 @@ input {
 
 #article_tittle_form, #article_section_form, #author_name_form {
   width: calc(100% - 16px);
+}
+
+#article_section_form {
+  margin-left: -3px;
+}
+
+#author_name_form {
+  margin-left: 4px;
+}
+
+table {
+  width: 100%;
+}
+
+#add_section_tittle {
+  margin-top: -10px;
+  font-size: 14px;
 }

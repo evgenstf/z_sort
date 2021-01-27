@@ -14,7 +14,9 @@
 
 
 <div id="add_section_buttons">
-    add section <br><br>
+    <p id="add_section_tittle">
+        add section
+    </p>
     <button onclick="add_section()" class="add_section_button">
         <img class="add_section_ico" src="{% static 'svg/icon_markdown.svg' %}">
         markdown
@@ -34,9 +36,17 @@
 </div>
 
 <div id="editor_buttons">
-    <button onclick="compile()" id="compile_button"> Compile </button>
-    <button onclick="compile()" id="publish_button"> Publish </button>
-    <button onclick="compile()" id="export_button"> Export </button>
+    <table>
+       <tr>
+           <td id="left_side_buttons">
+               <button onclick="compile()" id="compile_button"> Compile </button>
+           </td>
+           <td id="right_side_buttons">
+               <button onclick="compile()" id="publish_button"> Publish </button>
+               <button onclick="compile()" id="export_button"> Export </button>
+           </td>
+      </tr>
+    </table>
 </div>
 
 
