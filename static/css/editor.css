@@ -26,7 +26,7 @@
 }
 
 #editor_window {
-  padding-top: 12px;
+  padding-top: 40px;
   text-align: center;
   color: black;
 }
@@ -37,9 +37,7 @@
 }
 
 #view_window_background {
-  background: url(/sr/svg/bg.svg);
   top: 0;
-  padding: 30px;
   color: black;
   text-align: left;
 }
@@ -59,7 +57,15 @@
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
+}
 
+#editor_buttons_background {
+  background: white;
+  padding: 22px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
 #compile_button, #publish_button {
@@ -96,7 +102,7 @@
   color: #4676D4;
   border: 1px solid #4676D4;
   width: 40px;
-  height: 40px;
+  height: 41px;
   overflow: hidden;
   outline:none;
   padding-bottom: 10px;
@@ -104,7 +110,7 @@
 
 #export_ico {
   padding-top: 5px;
-  margin-bottom: -5px;
+  margin-bottom: -6px;
 }
 
 #left_side_buttons, #right_side_buttons {
@@ -255,4 +261,3 @@ table {
   border: 0 none;
   padding: -5px;
 }
-
