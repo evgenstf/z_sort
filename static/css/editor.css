@@ -1,3 +1,7 @@
+h1 {
+  margin: 10px 0 10px;
+}
+
 #editor_body {
   width: 95%;
   max-width: 1960px;
@@ -9,7 +13,6 @@
   display: table;
   height: 100%;
   width: 100%;
-  padding-top: 20px;
 }
 
 .editor_header {
@@ -26,7 +29,7 @@
 }
 
 #editor_window {
-  padding-top: 40px;
+  padding-top: 55px;
   text-align: center;
   color: black;
 }
@@ -169,6 +172,8 @@ input {
 }
 
 .section_name {
+  font-family: Roboto Mono;
+  font-weight: 400;
   font-size: 12px;
   margin-top: 12px;
   margin-bottom: -3px;
