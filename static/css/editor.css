@@ -78,6 +78,7 @@ background:#298e57;
 #editor {
 display:table;
 height:100%;
+margin-top: 20px;
 position:relative;
 width:100%;
 }
@@ -116,7 +117,7 @@ width:100%;
 
 #editor_window {
 color:black;
-padding-top:55px;
+margin-top:55px;
 text-align:center;
 }
 
@@ -167,8 +168,8 @@ position:relative;
 
 #view_window_background {
 color:black;
+margin-top:-30px;
 text-align:left;
-top:0;
 }
 
 .add_section_button {
