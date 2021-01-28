@@ -1,10 +1,15 @@
-#editor {
-  position: relative;
+#editor_body {
   width: 95%;
   max-width: 1960px;
+  margin: 0 auto;
+}
+
+#editor {
+  position: relative;
   display: table;
-  margin: 40px auto;
   height: 100%;
+  width: 100%;
+  padding-top: 20px;
 }
 
 .editor_header {
@@ -21,6 +26,7 @@
 }
 
 #editor_window {
+  padding-top: 12px;
   text-align: center;
   color: black;
 }
@@ -40,9 +46,11 @@
 
 #editor_buttons {
   position: fixed;
-  left: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   bottom: 0;
   width: 100%;
+  max-width: 1960px;
   padding: 10px;
   background: white;
   color: white;
@@ -51,6 +59,7 @@
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
+
 }
 
 #compile_button, #publish_button {
@@ -90,6 +99,12 @@
   height: 40px;
   overflow: hidden;
   outline:none;
+  padding-bottom: 10px;
+}
+
+#export_ico {
+  padding-top: 5px;
+  margin-bottom: -5px;
 }
 
 #left_side_buttons, #right_side_buttons {
@@ -240,3 +255,4 @@ table {
   border: 0 none;
   padding: -5px;
 }
+
