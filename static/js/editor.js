@@ -65,18 +65,15 @@ function add_author_name(current_section) {
 function add_article_section_and_author_name() {
     let body = document.getElementById("editor_window");
     let table = document.createElement("table");
-    let  row = document.createElement("tr");
+    let row = document.createElement("tr");
 
-    for (let i = 0; i < 2; ++i) {
-      let cell = document.createElement("td");
-      if (i === 0) {
-          cell = add_article_section(cell);
-      }
-      else if (i === 1) {
-          cell = add_author_name(cell);
-      }
-      row.appendChild(cell);
-    }
+    let article_section_cell = document.createElement("td");
+    article_section_cell = add_article_section(article_section_cell);
+    row.appendChild(article_section_cell);
+
+    let author_name_cell = document.createElement("td");
+    author_name_cell = add_author_name(author_name_cell);
+    row.appendChild(author_name_cell);
 
     table.appendChild(row);
     body.appendChild(table);
@@ -87,12 +84,31 @@ let num_section = 1;
 function add_section() {
     let current_section = document.getElementById("editor_window");
 
-    let new_section = document.createElement("div");
+    let table = document.createElement("table");
+    let row = document.createElement("tr");
+
+    cell = document.createElement("td");
+    cell.classList.add('section_name_td');
+    new_section = document.createElement("div");
     new_section.classList.add('section_name');
     let section_name = document.createTextNode("Markdown");
     new_section.appendChild(section_name);
+    cell.appendChild(new_section);
+    row.appendChild(cell);
 
-    current_section.appendChild(new_section);
+    cell = document.createElement("td");
+    new_section = document.createElement("div");
+    new_section.classList.add('div_delete_section_button');
+    let button = document.createElement("button");
+    button.onclick = delete_section;
+    button.innerHTML = '<img src="/sr/svg/icon_delete.svg" />';
+    button.classList.add('delete_section_button');
+    new_section.appendChild(button);
+    cell.appendChild(new_section);
+    row.appendChild(cell);
+
+    table.appendChild(row);
+    current_section.appendChild(table);
 
     let form = document.createElement('form')
     form.method = 'post'
@@ -137,5 +153,7 @@ function compile() {
 }
 
 function delete_section() {
-    console.log(num_section);
+    let current_section = document.getElementById("editor_window");
+    current_section.removeChild(current_section.lastElementChild);
+    current_section.removeChild(current_section.lastElementChild);
 }

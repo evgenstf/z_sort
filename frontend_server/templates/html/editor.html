@@ -2,13 +2,13 @@
 <link rel="stylesheet" href="{% static 'css/editor.css' %}">
 
 <div id="editor">
-<div id="editor_window"></div>
+    <div id="editor_window"></div>
 
-<div id="view_window">
-    <div id="view_window_background">
-        &editor_article&
+    <div id="view_window">
+        <div id="view_window_background">
+            &editor_article&
+        </div>
     </div>
-</div>
 </div>
 
 
@@ -43,7 +43,9 @@
            </td>
            <td id="right_side_buttons">
                <button onclick="compile()" id="publish_button"> Publish </button>
-               <button onclick="compile()" id="export_button"> Export </button>
+               <button onclick="compile()" id="export_button">
+                   <img class="export_ico" src="/sr/svg/icon_export.svg">
+               </button>
            </td>
       </tr>
     </table>
