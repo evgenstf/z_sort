@@ -257,3 +257,8 @@ width:90%;
 table {
 width:100%;
 }
+
+textarea{
+    border-radius: 0;
+    -webkit-border-radius: 0;
+}
