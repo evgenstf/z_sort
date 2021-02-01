@@ -183,20 +183,16 @@ border:0 none;
 height:20px;
 outline:none;
 overflow:hidden;
-padding:-5px;
 width:20px;
+padding: 0;
+margin: 0;
 }
 
-.div_delete_section_button {
-height:20px;
-margin-top:14px;
+.delete_section_button:hover, .move_button:hover{
+background: #d1dadb;
 }
 
-.div_delete_section_button {
-width:100%;
-}
-
-.div_move_button {
+.div_move_button, .div_delete_section_button {
 height:20px;
 margin-top:15px;
 margin-right:-5px;
@@ -225,18 +221,9 @@ resize:vertical;
 width:calc(100% - 14px);
 }
 
-.move_button {
-    padding: 0;
-    margin: 0;
-}
-.move_button:hover {
-background: #d1dadb;
-}
-
 .move_up_button_td {
 padding-left: 20px;
 }
-
 
 .section_name {
 background:#E5F0F1;
@@ -247,7 +234,7 @@ font-weight:400;
 margin-left:-41px;
 margin-top:15px;
 margin-right:90px;
-padding:5px 22px 5px 50px;
+padding:5px 17px 5px 50px;
 text-align:left;
 width:100%;
 }
