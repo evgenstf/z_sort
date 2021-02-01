@@ -61,7 +61,7 @@ margin-left:-3%;
 width:150px;
 }
 
-#compile_button,#publish_button {
+#compile_button,#publish_button,#export_button {
 font-family:Montserrat;
 font-size:16px;
 font-style:normal;
@@ -106,15 +106,6 @@ transform:translate(-50%,0);
 width:100%;
 }
 
-#editor_buttons_background {
-background:white;
-bottom:0;
-left:0;
-padding:22px;
-position:fixed;
-width:100%;
-}
-
 #editor_window {
 color:black;
 margin-top:55px;
@@ -134,16 +125,12 @@ width:45%;
 background:white;
 border:1px solid #4676D4;
 color:#4676D4;
-height:41px;
-outline:none;
-overflow:hidden;
-padding-bottom:10px;
-width:40px;
+width:150px;
 }
 
 #export_ico {
-margin-bottom:-6px;
-padding-top:5px;
+/*margin-top:9px;*/
+/*padding-top:5px;*/
 }
 
 #left_side_buttons,#right_side_buttons {
@@ -190,7 +177,7 @@ padding:10px;
 margin-bottom:-4px;
 }
 
-.delete_section_button {
+.delete_section_button, .move_button {
 background:none;
 border:0 none;
 height:20px;
@@ -202,14 +189,17 @@ width:20px;
 
 .div_delete_section_button {
 height:20px;
-margin-bottom:2px;
-margin-top:13.5px;
-padding-right:7px;
-padding-top:3px;
+margin-top:14px;
 }
 
 .div_delete_section_button {
 width:100%;
+}
+
+.div_move_button {
+height:20px;
+margin-top:15px;
+margin-right:-5px;
 }
 
 .editor_form {
@@ -235,17 +225,29 @@ resize:vertical;
 width:calc(100% - 14px);
 }
 
+.move_button {
+    padding: 0;
+    margin: 0;
+}
+.move_button:hover {
+background: #d1dadb;
+}
+
+.move_up_button_td {
+padding-left: 20px;
+}
+
+
 .section_name {
 background:#E5F0F1;
 color: #474747;
 font-family:Roboto Mono;
 font-size:12px;
 font-weight:400;
-margin-bottom:-3px;
-margin-left:-3px;
-margin-top:12px;
-padding:5px 0 5px 20px;
-padding-right:21px;
+margin-left:-41px;
+margin-top:15px;
+margin-right:90px;
+padding:5px 22px 5px 50px;
 text-align:left;
 width:100%;
 }
