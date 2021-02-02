@@ -1,7 +1,7 @@
 #add_section_buttons {
 display:inline-block;
 text-align:center;
-width:50%;
+width:46%;
 }
 
 #add_section_tittle {
@@ -98,6 +98,7 @@ font-style:normal;
 font-weight:bold;
 left:50%;
 max-width:1960px;
+height: 50px;
 padding:10px;
 position:fixed;
 text-align:center;
