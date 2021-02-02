@@ -7,4 +7,4 @@ class EditorHtmlFactory:
         editor_template_html = open('templates/html/editor.html', 'r').read()
         editor_template_html = editor_template_html.replace('&editor_article&', editor_article_html)
         z_sort_handler.handle_editor_request
-        return BaseHtmlFactory.create_from_content(editor_template_html, editor_js, editor_css)
+        return BaseEditorHtmlFactory.create_from_content(editor_template_html, editor_js, editor_css)
