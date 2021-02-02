@@ -196,7 +196,7 @@ function export_article() {
     let a = document.createElement("a");
     let file = new Blob([json_sections], {type: 'text/plain'});
     a.href = URL.createObjectURL(file);
-    a.download = 'article.json';
+    a.download = 'sections.json';
     a.click();
 }
 
