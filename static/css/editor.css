@@ -2,7 +2,6 @@
 display:inline-block;
 text-align:center;
 width:50%;
-margin-top: 15px;
 }
 
 #add_section_tittle {
@@ -91,15 +90,18 @@ width:95%;
 
 #editor_buttons {
 background:white;
+bottom:0;
 color:white;
 font-family:Montserrat;
 font-size:16px;
 font-style:normal;
 font-weight:bold;
+left:50%;
 max-width:1960px;
 padding:10px;
-margin-top: 20px;
+position:fixed;
 text-align:center;
+transform:translate(-50%,0);
 width:100%;
 }
 
@@ -162,6 +164,7 @@ border:0 none;
 border-radius:50px;
 color:#4676D4;
 font-size:14px;
+margin-bottom:4%;
 margin-left:10px;
 margin-right:10px;
 outline:none;
