@@ -20,6 +20,8 @@ class ArticleHtmlFactory:
     @staticmethod
     def compile_section(sections, absolute_path, relative_path, static_storage_absolute_path):
         section_html = ''
+        if type(static_storage_absolute_path) == list:
+            static_storage_absolute_path = '/'.join(static_storage_absolute_path)
         for section in sections:
             if section['type'] == 'markdown' or section['type'] == 'tldr':
                 section_html += MarkdownSectionFactory.build_html(section)
@@ -27,7 +29,8 @@ class ArticleHtmlFactory:
                 section_html += GraphSectionFactory.build_html(
                         section,
                         '/'.join(relative_path),
-                        static_storage_absolute_path)
+                        static_storage_absolute_path
+                )
             elif section['type'] == 'chart':
                 section_html += ChartSectionFactory.build_html(
                         section,

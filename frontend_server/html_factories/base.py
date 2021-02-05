@@ -11,6 +11,7 @@ class BaseHtmlFactory:
         html_template = html_template.replace('&base_js&', base_js)
         html_template = html_template.replace('&base_css&', base_css)
 
+
         html_template = html_template.replace('&content&', content)
         html_template = html_template.replace('&content_js&', content_js)
         html_template = html_template.replace('&content_css&', content_css)

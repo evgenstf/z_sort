@@ -55,7 +55,11 @@ def handle_category_request(path):
 def update_article_from_editor(article_to_update):
     sock = socket.socket()
     sock.connect(('localhost', 9996))
-    sock.send(json.dumps({"type": "update_sections", "new_sections": article_to_update, "article_id": "editor_result"}).encode())
+    sock.send(json.dumps({"type": "update_meta", "new_meta": article_to_update[0], "article_id": "editor_result"}).encode())
+    sock.close()
+    sock = socket.socket()
+    sock.connect(('localhost', 9996))
+    sock.send(json.dumps({"type": "update_sections", "new_sections": article_to_update[1:], "article_id": "editor_result"}).encode())
     sock.close()
     sock = socket.socket()
     sock.connect(('localhost', 9996))
@@ -74,7 +78,6 @@ def handle_editor_request(request):
         body_unicode = request.body.decode('utf-8')
         received_json = json.loads(body_unicode)
         result = update_article_from_editor(received_json)
-
 
         template = Template('{% load static %}\n' + json.loads(result)['result'])
         rendered_page = template.render(Context({}))

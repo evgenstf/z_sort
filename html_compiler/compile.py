@@ -43,7 +43,6 @@ def compile_item(absolute_path, relative_path, article_static_path):
     print(' ', '/'.join(absolute_path))
 
     meta = get_meta_by_path(absolute_path)
-
     if meta['type'] == 'article':
         return compile_article(absolute_path, relative_path, article_static_path)
     elif 'items' in meta:
