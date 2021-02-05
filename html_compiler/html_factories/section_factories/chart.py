@@ -99,6 +99,9 @@ class ChartSectionFactory:
 
     @staticmethod
     def build_html(section, article_relative_path, static_resources_path):
+        import json
+        if type(section['content']) == str:
+            section['content'] = json.loads(''.join(str(section['content']).split()))
         article_static_resources_path = static_resources_path + '/articles/' + article_relative_path
         if not os.path.exists(article_static_resources_path):
             os.makedirs(article_static_resources_path)

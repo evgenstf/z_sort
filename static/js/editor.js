@@ -14,6 +14,7 @@ function add_article_tittle() {
     let text_area = document.createElement('textarea');
     text_area.name = 'text_area';
     text_area.id = 'article_tittle_text_area';
+    text_area.placeholder = 'Tittle';
 
     form.appendChild(text_area);
     current_section.appendChild(form);
@@ -35,6 +36,7 @@ function add_article_section(current_section) {
     let text_area = document.createElement('textarea');
     text_area.name = 'text_area';
     text_area.id = 'article_section_text_area';
+    text_area.placeholder = 'Section';
 
     form.appendChild(text_area);
     current_section.appendChild(form);
@@ -56,6 +58,7 @@ function add_author_name(current_section) {
     let text_area = document.createElement('textarea');
     text_area.name = 'text_area';
     text_area.id = 'author_name_text_area';
+    text_area.placeholder = 'Author name';
 
     form.appendChild(text_area);
     current_section.appendChild(form);
@@ -80,8 +83,66 @@ function add_article_section_and_author_name() {
 }
 add_article_section_and_author_name();
 
+function add_sections_buttons() {
+    let body = document.getElementById("editor_window");
+    let section_buttons = document.createElement("div");
+    section_buttons.id = 'add_section_buttons';
+
+    let section_buttons_tittle = document.createElement("p");
+    section_buttons_tittle.id = 'add_section_tittle';
+    let section_name = document.createTextNode('add section');
+    section_buttons_tittle.appendChild(section_name);
+    section_buttons.appendChild(section_buttons_tittle);
+
+    section_buttons.appendChild(document.createElement("br"));
+
+
+    let button = document.createElement("button");
+    button.classList.add('add_section_button');
+    button.onclick = function(){
+        add_section('Markdown', 'markdown');
+    };
+    button.innerHTML = '<img src="/sr/svg/icon_markdown.svg" />';
+    section_name = document.createTextNode('markdown');
+    button.appendChild(section_name);
+    section_buttons.appendChild(button);
+
+    button = document.createElement("button");
+    button.classList.add('add_section_button');
+    button.onclick = function(){
+        add_section('Graph', 'graph');
+    };
+    button.innerHTML = '<img src="/sr/svg/icon_graph.svg" />';
+    section_name = document.createTextNode('graph');
+    button.appendChild(section_name);
+    section_buttons.appendChild(button);
+
+    button = document.createElement("button");
+    button.classList.add('add_section_button');
+    button.onclick = function(){
+        add_section('Chart', 'chart');
+    };
+    button.innerHTML = '<img src="/sr/svg/icon_chart.svg" />';
+    section_name = document.createTextNode('chart');
+    button.appendChild(section_name);
+    section_buttons.appendChild(button);
+
+    button = document.createElement("button");
+    button.classList.add('add_section_button');
+    button.onclick = function(){
+        add_section('Steps', 'steps');
+    };
+    button.innerHTML = '<img src="/sr/svg/icon_steps.svg" />';
+    section_name = document.createTextNode('steps');
+    button.appendChild(section_name);
+    section_buttons.appendChild(button);
+
+    body.appendChild(section_buttons);
+}
+add_sections_buttons();
+
 count_sections = 1;
-function add_section() {
+function add_section(section_tittle, section_class) {
     let current_section = document.getElementById("editor_window");
 
     let table = document.createElement("table");
@@ -123,7 +184,7 @@ function add_section() {
     cell.classList.add('section_name_td');
     new_section = document.createElement("div");
     new_section.classList.add('section_name');
-    let section_name = document.createTextNode("Markdown");
+    let section_name = document.createTextNode(section_tittle);
     new_section.appendChild(section_name);
     cell.appendChild(new_section);
     row.appendChild(cell);
@@ -150,26 +211,68 @@ function add_section() {
     form.method = 'post'
     form.id = 'editor_form_' + String(count_sections);
     form.classList.add('editor_form');
+    form.name = section_class;
 
     let text_area = document.createElement('textarea');
     text_area.name = 'text_area';
     text_area.id = 'text_area_' + String(count_sections);
     text_area.classList.add('editor_text_area');
+    text_area.placeholder = section_tittle;
+
+    text_area.addEventListener('focus', autoResize, false);
+    text_area.addEventListener('input', autoResize, false);
+
+    function autoResize() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight - 20 + 'px';
+    }
+
+    if (section_class == 'graph') {
+        let text = "{\n            \"type\": \"dot\",\n            \"node_color\": \"#D3D3D3\",\n            \"edge_color\": \"#909090\",\n            \"node_count\": 7,\n            \"node_attributes\": {\n                    \"0\": {\"label\":\"12\", \"color\":\"yellow\"}\n            },\n            \"edges\": [\n                    {\"from\": 0, \"to\":1},\n                    {\"from\": 0, \"to\":2},\n                    {\"from\": 1, \"to\":3},\n                    {\"from\": 1, \"to\":4},\n                    {\"from\": 2, \"to\":5},\n                    {\"from\": 2, \"to\":6}\n            ]\n}";
+        section_name = document.createTextNode(text);
+        text_area.appendChild(section_name);
+    }
+    else if (section_class == 'chart') {
+        let text = "{\n            \"type\": \"line\",\n            \"color\": \"#1e4a76\",\n            \"line_smooth\": true,\n            \"show_grid\": true,\n            \"x-axis\": [\n                    0,\n                    1,\n                    2,\n                    3,\n                    4,\n                    5\n            ],\n            \"y-axis\": [\n                    4,\n                    5,\n                    0,\n                    3,\n                    0,\n                    1\n            ]\n}";
+        section_name = document.createTextNode(text);
+        text_area.appendChild(section_name);
+    }
+    else if (section_class == 'steps') {
+        let text = "[\n      [\n        {\n          \"type\":\"markdown\",\n          \"content\":\"#Ициализация\"\n        },\n        {\n          \"type\":\"markdown\",\n          \"content\":\"Начать стоит с того, что добавить в дерево первый элемент, он будет являться корнем и уже образует упорядоченную кучу сам по себе.\"\n        },\n        {\n          \"type\": \"graph\",\n          \"content\": {\n            \"type\": \"dot\",\n            \"node_color\": \"#D3D3D3\",\n            \"edge_color\": \"#909090\",\n            \"node_count\": 7,\n            \"node_attributes\": {\n              \"0\": {\"label\":\"12\", \"color\":\"yellow\"}\n            },\n            \"edges\": [\n              {\"from\": 0, \"to\":1},\n              {\"from\": 0, \"to\":2},\n              {\"from\": 1, \"to\":3},\n              {\"from\": 1, \"to\":4},\n              {\"from\": 2, \"to\":5},\n              {\"from\": 2, \"to\":6}\n            ]\n          }\n        }\n      ],\n      [\n        {\n          \"type\":\"markdown\",\n          \"content\":\"#Добавление элемента\"\n        },\n        {\n          \"type\":\"markdown\",\n          \"content\":\"Далее добавляем следующий элемент в первый незянятый слот в порядке BFS обхода.\"\n        },\n        {\n          \"type\": \"graph\",\n          \"content\": {\n            \"type\": \"dot\",\n            \"node_color\": \"#D3D3D3\",\n            \"edge_color\": \"#909090\",\n            \"node_count\": 7,\n            \"node_attributes\": {\n              \"0\": {\"label\":\"12\", \"color\":\"yellow\"},\n              \"1\": {\"label\":\"1\", \"color\":\"green\"}\n            },\n            \"edges\": [\n              {\"from\": 0, \"to\":1},\n              {\"from\": 0, \"to\":2},\n              {\"from\": 1, \"to\":3},\n              {\"from\": 1, \"to\":4},\n              {\"from\": 2, \"to\":5},\n              {\"from\": 2, \"to\":6}\n            ]\n          }\n        }\n]\n      \n      \n]";
+        section_name = document.createTextNode(text);
+        text_area.appendChild(section_name);
+    }
 
     form.appendChild(text_area);
     current_section.appendChild(form);
 
+    let sections_buttons = document.getElementById('add_section_buttons');
+    sections_buttons.remove();
+    add_sections_buttons();
+
     count_sections++;
 }
-add_section();
+add_section('Markdown', 'markdown');
+
+function get_today_date() {
+    return (new Date()).toString().split(' ').splice(1,3).join(' ');
+}
 
 function get_sections_from_editor() {
-    let sections = []
-    for (let index = 1; index < count_sections; ++index) {
-        let text = document.getElementById('text_area_' + String(index)).value;
+    let sections = [];
+    let section = {
+        "date": get_today_date(),
+        "header": ["<h1>" + document.getElementById('article_tittle_text_area').value + "</h1>"],
+        "authors":[document.getElementById('author_name_text_area').value],
+    }
+    sections.push(section)
+    let sections_to_export = get_editor_sections();
+    for (let index = 1; index < sections_to_export.length; index += 2) {
+        let form = sections_to_export[index];
+        let text = form.childNodes[0].value;
         let section = {
-            "type": "markdown",
-            "content": text
+            "type": form.name,
+            "content": text,
         }
         sections.push(section)
     }
@@ -184,7 +287,7 @@ function compile() {
         data: JSON.stringify(sections),
         dataType: 'json',
         success: function (result) {
-          article_preview = document.getElementById("view_window_background");
+          let article_preview = document.getElementById("view_window_background");
           article_preview.innerHTML = result['result'];
         }
     });
@@ -200,25 +303,25 @@ function export_article() {
     a.click();
 }
 
+function reverse_string(string) {
+    let split_string = string.split("");
+    let reverse_array = split_string.reverse();
+    let reverse_string = reverse_array.join("");
+    return reverse_string;
+}
+
+function get_id_num_from_id(id) {
+    let reverses_id = reverse_string(id);
+    let reversed_id_num = String(parseInt(reverses_id));
+    let id_num = reverse_string(reversed_id_num);
+    return parseInt(id_num);
+}
+
 function delete_section(num_section) {
     let editor_form = document.getElementById("editor_form_" + num_section);
     editor_form.remove();
     let editor_form_header = document.getElementById("editor_form_header_" + num_section);
     editor_form_header.remove();
-    update_sections_id_after_delete(num_section);
-    --count_sections;
-}
-
-function update_sections_id_after_delete(num_section) {
-    let editor_sections_list = get_editor_sections();
-    for (let i = num_section + 1; i <= editor_sections_list.length; ++i) {
-        let button_up = document.getElementById('move_up_button_' + String(num_section));
-        let button_down = document.getElementById('move_down_button_' + String(num_section));
-        let text_area = document.getElementById('text_area_' + String(num_section));
-        button_up.id = 'move_up_button_' + String(num_section - 1);
-        button_down.id = 'move_down_button_' + String(num_section - 1);
-        text_area.id = 'text_area_' + String(num_section - 1);
-    }
 }
 
 function get_editor_sections() {
@@ -239,12 +342,22 @@ function update_editor_section(new_editor_section_list) {
     }
 }
 
+function get_section_pos_by_num(section_num, editor_sections) {
+    for (let i = 0; i < editor_sections.length; i += 2) {
+        let id_num = get_id_num_from_id(editor_sections[i].id)
+        if (id_num === parseInt(section_num)) {
+            return (i + 2) / 2;
+        }
+    }
+}
+
 function move_up_section(section_num) {
-    let move_up_section_num = parseInt(section_num);
+    let editor_sections_list = get_editor_sections();
+    let move_up_section_num = get_section_pos_by_num(section_num, editor_sections_list);
+
     if (move_up_section_num === 1) {
         return false;
     }
-    let editor_sections_list = get_editor_sections();
     let new_editor_section_list = [];
     for (let i = 0; i < 2 * (move_up_section_num - 2); ++i) {
         new_editor_section_list.push(editor_sections_list[i]);
@@ -257,12 +370,12 @@ function move_up_section(section_num) {
         new_editor_section_list.push(editor_sections_list[i]);
     }
     update_editor_section(new_editor_section_list);
-    update_editor_section_id_after_move_up(section_num);
 }
 
 function move_down_section(section_num) {
-    let move_down_section_num = parseInt(section_num);
     let editor_sections_list = get_editor_sections();
+    let move_down_section_num = get_section_pos_by_num(section_num, editor_sections_list);
+
     if (move_down_section_num >= editor_sections_list.length / 2) {
         return;
     }
@@ -278,43 +391,4 @@ function move_down_section(section_num) {
         new_editor_section_list.push(editor_sections_list[i]);
     }
     update_editor_section(new_editor_section_list);
-    update_editor_section_id_after_move_down(section_num);
-}
-
-function update_editor_section_id_after_move_down(section_num) {
-    let next_button_up = document.getElementById('move_up_button_' + String(parseInt(section_num) + 1));
-    let next_button_down = document.getElementById('move_down_button_' + String(parseInt(section_num) + 1));
-    let next_text_area = document.getElementById('text_area_' + String(parseInt(section_num) + 1));
-    let button_up = document.getElementById('move_up_button_' + section_num);
-    let button_down = document.getElementById('move_down_button_' + section_num);
-    let text_area = document.getElementById('text_area_' + section_num);
-    next_button_up.num = section_num;
-    next_button_up.id = 'move_up_button_' + next_button_up.num;
-    next_button_down.num = section_num;
-    next_button_down.id = 'move_down_button_' + next_button_down.num;
-    next_text_area.id = 'text_area_' + next_button_down.num;
-    button_up.num = String(parseInt(section_num) + 1);
-    button_up.id = 'move_up_button_' + button_up.num;
-    button_down.num = String(parseInt(section_num) + 1);
-    button_down.id = 'move_down_button_' + button_up.num;
-    text_area.id = 'text_area_' + button_up.num;
-}
-
-function update_editor_section_id_after_move_up(section_num) {
-    let next_button_up = document.getElementById('move_up_button_' + String(parseInt(section_num) - 1));
-    let next_button_down = document.getElementById('move_down_button_' + String(parseInt(section_num) - 1));
-    let next_text_area = document.getElementById('text_area_' + String(parseInt(section_num) - 1));
-    let button_up = document.getElementById('move_up_button_' + section_num);
-    let button_down = document.getElementById('move_down_button_' + section_num);
-    let text_area = document.getElementById('text_area_' + section_num);
-    next_button_up.num = section_num;
-    next_button_up.id = 'move_up_button_' + next_button_up.num;
-    next_button_down.num = section_num;
-    next_button_down.id = 'move_down_button_' + next_button_down.num;
-    next_text_area.id = 'text_area_' + next_button_down.num;
-    button_down.num = String(parseInt(section_num) - 1);
-    button_down.id = 'move_down_button_' + button_down.num;
-    button_up.num = String(parseInt(section_num) - 1);
-    button_up.id = 'move_up_button_' + button_down.num;
-    text_area.id = 'text_area_' + button_down.num;
 }

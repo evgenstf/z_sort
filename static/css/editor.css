@@ -1,7 +1,6 @@
 #add_section_buttons {
-display:inline-block;
-text-align:center;
-width:46%;
+color: black;
+margin-top: 30px;
 }
 
 #add_section_tittle {
@@ -173,8 +172,22 @@ overflow:hidden;
 padding:10px;
 }
 
-.add_section_ico {
+.add_section_button img {
 margin-bottom:-4px;
+margin-right:5px;
+}
+
+.article {
+width: auto;
+}
+
+.article_body h1 {
+margin-top: 30px;
+margin-bottom: 10px;
+}
+
+.article_subheader {
+display: flex;
 }
 
 .delete_section_button, .move_button {
@@ -212,12 +225,12 @@ border:0 none;
 color:black;
 font-family:Montserrat;
 font-size:18px;
-height:100%;
+height:auto;
 min-height:300px;
 outline:none;
 overflow:hidden;
 padding:9px;
-resize:vertical;
+resize:none;
 width:calc(100% - 14px);
 }
 

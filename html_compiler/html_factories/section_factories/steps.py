@@ -69,7 +69,9 @@ class StepSectionFactory:
     def build_html(subsections,
             absolute_path, relative_path, static_storage_absolute_path, compile_section):
         step_body_html = ''
-
+        if type(subsections) == str:
+            import json
+            subsections = json.loads(' '.join(str(subsections).split(' ')))
         step_body_html += build_first_step(subsections[0],
                 absolute_path, relative_path, static_storage_absolute_path, compile_section)
         if subsections[1:-1]:
