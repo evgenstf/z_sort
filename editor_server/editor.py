@@ -25,7 +25,6 @@ class Editor:
         article_absolute_path = self.article_storage.path.split('/') + ['editor', article_id]
         article_relative_path = ['in_editing', article_id]
         static_absolute_path = self.article_storage.path.split('/')  + ['static']
-
         try:
             compile_item(article_absolute_path, article_relative_path, static_absolute_path)
             return True
@@ -64,7 +63,7 @@ def main():
     args = parser.parse_args()
 
     storage = FileArticleStorage(args.storage_path)
-    editor = Editor(storage);
+    editor = Editor(storage)
 
     class TCPHandler(socketserver.BaseRequestHandler):
         def handle(self):

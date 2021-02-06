@@ -294,13 +294,17 @@ function compile() {
 }
 
 function export_article() {
-    let sections = get_sections_from_editor();
-    let json_sections = JSON.stringify(sections);
-    let a = document.createElement("a");
-    let file = new Blob([json_sections], {type: 'text/plain'});
-    a.href = URL.createObjectURL(file);
-    a.download = 'sections.json';
-    a.click();
+    const element = document.getElementById("view_window");
+    html2pdf()
+      .from(element)
+      .save();
+    // let sections = get_sections_from_editor();
+    // let json_sections = JSON.stringify(sections);
+    // let a = document.createElement("a");
+    // let file = new Blob([json_sections], {type: 'text/plain'});
+    // a.href = URL.createObjectURL(file);
+    // a.download = 'sections.json';
+    // a.click();
 }
 
 function reverse_string(string) {
