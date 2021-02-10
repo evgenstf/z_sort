@@ -54,6 +54,11 @@ get_all_urls()
 for url in urls:
     urlpatterns.append(path(url, z_sort_handler.handle_url))
 
+urlpatterns.append(path('register/', z_sort_handler.register_page, name='register'))
+urlpatterns.append(path('login/', z_sort_handler.login_page, name='login'))
+urlpatterns.append(path('logout/', z_sort_handler.logout_user, name='logout'))
+urlpatterns.append(path('editor/', z_sort_handler.handle_editor_request, name='editor'))
+
 print("urls:", urls)
 
 
