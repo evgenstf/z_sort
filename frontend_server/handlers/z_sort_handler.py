@@ -15,6 +15,12 @@ from html_factories.category import CategoryHtmlFactory
 from html_factories.main import MainHtmlFactory
 from html_factories.editor import EditorHtmlFactory
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+from .forms import CreateUserForm
+
 import socket
 
 def get_article_by_path(path):
@@ -73,6 +79,7 @@ def update_article_from_editor(article_to_update):
     return result
 
 @csrf_exempt
+@login_required(login_url='login')
 def handle_editor_request(request):
     if (request.method == "POST"):
         body_unicode = request.body.decode('utf-8')
@@ -109,3 +116,49 @@ def handle_url(request):
         return handle_category_request(path)
     elif meta['type'] == 'main':
         return handle_main_request(meta)
+
+@csrf_exempt
+def register_page(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        form = CreateUserForm()
+        if request.method == 'POST':
+            form = CreateUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                user = form.cleaned_data.get('username')
+                messages.success(request,user + ', welcome to Z-SORT!')
+                return redirect('login')
+
+        context = {'form': form}
+        html_template = open('templates/html/register.html', 'r').read()
+        template = Template(html_template)
+        return HttpResponse(template.render(Context(context)))
+
+@csrf_exempt
+def login_page(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+    else:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('editor')
+            else:
+                messages.info(request, 'Incorrect username or password')
+
+        context = {}
+        html_template = open('templates/html/login.html', 'r').read()
+        template = Template(html_template)
+        return HttpResponse(template.render(Context(context)))
+
+@csrf_exempt
+def logout_user(request):
+    logout(request)
+    return redirect('login')
