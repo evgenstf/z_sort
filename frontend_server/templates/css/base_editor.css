@@ -22,7 +22,9 @@ body {
   bottom: 0;
 }
 
-#editor_button input, #logout_button input {
+#logout_button input {
+  background: rgba(0, 0, 0, 0.03);
+  width: 70px;
   height: 30px;
   font-family: Montserrat;
   font-style: normal;
@@ -31,48 +33,6 @@ body {
   outline:none;
   overflow:hidden;
   border:0 none;
-  -webkit-border-radius: 0;
-}
-
-#editor_button input {
-  width: 90px;
-  background: #3CCF7F;
-  color: #ffffff;
-}
-
-#logout_button input {
-  width: 70px;
-  background: rgba(0, 0, 0, 0.03);
-  color: #474747;
-}
-
-#login_button input {
-  background: rgba(255, 255, 255, 0.82);
-  width: 70px;
-  height: 30px;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  outline:none;
-  overflow:hidden;
-  border: 1px solid #4676D4;
-  color: #4676D4;
-  -webkit-border-radius: 0;
-}
-
-#register_button input {
-  background: #4676D4;
-  width: 90px;
-  height: 30px;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  outline:none;
-  overflow:hidden;
-  border: 1px solid #4676D4;
-  color: #ffffff;
   -webkit-border-radius: 0;
 }
 

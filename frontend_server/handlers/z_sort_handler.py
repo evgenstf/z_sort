@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
-from django.template import Template, Context
+from django.template import Template, Context, RequestContext
 
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -14,6 +14,8 @@ from html_factories.base import BaseHtmlFactory
 from html_factories.category import CategoryHtmlFactory
 from html_factories.main import MainHtmlFactory
 from html_factories.editor import EditorHtmlFactory
+from html_factories.login import LoginHtmlFactory
+from html_factories.register import RegisterHtmlFactory
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -97,8 +99,9 @@ def handle_editor_request(request):
     js = ''
     css = ''
     template = Template(EditorHtmlFactory.create(content_html, js, css))
+    context = RequestContext(request)
 
-    return HttpResponse(template.render(Context({})))
+    return HttpResponse(template.render(Context(context)))
 
 @csrf_exempt
 def handle_url(request):
@@ -120,7 +123,7 @@ def handle_url(request):
 @csrf_exempt
 def register_page(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('editor')
     else:
         form = CreateUserForm()
         if request.method == 'POST':
@@ -132,14 +135,13 @@ def register_page(request):
                 return redirect('login')
 
         context = {'form': form}
-        html_template = open('templates/html/register.html', 'r').read()
-        template = Template(html_template)
+        template = Template(RegisterHtmlFactory.create())
         return HttpResponse(template.render(Context(context)))
 
 @csrf_exempt
 def login_page(request):
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('editor')
     else:
         if request.method == 'POST':
             username = request.POST.get('username')
@@ -154,8 +156,7 @@ def login_page(request):
                 messages.info(request, 'Incorrect username or password')
 
         context = {}
-        html_template = open('templates/html/login.html', 'r').read()
-        template = Template(html_template)
+        template = Template(LoginHtmlFactory.create())
         return HttpResponse(template.render(Context(context)))
 
 @csrf_exempt
