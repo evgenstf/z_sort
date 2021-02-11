@@ -36,13 +36,13 @@ body {
   -webkit-border-radius: 0;
 }
 
-#left_side_buttons {
+#left_side_buttons_header {
   width: 100%;
   padding-left: 50px;
   text-align: left;
 }
 
-#right_side_buttons {
+#right_side_buttons_header {
   width: 100%;
   padding-right: 50px;
   text-align: right;
