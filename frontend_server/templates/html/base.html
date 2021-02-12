@@ -36,9 +36,11 @@
           </a>
         </td>
         <td id="right_side_buttons">
+          {% if request.user.is_authenticated %}
           <div style="display: table-cell;">
             <span style="font-size: 12px">{{request.user}}</span>
           </div>
+          {% endif %}
           <div style="display: table-cell;" class="header_button">
             {% if request.user.is_authenticated %}
               <form action="{% url 'editor' %}" id="editor_button">

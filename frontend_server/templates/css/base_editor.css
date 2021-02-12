@@ -6,6 +6,12 @@
   font-family: Montserrat;
 }
 
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 body {
   background: white;
   margin: 0;
