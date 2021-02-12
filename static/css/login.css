@@ -1,5 +1,5 @@
 #form_wrapper {
-    width: 320px;
+    width: 400px;
     margin: 0 auto;
 }
 
@@ -34,7 +34,7 @@
 .form_text {
     font-size: 17px;
     line-height: 17px;
-    padding: 10px 15px;
+    padding: 10px 30px;
     text-align: left;
     color: #474747;
 }
