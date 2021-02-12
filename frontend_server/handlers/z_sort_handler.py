@@ -43,22 +43,25 @@ def get_meta_by_path(path):
     return json.loads(response)
 
 
-def handle_article_request(path):
+def handle_article_request(path, request):
     article = get_article_by_path(path)
     content_html = open(article['content_html'], 'r').read()
     js = open(article['js'], 'r').read()
     css = open(article['css'], 'r').read()
 
     template = Template(BaseHtmlFactory.create_from_content(content_html, js, css))
-    return HttpResponse(template.render(Context({})))
+    context = Context({'request': request})
+    return HttpResponse(template.render(context))
 
-def handle_main_request(meta):
+def handle_main_request(meta, request):
     template = Template(MainHtmlFactory.create_from_meta(meta))
-    return HttpResponse(template.render(Context({})))
+    context = Context({'request': request})
+    return HttpResponse(template.render(context))
 
-def handle_category_request(path):
+def handle_category_request(path, request):
     template = Template(CategoryHtmlFactory.create_from_meta(get_meta_by_path(path), path))
-    return HttpResponse(template.render(Context({})))
+    context = Context({'request': request})
+    return HttpResponse(template.render(context))
 
 def update_article_from_editor(article_to_update):
     sock = socket.socket()
@@ -99,9 +102,9 @@ def handle_editor_request(request):
     js = ''
     css = ''
     template = Template(EditorHtmlFactory.create(content_html, js, css))
-    context = RequestContext(request)
 
-    return HttpResponse(template.render(Context(context)))
+    context = Context({'request': request})
+    return HttpResponse(template.render(context))
 
 @csrf_exempt
 def handle_url(request):
@@ -114,11 +117,11 @@ def handle_url(request):
         return handle_editor_request(request)
 
     if meta['type'] == 'article':
-        return handle_article_request(path)
+        return handle_article_request(path, request)
     elif meta['type'] == 'category':
-        return handle_category_request(path)
+        return handle_category_request(path, request)
     elif meta['type'] == 'main':
-        return handle_main_request(meta)
+        return handle_main_request(meta, request)
 
 @csrf_exempt
 def register_page(request):
@@ -155,9 +158,9 @@ def login_page(request):
             else:
                 messages.info(request, 'Incorrect username or password')
 
-        context = {}
+        context = Context({'request': request})
         template = Template(LoginHtmlFactory.create())
-        return HttpResponse(template.render(Context(context)))
+        return HttpResponse(template.render(context))
 
 @csrf_exempt
 def logout_user(request):
