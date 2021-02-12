@@ -9,48 +9,56 @@
 </head>
 <body>
 <div id="login_form_body">
+	<table style="margin: 0 auto;">
+		<tr>
+			<td>
+				<div id="login_info">
+					<h1> <p> Hi! </p> </h1>
+					<p style="font-size: 18px;"> We’re happy to see you back! </p>
+					<div id="login_image">
+						<img src="/sr/svg/pic_login.svg">
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="form_wrapper">
+					<form method="POST" action="" id="login_form">
+						{% csrf_token %}
 
-	<div id="login_info">
-		<h1> <p> Hi! </p> </h1>
-		<p style="font-size: 18px;"> We’re happy to see you back! </p>
-		<div id="login_image">
-			<img src="/sr/svg/pic_login.svg">
-		</div>
-	</div>
+						<div id="login_input_wrapper">
+							<p class="form_text">
+								Login
+							</p>
+							<input type="text" name="username" placeholder="Username" class="login_input">
+						</div>
 
-	<div id="form_wrapper">
-		<form method="POST" action="" id="login_form">
-			{% csrf_token %}
+						<div id="password_input_wrapper">
+							<p class="form_text">
+								Password
+							</p>
+							<input type="password" name="password" placeholder="Password" class="login_input">
+						</div>
 
-			<div id="login_input_wrapper">
-				<p class="form_text">
-					Login
-				</p>
-				<input type="text" name="username" placeholder="Username" class="login_input">
-			</div>
+						<div id="input_button_wrapper">
+							<input type="submit" value="Login">
+						</div>
 
-			<div id="password_input_wrapper">
-				<p class="form_text">
-					Password
-				</p>
-				<input type="password" name="password" placeholder="Password" class="login_input">
-			</div>
+					</form>
 
-			<div id="input_button_wrapper">
-				<input type="submit" value="Login">
-			</div>
+					<div id="messages_wrapper">
+						<p id="messages">{{messages.info}}</p>
+					</div>
 
-		</form>
+					<div id="sign_up_text">
+						<a href="{% url 'register' %}">Don't have an account? Sign Up</a>
+					</div>
 
-		<div id="messages_wrapper">
-			<p id="messages">{{messages.info}}</p>
-		</div>
-
-		<div id="sign_up_text">
-			<a href="{% url 'register' %}">Don't have an account? Sign Up</a>
-		</div>
-
-	</div>
+				</div>
+			</td>
+		</tr>
+	</table>
 
 </div>
 </body>

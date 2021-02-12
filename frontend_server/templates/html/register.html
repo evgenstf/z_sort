@@ -12,61 +12,69 @@
 <body>
 
 <div id="login_form_body">
+	<table style="margin: 0 auto;">
+		<tr>
+			<td>
+				<div id="login_info">
+					<h1> <p> Nice to meet you! </p> </h1>
+					<p style="font-size: 18px;"> Would you like to introduce yourself? </p>
+					<div id="login_image">
+						<img src="/sr/svg/pic_register.svg">
+					</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div id="form_wrapper">
+					<form method="POST" action="" id="login_form">
+						{% csrf_token %}
 
-	<div id="login_info">
-		<h1> <p> Nice to meet you! </p> </h1>
-		<p style="font-size: 18px;"> Would you like to introduce yourself? </p>
-		<div id="login_image">
-			<img src="/sr/svg/pic_register.svg">
-		</div>
-	</div>
+						<div class="form_input">
+							<p class="form_text">
+								Login
+							</p>
+							{{form.username}}
+						</div>
 
-	<div id="form_wrapper">
-		<form method="POST" action="" id="login_form">
-			{% csrf_token %}
+						<div class="form_input">
+							<p class="form_text">
+								Email
+							</p>
+							{{form.email}}
+						</div>
 
-			<div class="form_input">
-				<p class="form_text">
-					Login
-				</p>
-				{{form.username}}
-			</div>
+						<div class="form_input">
+							<p class="form_text">
+								Password
+							</p>
+							{{form.password1}}
+						</div>
 
-			<div class="form_input">
-				<p class="form_text">
-					Email
-				</p>
-				{{form.email}}
-			</div>
+						<div class="form_input">
+							<p class="form_text">
+								Password confirmation
+							</p>
+							{{form.password2}}
+						</div>
 
-			<div class="form_input">
-				<p class="form_text">
-					Password
-				</p>
-				{{form.password1}}
-			</div>
+						<div id="input_button_wrapper">
+							<input class="btn login_btn" type="submit" value="Register">
+						</div>
+					</form>
 
-			<div class="form_input">
-				<p class="form_text">
-					Password confirmation
-				</p>
-				{{form.password2}}
-			</div>
+					<div id="messages_wrapper">
+						<p id="messages">{{form.errors}}</p>
+					</div>
 
-			<div id="input_button_wrapper">
-				<input class="btn login_btn" type="submit" value="Register">
-			</div>
-		</form>
+					<div id="register_text">
+						<a href="{% url 'login' %}" class="ml-2">Already have an account?</a>
+					</div>
 
-		<div id="messages_wrapper">
-			<p id="messages">{{form.errors}}</p>
-		</div>
-
-		<div id="register_text">
-			 <a href="{% url 'login' %}" class="ml-2">Already have an account?</a>
-		</div>
-
-	</div>
+				</div>
+			</td>
+		</tr>
+	</table>
 
 </div>
 </body>
