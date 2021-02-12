@@ -9,6 +9,7 @@
 body {
   background: white;
   margin: 0;
+  -webkit-appearance: none;
 }
 
 .header {
