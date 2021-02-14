@@ -294,13 +294,24 @@ function compile() {
 }
 
 function export_article() {
-    let sections = get_sections_from_editor();
-    let json_sections = JSON.stringify(sections);
-    let a = document.createElement("a");
-    let file = new Blob([json_sections], {type: 'text/plain'});
-    a.href = URL.createObjectURL(file);
-    a.download = 'sections.json';
-    a.click();
+    let article = document.getElementById("view_window").cloneNode(true);
+    article.childNodes[1].style.padding = "40px";
+    let opt = {
+        margin:       0,
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] },
+        filename:     'article.pdf',
+        html2canvas:  { scale: 4, windowWidth: 2000 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(article).save();
+
+    // let sections = get_sections_from_editor();
+    // let json_sections = JSON.stringify(sections);
+    // let a = document.createElement("a");
+    // let file = new Blob([json_sections], {type: 'text/plain'});
+    // a.href = URL.createObjectURL(file);
+    // a.download = 'sections.json';
+    // a.click();
 }
 
 function reverse_string(string) {
