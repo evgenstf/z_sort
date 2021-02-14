@@ -7,14 +7,15 @@
 }
 
 input {
--webkit-appearance: none;
--moz-appearance: none;
-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 body {
   background: white;
   margin: 0;
+  -webkit-appearance: none;
 }
 
 .header {
@@ -28,7 +29,9 @@ body {
   bottom: 0;
 }
 
-#editor_button input, #logout_button input {
+#logout_button input {
+  background: rgba(0, 0, 0, 0.03);
+  width: 70px;
   height: 30px;
   font-family: Montserrat;
   font-style: normal;
@@ -40,55 +43,13 @@ body {
   -webkit-border-radius: 0;
 }
 
-#editor_button input {
-  width: 90px;
-  background: #3CCF7F;
-  color: #ffffff;
-}
-
-#logout_button input {
-  width: 70px;
-  background: rgba(0, 0, 0, 0.03);
-  color: #474747;
-}
-
-#login_button input {
-  background: rgba(255, 255, 255, 0.82);
-  width: 70px;
-  height: 30px;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  outline:none;
-  overflow:hidden;
-  border: 1px solid #4676D4;
-  color: #4676D4;
-  -webkit-border-radius: 0;
-}
-
-#register_button input {
-  background: #4676D4;
-  width: 90px;
-  height: 30px;
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  outline:none;
-  overflow:hidden;
-  border: 1px solid #4676D4;
-  color: #ffffff;
-  -webkit-border-radius: 0;
-}
-
-#left_side_buttons {
+#left_side_buttons_header {
   width: 100%;
   padding-left: 50px;
   text-align: left;
 }
 
-#right_side_buttons {
+#right_side_buttons_header {
   width: 100%;
   padding-right: 50px;
   text-align: right;

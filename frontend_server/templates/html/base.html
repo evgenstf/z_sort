@@ -28,9 +28,44 @@
 <body>
   <div class="header" id="ghost_header"></div>
   <div class="header" id="z_sort_header">
-  <a href="/" style="color:inherit;">
-      <span style="color:var(--key-color); font-weight:bold">Z</span>-SORT
-  </a>
+    <table>
+      <tr>
+        <td id="left_side_buttons">
+          <a href="/" style="color:inherit;">
+            <span style="color:var(--key-color); font-weight:bold">Z</span>-SORT
+          </a>
+        </td>
+        <td id="right_side_buttons">
+          {% if request.user.is_authenticated %}
+          <div style="display: table-cell;">
+            <span style="font-size: 12px">{{request.user}}</span>
+          </div>
+          {% endif %}
+          <div style="display: table-cell;" class="header_button">
+            {% if request.user.is_authenticated %}
+              <form action="{% url 'editor' %}" id="editor_button">
+                <input type="submit" value="New article" />
+              </form>
+            {% else %}
+            <form action="{% url 'register' %}" id="register_button">
+              <input type="submit" value="Register" />
+            </form>
+            {% endif %}
+          </div>
+          <div style="display: table-cell;" class="header_button">
+            {% if request.user.is_authenticated %}
+                  <form action="{% url 'logout' %}" id="logout_button">
+                    <input type="submit" value="Logout" />
+                  </form>
+              {% else %}
+                  <form action="{% url 'login' %}" id="login_button">
+                    <input type="submit" value="Login" />
+                  </form>
+              {% endif %}
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 
   <div id="content">
@@ -40,7 +75,7 @@
   <div id="ghost_footer"></div>
 
   <div class="footer" id="z_sort_footer">
-    2020, <span style="font-weight:bold">Z</span><span style="font-weight:500">-SORT</span>
+    2021, <span style="font-weight:bold">Z</span><span style="font-weight:500">-SORT</span>
   </div>
 </body>
 
