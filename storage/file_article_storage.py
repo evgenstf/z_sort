@@ -1,5 +1,6 @@
 import json
 import os
+import sqlite3
 
 from entities.article import Article
 
@@ -108,3 +109,41 @@ class FileArticleStorage:
         return True
 
 
+class SQLArticleStorage:
+    def __init__(self, sql_path):
+        self.sql_path = sql_path
+        self.sql_columns = ['id', 'header', 'date', 'owner', 'article', 'html']
+
+    def __get_elements_from_sql_column_by_name(self, column, name):
+        connection = sqlite3.connect(self.sql_path)
+        cursor = connection.cursor()
+        sql_command = 'SELECT * FROM articles WHERE ' + column + ' = "'  + name + '";'
+        cursor.execute(sql_command)
+        results = cursor.fetchall()
+        connection.close()
+        output = []
+        for result in results:
+            output_dict = dict()
+            for i in range(len(result)):
+                output_dict[self.sql_columns[i]] = result[i]
+            output.append(output_dict)
+        return output
+
+    def create_article(self, article):
+        connection = sqlite3.connect(self.sql_path)
+        cursor = connection.cursor()
+        sql_command = 'INSERT INTO articles (id, header, date, owner, article, html) VALUES ('
+        sql_command += '(SELECT max(id) + 1 FROM articles), '
+        for column_index in range(1, len(self.sql_columns) - 1):
+            sql_command += '"' + str(article[self.sql_columns[column_index]]) + '", '
+        sql_command += '"' + str(article[self.sql_columns[len(self.sql_columns) - 1]]) + '");'
+        cursor.execute(sql_command)
+        connection.commit()
+        connection.close()
+        return True
+
+    def get_articles_by_owner(self, owner):
+        return self.__get_elements_from_sql_column_by_name("owner", owner)
+
+    def get_article_by_id(self, id):
+        return self.__get_elements_from_sql_column_by_name("id", str(id))
