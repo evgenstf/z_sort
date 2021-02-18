@@ -1,7 +1,9 @@
 import json
 import os
+import sqlite3
 
 from entities.article import Article
+from sql_commands import SQLCommands
 
 def discover_meta_tree(path):
     print('discover meta tree from path:', path)
@@ -108,3 +110,26 @@ class FileArticleStorage:
         return True
 
 
+class SQLArticleConnector:
+    def __init__(self, sql_path):
+        self.sql_path = sql_path
+        self.sql_columns = ['id', 'header', 'date', 'owner', 'article', 'html']
+
+    def create_article(self, article):
+        connection = sqlite3.connect(self.sql_path)
+        cursor = connection.cursor()
+        sql_command = 'INSERT INTO articles (id, header, date, owner, article, html) VALUES ('
+        sql_command += '(SELECT max(id) + 1 FROM articles), '
+        for column_index in range(1, len(self.sql_columns) - 1):
+            sql_command += '"' + str(article[self.sql_columns[column_index]]) + '", '
+        sql_command += '"' + str(article[self.sql_columns[len(self.sql_columns) - 1]]) + '");'
+        cursor.execute(sql_command)
+        connection.commit()
+        connection.close()
+        return True
+
+    def get_articles_by_owner(self, owner):
+        return SQLCommands.get_elements_from_sql_column_by_name(self.sql_path, 'articles', 'owner', owner)
+
+    def get_article_by_id(self, id):
+        return SQLCommands.get_elements_from_sql_column_by_name(self.sql_path, 'articles', 'id', str(id))
