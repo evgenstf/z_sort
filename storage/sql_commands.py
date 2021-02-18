@@ -1,6 +1,5 @@
 import sqlite3
 
-
 class SQLCommands:
     @staticmethod
     def get_elements_from_sql_column_by_name(sql_path, table_name, column, name):

@@ -115,21 +115,6 @@ class SQLArticleConnector:
         self.sql_path = sql_path
         self.sql_columns = ['id', 'header', 'date', 'owner', 'article', 'html']
 
-    def __get_elements_from_sql_column_by_name(self, column, name):
-        connection = sqlite3.connect(self.sql_path)
-        cursor = connection.cursor()
-        sql_command = 'SELECT * FROM articles WHERE ' + column + ' = "'  + name + '";'
-        cursor.execute(sql_command)
-        results = cursor.fetchall()
-        connection.close()
-        output = []
-        for result in results:
-            output_dict = dict()
-            for i in range(len(result)):
-                output_dict[self.sql_columns[i]] = result[i]
-            output.append(output_dict)
-        return output
-
     def create_article(self, article):
         connection = sqlite3.connect(self.sql_path)
         cursor = connection.cursor()
