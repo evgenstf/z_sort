@@ -3,6 +3,7 @@ import os
 import sqlite3
 
 from entities.article import Article
+from sql_commands import SQLCommands
 
 def discover_meta_tree(path):
     print('discover meta tree from path:', path)
@@ -109,7 +110,7 @@ class FileArticleStorage:
         return True
 
 
-class SQLArticleStorage:
+class SQLArticleConnector:
     def __init__(self, sql_path):
         self.sql_path = sql_path
         self.sql_columns = ['id', 'header', 'date', 'owner', 'article', 'html']
@@ -143,7 +144,7 @@ class SQLArticleStorage:
         return True
 
     def get_articles_by_owner(self, owner):
-        return self.__get_elements_from_sql_column_by_name("owner", owner)
+        return SQLCommands.get_elements_from_sql_column_by_name(self.sql_path, 'articles', 'owner', owner)
 
     def get_article_by_id(self, id):
-        return self.__get_elements_from_sql_column_by_name("id", str(id))
+        return SQLCommands.get_elements_from_sql_column_by_name(self.sql_path, 'articles', 'id', str(id))
