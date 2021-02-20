@@ -49,6 +49,18 @@ def get_all_urls():
     sock.close()
     return discover_urls(json.loads(response))
 
+def get_users():
+    import sqlite3
+    sql_path = '../db.sqlite3'
+    connection = sqlite3.connect(sql_path)
+    cursor = connection.cursor()
+    sql_command = 'SELECT username FROM auth_user;'
+    cursor.execute(sql_command)
+    results = cursor.fetchall()
+    for result in results:
+        urlpatterns.append(path(result[0] + '/', z_sort_handler.user_page, name='user_page'))
+
+get_users()
 get_all_urls()
 
 for url in urls:

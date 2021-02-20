@@ -29,7 +29,7 @@ body {
   bottom: 0;
 }
 
-#logout_button input {
+#logout_button input, #user_page_button input {
   background: rgba(0, 0, 0, 0.03);
   width: 70px;
   height: 30px;
@@ -41,6 +41,13 @@ body {
   overflow:hidden;
   border:0 none;
   -webkit-border-radius: 0;
+}
+
+#user_page_button input {
+  width: auto;
+  padding: 0 10px;
+  background: #9260ca;
+  color: #ffffff;
 }
 
 #left_side_buttons_header {

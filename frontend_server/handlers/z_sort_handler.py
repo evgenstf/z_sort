@@ -16,6 +16,7 @@ from html_factories.main import MainHtmlFactory
 from html_factories.editor import EditorHtmlFactory
 from html_factories.login import LoginHtmlFactory
 from html_factories.register import RegisterHtmlFactory
+from html_factories.user_page import UserPageHtmlFactory
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -166,3 +167,9 @@ def login_page(request):
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+@csrf_exempt
+def user_page(request):
+    context = Context({'request': request})
+    template = Template(UserPageHtmlFactory.create())
+    return HttpResponse(template.render(context))

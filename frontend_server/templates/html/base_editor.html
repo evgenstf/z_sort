@@ -48,9 +48,13 @@
           </a>
         </td>
         <td id="right_side_buttons_header">
+            {% if request.user.is_authenticated %}
             <div style="display: table-cell;">
-                <span style="font-size: 12px">{{request.user}}</span>
+              <form action="/{{request.user}}" id="user_page_button">
+                <input type="submit" value="{{request.user}}" />
+              </form>
             </div>
+            {% endif %}
             <div style="display: table-cell;" class="header_button">
                 <form action="{% url 'logout' %}" id="logout_button">
                     <input type="submit" value="Logout" />
