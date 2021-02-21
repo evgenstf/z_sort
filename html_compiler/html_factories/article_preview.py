@@ -16,8 +16,8 @@ class ArticlePreviewHtmlFactory:
 
         article_preview_html_template = article_preview_html_template.replace('&article_header&', '<br>'.join(meta['header']))
         article_preview_html_template = article_preview_html_template.replace('&article_parent_color&', parent_meta['color'])
-        article_preview_html_template = article_preview_html_template.replace('&article_link&', '/'+'/'.join(relative_path))
-        article_preview_html_template = article_preview_html_template.replace('&article_parent_link&', '/'+'/'.join(relative_path[:-1]))
+        article_preview_html_template = article_preview_html_template.replace('&article_link&', '/article/' + meta['url'])
+        article_preview_html_template = article_preview_html_template.replace('&article_parent_link&', '/category/'+'/'.join(relative_path[:-1]))
         article_preview_html_template = article_preview_html_template.replace('&article_parent_header&', ' '.join(parent_meta['header']))
         article_preview_html_template = article_preview_html_template.replace('&article_reading_time&', calculate_reading_time(sections))
         article_preview_html_template = article_preview_html_template.replace('&article_body&', markdown(sections[0]['content']))

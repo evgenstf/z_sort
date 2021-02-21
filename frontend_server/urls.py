@@ -16,7 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from handlers import z_sort_handler
+from handlers.main import handle_url as handle_main
+from handlers.category import handle_url as handle_category
+from handlers.article import handle_url as handle_article
+from handlers.auth import handle_register
+from handlers.auth import handle_login
+from handlers.auth import handle_logout
+from handlers.editor import handle_editor
 
 from django.views.generic.base import RedirectView
 
@@ -27,49 +33,15 @@ urlpatterns = [ path('favicon.ico', favicon_view) ]
 urls = []
 current_path = []
 
-def discover_urls(path_tree):
-    current_url = '/'.join(current_path) + ('/' if len(current_path) else '')
-    urls.append(current_url)
+urlpatterns.append(path('', handle_main))
+urlpatterns.append(path('category/<str:category>', handle_category))
+urlpatterns.append(path('article/<str:article_url>', handle_article))
 
-    if not path_tree:
-        return
-    for node_name, node_tree in path_tree.items():
-        current_path.append(node_name)
-        discover_urls(node_tree)
-        current_path.pop()
+urlpatterns.append(path('register/', handle_register, name='register'))
+urlpatterns.append(path('login/', handle_login, name='login'))
+urlpatterns.append(path('logout/', handle_logout, name='logout'))
 
-def get_all_urls():
-    import socket
-    import json
-
-    sock = socket.socket()
-    sock.connect(('localhost', 9999))
-    sock.send(json.dumps({"type": 'path_tree'}).encode())
-    response = sock.recv(100000).decode("utf-8")
-    sock.close()
-    return discover_urls(json.loads(response))
-
-def get_users():
-    import sqlite3
-    sql_path = '../db.sqlite3'
-    connection = sqlite3.connect(sql_path)
-    cursor = connection.cursor()
-    sql_command = 'SELECT username FROM auth_user;'
-    cursor.execute(sql_command)
-    results = cursor.fetchall()
-    for result in results:
-        urlpatterns.append(path(result[0] + '/', z_sort_handler.user_page, name='user_page'))
-
-get_users()
-get_all_urls()
-
-for url in urls:
-    urlpatterns.append(path(url, z_sort_handler.handle_url))
-
-urlpatterns.append(path('register/', z_sort_handler.register_page, name='register'))
-urlpatterns.append(path('login/', z_sort_handler.login_page, name='login'))
-urlpatterns.append(path('logout/', z_sort_handler.logout_user, name='logout'))
-urlpatterns.append(path('editor/', z_sort_handler.handle_editor_request, name='editor'))
+urlpatterns.append(path('editor/', handle_editor, name='editor'))
 
 print("urls:", urls)
 

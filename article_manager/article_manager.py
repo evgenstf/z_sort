@@ -1,5 +1,6 @@
-from frontend_server.settings import DEBUG
+from storage.sql_article_connector import SQLArticleConnector
 
+from frontend_server.settings import DEBUG
 
 def create_path_tree(meta_tree):
     try:
@@ -34,6 +35,18 @@ class ArticleManager:
             self.article_storage.reload()
         return create_path_tree(self.article_storage.meta_tree)
 
+
+paths = []
+
+def dive_articles(tree, path):
+    if tree == None:
+        paths.append(path)
+        return
+
+    for node, subtree in tree.items():
+        dive_articles(subtree, path + [node])
+
+
 def main():
     import socketserver
     import json
@@ -51,26 +64,44 @@ def main():
     storage = FileArticleStorage(args.storage_path)
     article_manager = ArticleManager(storage)
 
-    class TCPHandler(socketserver.BaseRequestHandler):
-        def handle(self):
-            self.data = self.request.recv(args.max_request_length).strip()
-            print('client: {}'.format(self.client_address[0]), 'request: {}', self.data)
-            request = json.loads(self.data)
+    path_tree = create_path_tree(storage.meta_tree)
 
-            response = '{error_message:"unsupported request type"}'
-            if request['type'] == 'article':
-                response = json.dumps(article_manager.article_by_path(request['path']).to_full_dict())
-            elif request['type'] == 'meta':
-                response = json.dumps(article_manager.meta_by_path(request['path']))
-            elif request['type'] == 'path_tree':
-                response = json.dumps(article_manager.path_tree())
+    print('path_tree:', path_tree)
 
-            print("response length:", len(response))
-            self.request.sendall(str.encode(response))
+    dive_articles(path_tree, [])
 
-    with socketserver.TCPServer((args.host, args.port), TCPHandler) as server:
-        print('start server on', args.host, args.port)
-        server.serve_forever()
+    SQLArticleConnector
+
+    for path in paths:
+        print('load:', path)
+        article = article_manager.article_by_path(path)
+
+        print('article header:', article.header)
+
+        article_dict = {}
+        article_dict['id'] = SQLArticleConnector.get_next_article_id()
+        article_dict['url'] = article.url
+        article_dict['header'] = json.dumps(article.header)
+        article_dict['date'] = article.date
+        article_dict['authors'] = json.dumps(article.authors)
+        article_dict['sections'] = json.dumps(article.sections)
+        article_dict['tags'] = json.dumps([path[-2]])
+        article_dict['category'] = path[-2]
+
+        preview_html = open(args.storage_path + '/' + '/'.join(path) + '/preview.html').read()
+        html = open(args.storage_path + '/' + '/'.join(path) + '/content.html').read()
+        js = open(args.storage_path + '/' + '/'.join(path) + '/script.js').read()
+        css = open(args.storage_path + '/' + '/'.join(path) + '/style.css').read()
+
+        article_dict['preview_html'] = preview_html
+        article_dict['html'] = html
+        article_dict['js'] = js
+        article_dict['css'] = css
+
+        res = SQLArticleConnector.add_new_article(article_dict)
+
+        print(' added article with id:', article_dict['id'])
+
 
 if __name__ == '__main__':
     main()
