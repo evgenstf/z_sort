@@ -2,33 +2,61 @@ import sqlite3
 
 from storage.execute_sql_command import execute_sql_command
 
-SELECT_ALL_ARTICLE = 'SELECT * FROM articles;'
-SELECT_ARTICLE_BY_OWNER = 'SELECT * FROM articles WHERE owner = "{owner}";'
+SELECT_TOP10_ARTICLES = 'SELECT * FROM articles LIMIT 10;'
+SELECT_ARTICLE_BY_AUTHOR = 'SELECT * FROM articles WHERE authors like \'%"{author}"%\';'
 SELECT_ARTICLE_BY_ID = 'SELECT * FROM articles WHERE id = "{id}";'
+SELECT_ARTICLE_BY_TAG = 'SELECT * FROM articles WHERE tag = "{tag}";'
 
 ADD_NEW_ARTICLE = """
-    INSERT INTO articles (id, header, date, owner, sections, html)
-    VALUES ({id}, {header}, {date}, {owner}, {sections}, {html});
+    INSERT INTO articles (id, header, date, authors, tags, sections, html)
+    VALUES ({id}, '{header}', '{date}', '{authors}', '{tags}', '{sections}', '{html}');
 """
 
-class SQLArticleConnector:
-    def __init__(self, sql_path):
-        self.sql_path = sql_path
-        self.sql_columns = ['id', 'header', 'date', 'owner', 'article', 'html']
+SELECT_NEXT_ID = 'SELECT ifnull(max(id) + 1, 0) FROM articles;'
 
-    def add_new_article(self, article):
+def esq(string):
+    return string.replace("'", '<single-quote>')
+
+def desq(string):
+    return string.replace('<single-quote>', "'")
+
+class SQLArticleConnector:
+    @staticmethod
+    def add_new_article(article):
         command = ADD_NEW_ARTICLE.format(
             id=article['id'],
-            header=article['header'],
-            date=article['date'],
-            owner=article['owner'],
-            sections=article['sections'],
-            html=article['html']
+            header=esq(article['header']),
+            date=esq(article['date']),
+            authors=esq(article['authors']),
+            sections=esq(article['sections']),
+            tags=esq(article['tags']),
+            html=None
         )
         return execute_sql_command(command)
 
-    def get_articles_by_owner(self, owner):
-        return execute_sql_command(SELECT_ARTICLE_BY_OWNER.format(owner=owner))
+    @staticmethod
+    def get_top10_articles():
+        raw_output = execute_sql_command(SELECT_TOP10_ARTICLES)
+        print('raw_output:', raw_output)
+        return []
 
-    def get_article_by_id(self, id):
-        return execute_sql_command(SELECT_ARTICLE_BY_ID.format(id=id))
+
+    @staticmethod
+    def get_articles_by_author(owner):
+        return execute_sql_command(SELECT_ARTICLE_BY_AUTHOR.format(author=esq(author)))
+
+    @staticmethod
+    def get_article_by_id(id):
+        return execute_sql_command(SELECT_ARTICLE_BY_ID.format(id=esq(id)))
+
+    @staticmethod
+    def get_articles_by_tag(tag):
+        raw_output = execute_sql_command(SELECT_ARTICLE_BY_TAG.format(tag=esq(tag)))
+        articles = []
+
+        return articles
+
+    @staticmethod
+    def get_next_article_id():
+        raw_output = execute_sql_command(SELECT_NEXT_ID)
+        return raw_output[0][0]

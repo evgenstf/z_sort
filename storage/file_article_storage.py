@@ -4,7 +4,6 @@ import os
 from entities.article import Article
 
 def discover_meta_tree(path):
-    print('discover meta tree from path:', path)
     try:
         meta = json.load(open(path + '/meta.json'))
     except FileNotFoundError:
