@@ -5,12 +5,19 @@ from storage.execute_sql_command import execute_sql_command
 SELECT_TOP10_ARTICLES = 'SELECT * FROM articles LIMIT 10;'
 SELECT_ARTICLE_BY_AUTHOR = 'SELECT * FROM articles WHERE authors like \'%"{author}"%\';'
 SELECT_ARTICLE_BY_ID = 'SELECT * FROM articles WHERE id = "{id}";'
+SELECT_ARTICLE_BY_URL = 'SELECT * FROM articles WHERE url = "{url}";'
 SELECT_ARTICLE_BY_TAG = 'SELECT * FROM articles WHERE tag = "{tag}";'
 SELECT_ARTICLE_BY_CATEGORY = 'SELECT * FROM articles WHERE category = "{category}";'
 
 ADD_NEW_ARTICLE = """
-    INSERT INTO articles (id, header, date, authors, tags, category, sections, html, preview_html)
-    VALUES ({id}, '{header}', '{date}', '{authors}', '{tags}', '{category}', '{sections}', '{html}', '{preview_html}');
+    INSERT INTO articles (
+        id, url, header, date, authors,
+        tags, category, sections,
+        html, preview_html, js, css)
+    VALUES (
+        {id}, '{url}', '{header}', '{date}', '{authors}',
+        '{tags}', '{category}', '{sections}',
+        '{html}', '{preview_html}', '{js}', '{css}');
 """
 
 SELECT_NEXT_ID = 'SELECT ifnull(max(id) + 1, 0) FROM articles;'
@@ -22,7 +29,8 @@ def desq(string):
     return string.replace('<single-quote>', "'")
 
 def convert_article_row_to_dict(row):
-    columns = ['id', 'header', 'date', 'authors', 'tags', 'category', 'sections', 'html', 'preview_html']
+    columns = ['id', 'url', 'header', 'date', 'authors',
+            'tags', 'category', 'sections', 'html', 'preview_html', 'js', 'css']
     article = {}
     for index, data in enumerate(row):
         if type(data) == str:
@@ -45,6 +53,7 @@ class SQLArticleConnector:
     def add_new_article(article):
         command = ADD_NEW_ARTICLE.format(
             id=article['id'],
+            url=article['url'],
             header=esq(article['header']),
             date=esq(article['date']),
             authors=esq(article['authors']),
@@ -52,7 +61,9 @@ class SQLArticleConnector:
             tags=esq(article['tags']),
             category=esq(article['category']),
             html=esq(article['html']),
-            preview_html=esq(article['preview_html'])
+            preview_html=esq(article['preview_html']),
+            js=esq(article['js']),
+            css=esq(article['css']),
         )
         return execute_sql_command(command)
 
@@ -69,6 +80,16 @@ class SQLArticleConnector:
     @staticmethod
     def get_article_by_id(id):
         return execute_sql_command(SELECT_ARTICLE_BY_ID.format(id=esq(id)))
+
+    @staticmethod
+    def get_article_by_url(url):
+        output_rows = execute_sql_command(SELECT_ARTICLE_BY_URL.format(url=esq(url)))
+        articles = convert_article_rows_to_dicts(output_rows)
+        if len(articles) > 0:
+            return articles[0]
+        else:
+            return None
+
 
     @staticmethod
     def get_articles_by_tag(tag):

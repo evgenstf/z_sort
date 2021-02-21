@@ -5,6 +5,7 @@ class Article:
         self.date = None
         self.authors = None
         self.id = None
+        self.url = None
         self.reading_time = None
 
         self.content_html = None
@@ -18,6 +19,7 @@ class Article:
         self.date = meta['date']
         self.authors = meta['authors']
         self.id = meta['id']
+        self.url = meta['url']
 
         self.reading_time = None
         if 'reading_time' in meta:

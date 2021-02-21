@@ -18,6 +18,7 @@ from django.urls import path
 
 from handlers.main import handle_url as handle_main
 from handlers.category import handle_url as handle_category
+from handlers.article import handle_url as handle_article
 
 from django.views.generic.base import RedirectView
 
@@ -30,6 +31,7 @@ current_path = []
 
 urlpatterns.append(path('', handle_main))
 urlpatterns.append(path('category/<str:category>', handle_category))
+urlpatterns.append(path('article/<str:article_url>', handle_article))
 
 urlpatterns.append(path('register/', handle_main, name='register'))
 urlpatterns.append(path('login/', handle_main, name='login'))

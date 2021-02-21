@@ -80,6 +80,7 @@ def main():
 
         article_dict = {}
         article_dict['id'] = SQLArticleConnector.get_next_article_id()
+        article_dict['url'] = article.url
         article_dict['header'] = json.dumps(article.header)
         article_dict['date'] = article.date
         article_dict['authors'] = json.dumps(article.authors)
@@ -87,11 +88,15 @@ def main():
         article_dict['tags'] = json.dumps([path[-2]])
         article_dict['category'] = path[-2]
 
-        html = open(args.storage_path + '/' + '/'.join(path) + '/content.html').read()
         preview_html = open(args.storage_path + '/' + '/'.join(path) + '/preview.html').read()
+        html = open(args.storage_path + '/' + '/'.join(path) + '/content.html').read()
+        js = open(args.storage_path + '/' + '/'.join(path) + '/script.js').read()
+        css = open(args.storage_path + '/' + '/'.join(path) + '/style.css').read()
 
-        article_dict['html'] = html
         article_dict['preview_html'] = preview_html
+        article_dict['html'] = html
+        article_dict['js'] = js
+        article_dict['css'] = css
 
         res = SQLArticleConnector.add_new_article(article_dict)
 

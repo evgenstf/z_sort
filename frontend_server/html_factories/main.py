@@ -2,7 +2,6 @@ import json
 
 from markdown import markdown
 from html_factories.base import *
-from html_factories.category import get_article_by_path
 
 from storage.sql_article_connector import SQLArticleConnector
 
@@ -20,7 +19,6 @@ class MainHtmlFactory:
 
         articles = SQLArticleConnector.get_top10_articles()
 
-        print('articles:', articles)
         for article in articles:
             previews_html += article['preview_html']
 

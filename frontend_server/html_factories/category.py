@@ -3,17 +3,6 @@ from html_factories.base import *
 
 from storage.sql_article_connector import SQLArticleConnector
 
-def get_article_by_path(path):
-    import socket
-    import json
-
-    sock = socket.socket()
-    sock.connect(('localhost', 9999))
-    sock.send(json.dumps({"type": 'article', "path": path}).encode())
-    response = sock.recv(100000).decode("utf-8")
-    sock.close()
-    return json.loads(response)
-
 class CategoryHtmlFactory:
     def __init__(self):
         self.template = None
@@ -31,7 +20,6 @@ class CategoryHtmlFactory:
 
         articles = SQLArticleConnector.get_articles_by_category(category)
 
-        print('articles:', articles)
         for article in articles:
             previews_html += article['preview_html']
 
