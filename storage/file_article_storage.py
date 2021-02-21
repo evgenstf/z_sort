@@ -5,6 +5,7 @@ import sqlite3
 from entities.article import Article
 from storage.sql_commands import SQLCommands
 
+
 def discover_meta_tree(path):
     print('discover meta tree from path:', path)
     try:
