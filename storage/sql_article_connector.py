@@ -79,7 +79,12 @@ class SQLArticleConnector:
 
     @staticmethod
     def get_article_by_id(id):
-        return execute_sql_command(SELECT_ARTICLE_BY_ID.format(id=esq(id)))
+        output_rows = execute_sql_command(SELECT_ARTICLE_BY_ID.format(id=id))
+        articles = convert_article_rows_to_dicts(output_rows)
+        if len(articles) > 0:
+            return articles[0]
+        else:
+            return None
 
     @staticmethod
     def get_article_by_url(url):
