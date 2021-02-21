@@ -19,8 +19,9 @@ from django.urls import path
 from handlers.main import handle_url as handle_main
 from handlers.category import handle_url as handle_category
 from handlers.article import handle_url as handle_article
-from handlers.register import handle_url as handle_register
-from handlers.login import handle_url as handle_login
+from handlers.auth import handle_register
+from handlers.auth import handle_login
+from handlers.auth import handle_logout
 
 from django.views.generic.base import RedirectView
 
@@ -37,7 +38,8 @@ urlpatterns.append(path('article/<str:article_url>', handle_article))
 
 urlpatterns.append(path('register/', handle_register, name='register'))
 urlpatterns.append(path('login/', handle_login, name='login'))
-urlpatterns.append(path('logout/', handle_main, name='logout'))
+urlpatterns.append(path('logout/', handle_logout, name='logout'))
+
 urlpatterns.append(path('editor/', handle_main, name='editor'))
 
 print("urls:", urls)
