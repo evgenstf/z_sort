@@ -53,7 +53,7 @@ class ArticleHtmlFactory:
 
         article_html = open(os.path.dirname(os.path.realpath(__file__)) + '/../templates/html/article.html', 'r').read()
         article_html = article_html.replace('&article_header&', article_header_html)
-        article_html = article_html.replace('&article_parent_link&', '/' + '/'.join(relative_path[:-1]))
+        article_html = article_html.replace('&article_parent_link&', '/category/' + '/'.join(relative_path[:-1]))
         article_html = article_html.replace('&article_parent_header&', ' '.join(parent_meta['header']))
         article_html = article_html.replace('&article_parent_color&', parent_meta['color'] if 'color' in parent_meta else 'var(--gray-color)')
         article_html = article_html.replace('&article_reading_time&', calculate_reading_time(sections))

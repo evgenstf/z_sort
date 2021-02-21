@@ -9,6 +9,7 @@ CREATE TABLE articles (
   date TEXT NOT NULL,
   authors TEXT NOT NULL,
   tags TEXT NOT NULL,
+  category TEXT NOT NULL,
   sections TEXT NOT NULL,
   html TEXT NOT NULL,
   preview_html TEXT NOT NULL

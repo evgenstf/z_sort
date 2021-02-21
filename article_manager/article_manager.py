@@ -84,7 +84,8 @@ def main():
         article_dict['date'] = article.date
         article_dict['authors'] = json.dumps(article.authors)
         article_dict['sections'] = json.dumps(article.sections)
-        article_dict['tags'] = json.dumps([path[-1]])
+        article_dict['tags'] = json.dumps([path[-2]])
+        article_dict['category'] = path[-2]
 
         html = open(args.storage_path + '/' + '/'.join(path) + '/content.html').read()
         preview_html = open(args.storage_path + '/' + '/'.join(path) + '/preview.html').read()

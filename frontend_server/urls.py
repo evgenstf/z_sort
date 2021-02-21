@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from handlers import main_handler
+from handlers.main import handle_url as handle_main
+from handlers.category import handle_url as handle_category
 
 from django.views.generic.base import RedirectView
 
@@ -27,12 +28,13 @@ urlpatterns = [ path('favicon.ico', favicon_view) ]
 urls = []
 current_path = []
 
-urlpatterns.append(path('', main_handler.handle_url))
+urlpatterns.append(path('', handle_main))
+urlpatterns.append(path('category/<str:category>', handle_category))
 
-urlpatterns.append(path('register/', main_handler.handle_url, name='register'))
-urlpatterns.append(path('login/', main_handler.handle_url, name='login'))
-urlpatterns.append(path('logout/', main_handler.handle_url, name='logout'))
-urlpatterns.append(path('editor/', main_handler.handle_url, name='editor'))
+urlpatterns.append(path('register/', handle_main, name='register'))
+urlpatterns.append(path('login/', handle_main, name='login'))
+urlpatterns.append(path('logout/', handle_main, name='logout'))
+urlpatterns.append(path('editor/', handle_main, name='editor'))
 
 print("urls:", urls)
 
