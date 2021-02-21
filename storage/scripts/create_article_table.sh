@@ -2,7 +2,7 @@
 
 sqlite3 ../../db.sqlite3 <<'END_SQL'
 .timeout 2000
-DROP TABLE articles;
+DROP TABLE IF ExISTS articles;
 CREATE TABLE articles (
   id INTEGER PRIMARY KEY,
   header TEXT NOT NULL,
@@ -10,6 +10,7 @@ CREATE TABLE articles (
   authors TEXT NOT NULL,
   tags TEXT NOT NULL,
   sections TEXT NOT NULL,
-  html TEXT
+  html TEXT NOT NULL,
+  preview_html TEXT NOT NULL
 );
 END_SQL

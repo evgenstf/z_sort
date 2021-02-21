@@ -86,6 +86,12 @@ def main():
         article_dict['sections'] = json.dumps(article.sections)
         article_dict['tags'] = json.dumps([path[-1]])
 
+        html = open(args.storage_path + '/' + '/'.join(path) + '/content.html').read()
+        preview_html = open(args.storage_path + '/' + '/'.join(path) + '/preview.html').read()
+
+        article_dict['html'] = html
+        article_dict['preview_html'] = preview_html
+
         res = SQLArticleConnector.add_new_article(article_dict)
 
         print(' added article with id:', article_dict['id'])

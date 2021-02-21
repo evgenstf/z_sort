@@ -7,9 +7,6 @@ from html_factories.category import get_article_by_path
 from storage.sql_article_connector import SQLArticleConnector
 
 class MainHtmlFactory:
-    def __init__(self):
-        self.template = None
-
     @staticmethod
     def create():
         previews_html = ''
@@ -24,9 +21,7 @@ class MainHtmlFactory:
         articles = SQLArticleConnector.get_top10_articles()
 
         print('articles:', articles)
-        for article_meta in articles:
-            article_preview = open(get_article_by_path(article_meta['path'])['preview_html'], 'r').read()
-
-            previews_html += article_preview
+        for article in articles:
+            previews_html += article['preview_html']
 
         return BaseHtmlFactory.create_from_content(previews_html, js, css)
