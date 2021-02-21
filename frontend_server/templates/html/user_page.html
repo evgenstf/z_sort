@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    
+<head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/user_page.css' %}">
+	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
+	<title>
+		{{request.user}}
+	</title>
+	</style>
+
+</head>
+<body>
+
+<div id="user_page_body">
+	<div id="user_info">
+		<table>
+			<tr>
+				<td>
+					<img src="/sr/svg/user_ico.svg">
+				</td>
+				<td style="width: 100%">
+					<h1 style="text-align: left; margin: 0 5%;">
+						{{request.user}}
+					</h1>
+					<p style="text-align: left; margin: 0 5%;">
+						{{request.user.email}}
+					</p>
+				</td>
+				<td>
+					<form action="edit" id="user_page_edit_button">
+						<input type="image" src="/sr/svg/change_profile.svg"/>
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</div>
+
+
+</body>
+</html>

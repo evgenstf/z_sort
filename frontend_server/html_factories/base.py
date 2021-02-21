@@ -54,13 +54,13 @@ class BaseLoginHtmlFactory:
 
         return html_template
 
-class BaseRegisterHtmlFactory:
+class BaseUserPageHtmlFactory:
     def __init__(self):
         self.template = None
 
     @staticmethod
     def create_from_content(content):
-        html_template = open('templates/html/base_register.html', 'r').read()
+        html_template = open('templates/html/base_user_page.html', 'r').read()
         base_js = open('templates/js/base.js', 'r').read()
         base_css = open('templates/css/base.css', 'r').read()
 

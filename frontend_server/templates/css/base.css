@@ -28,7 +28,7 @@ body {
   bottom: 0;
 }
 
-#editor_button input, #logout_button input {
+#editor_button input, #logout_button input, #user_page_button input {
   height: 30px;
   font-family: Montserrat;
   font-style: normal;
@@ -38,6 +38,13 @@ body {
   overflow:hidden;
   border:0 none;
   -webkit-border-radius: 0;
+}
+
+#user_page_button input {
+  width: auto;
+  padding: 0 10px;
+  background: #9260ca;
+  color: #ffffff;
 }
 
 #editor_button input {

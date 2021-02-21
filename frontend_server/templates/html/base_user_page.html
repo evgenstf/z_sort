@@ -4,50 +4,61 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Z-Sort</title>
+<!--  <title>Register</title>-->
   <meta name="description" content="Z-Sort">
   <meta name="author" content="evgenstf">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:500" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:600" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
 
   <script type="text/javascript"
       src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
 
   <link rel="stylesheet" href="{% static 'css/code_highlight.css' %}">
+  <link rel="stylesheet" href="{% static 'css/article.css' %}">
   <script src="{% static 'js/code_highlight.js' %}"></script>
   <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 
 &base_css&
-&content_css&
 
 <body>
   <div class="header" id="ghost_header"></div>
   <div class="header" id="z_sort_header">
     <table>
       <tr>
-        <td id="left_side_buttons">
+        <td id="left_side_buttons_header" style="width: 100%; text-align: left; padding-left: 50px">
           <a href="/" style="color:inherit;">
             <span style="color:var(--key-color); font-weight:bold">Z</span>-SORT
+            <span style="
+          color: #4676D4;
+          font-family: Roboto Mono;
+          text-transform: lowercase;
+          font-weight: 400;
+          font-style: normal;
+          font-size: 24px;
+          line-height: 43px;
+                  "> \{{request.user}} </span>
           </a>
         </td>
         <td id="right_side_buttons">
           {% if request.user.is_authenticated %}
-          <div style="display: table-cell;">
-            <form action="{{request.user}}" id="user_page_button">
-              <input type="submit" value="{{request.user}}" />
-            </form>
+          <div style="display: table-cell;" class="header_button">
+          <p style="font-size: 12px;">
+            {{request.user}}
+          </p>
           </div>
           {% endif %}
           <div style="display: table-cell;" class="header_button">
             {% if request.user.is_authenticated %}
-              <form action="{% url 'editor' %}" id="editor_button">
-                <input type="submit" value="New article" />
-              </form>
+            <form action="{% url 'editor' %}" id="editor_button">
+              <input type="submit" value="New article" />
+            </form>
             {% else %}
             <form action="{% url 'register' %}" id="register_button">
               <input type="submit" value="Register" />
@@ -56,14 +67,14 @@
           </div>
           <div style="display: table-cell;" class="header_button">
             {% if request.user.is_authenticated %}
-                  <form action="{% url 'logout' %}" id="logout_button">
-                    <input type="submit" value="Logout" />
-                  </form>
-              {% else %}
-                  <form action="{% url 'login' %}" id="login_button">
-                    <input type="submit" value="Login" />
-                  </form>
-              {% endif %}
+            <form action="{% url 'logout' %}" id="logout_button">
+              <input type="submit" value="Logout" />
+            </form>
+            {% else %}
+            <form action="{% url 'login' %}" id="login_button">
+              <input type="submit" value="Login" />
+            </form>
+            {% endif %}
           </div>
         </td>
       </tr>
@@ -82,6 +93,6 @@
 </body>
 
 &base_js&
-&content_js&
 
 </html>
+
