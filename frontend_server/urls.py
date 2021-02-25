@@ -23,6 +23,7 @@ from handlers.auth import handle_register
 from handlers.auth import handle_login
 from handlers.auth import handle_logout
 from handlers.editor import handle_editor
+from handlers.user_page import handle_user_page as handle_user
 
 from django.views.generic.base import RedirectView
 
@@ -36,6 +37,7 @@ current_path = []
 urlpatterns.append(path('', handle_main))
 urlpatterns.append(path('category/<str:category>', handle_category))
 urlpatterns.append(path('article/<str:article_url>', handle_article))
+urlpatterns.append(path('users/<str:username>/', handle_user))
 
 urlpatterns.append(path('register/', handle_register, name='register'))
 urlpatterns.append(path('login/', handle_login, name='login'))

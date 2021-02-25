@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="{% static 'css/user_page.css' %}">
 	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 	<title>
-		{{request.user}}
+		{{ owner }}
 	</title>
 	</style>
 
@@ -22,11 +22,13 @@
 				</td>
 				<td style="width: 100%">
 					<h1 style="text-align: left; margin: 0 5%;">
-						{{request.user}}
+						{{ owner }}
 					</h1>
+					{% if is_it_owner %}
 					<p style="text-align: left; margin: 0 5%;">
-						{{request.user.email}}
+						{{ request.user.email }}
 					</p>
+                    {% endif %}
 				</td>
 				<td>
 					<form action="edit" id="user_page_edit_button">
@@ -35,6 +37,25 @@
 				</td>
 			</tr>
 		</table>
+	</div>
+
+    <div id="devider_between_info_and_articles"></div>
+
+    <div id="user_articles">
+		{% if articles_num == 0 %}
+		<div id="user_articles_empty">
+			<p id="empty_user_page_text_header">
+				Nothing here
+			</p>
+			<p id="empty_user_page_text_body">
+				{{request.user}} hasn’t published <br> any article yet.
+			</p>
+			<div id="empty_user_page_img">
+				<img src="/sr/svg/empty_user_page.svg">
+			</div>
+		</div>
+		{% endif %}
+		&content&
 	</div>
 
 </div>
