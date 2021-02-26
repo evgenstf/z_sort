@@ -13,6 +13,6 @@ def handle_404(request, exception):
 #
 @csrf_exempt
 def handle_500(request, *args, **argv):
-    template = Template(ErrorHtmlFactory.create('505'))
+    template = Template(ErrorHtmlFactory.create('500'))
     context = Context({'request': request})
     return HttpResponse(template.render(context))

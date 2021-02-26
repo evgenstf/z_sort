@@ -28,6 +28,11 @@ body {
   bottom: 0;
 }
 
+#content {
+  width: 70%;
+  margin: 0 auto;
+}
+
 #editor_button input, #logout_button input, #user_page_button input {
   height: 30px;
   font-family: Montserrat;
