@@ -88,30 +88,13 @@ class BaseUserPageHtmlFactory:
 
         return html_template
 
-class Base404PageHtmlFactory:
+class BaseErrorHtmlFactory:
     def __init__(self):
         self.template = None
 
     @staticmethod
-    def create_from_content(content):
-        html_template = open('templates/html/base_404.html', 'r').read()
-        base_js = open('templates/js/base.js', 'r').read()
-        base_css = open('templates/css/base.css', 'r').read()
-
-        html_template = html_template.replace('&base_js&', base_js)
-        html_template = html_template.replace('&base_css&', base_css)
-
-        html_template = html_template.replace('&content&', content)
-
-        return html_template
-
-class Base500PageHtmlFactory:
-    def __init__(self):
-        self.template = None
-
-    @staticmethod
-    def create_from_content(content):
-        html_template = open('templates/html/base_404.html', 'r').read()
+    def create_from_content(content, error_code):
+        html_template = open('templates/html/base_' + error_code + '.html', 'r').read()
         base_js = open('templates/js/base.js', 'r').read()
         base_css = open('templates/css/base.css', 'r').read()
 
