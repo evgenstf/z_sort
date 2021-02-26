@@ -3,15 +3,13 @@ from html_factories.base import *
 
 
 class Error404HtmlFactory:
-    def __init__(self):
-        self.template = None
-
     @staticmethod
     def create():
         html_template = open('templates/html/404_page.html', 'r').read()
-        base_js = open('templates/js/base.js', 'r').read()
-        base_css = open('templates/css/base.css', 'r').read()
+        return Base404PageHtmlFactory.create_from_content(html_template)
 
-        html_template = html_template.replace('&base_js&', base_js)
-        html_template = html_template.replace('&base_css&', base_css)
-        return html_template
+class Error500HtmlFactory:
+    @staticmethod
+    def create():
+        html_template = open('templates/html/500_page.html', 'r').read()
+        return Base500PageHtmlFactory.create_from_content(html_template)

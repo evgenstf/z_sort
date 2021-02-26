@@ -1,0 +1,55 @@
+#error_page_wrapper {
+    text-align: center;
+    margin: 10% auto;
+    height: 100%;
+}
+
+#error_page_ico {
+    margin: 40px;
+}
+
+p {
+    color: #C4D1D9;
+}
+
+.error_page_text_header {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.error_page_text_body {
+    font-weight: normal;
+    font-size: 18px;
+}
+
+#error_buttons {
+    padding: 25px;
+}
+
+#editor_button input {
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Montserrat;
+    background: #3CCF7F;
+    color: #FFFFFF;
+    border: 0 none;
+    outline: none;
+    overflow: hidden;
+    -webkit-border-radius: 0;
+    height: 36px;
+    width: 210px;
+}
+
+#main_page_button input {
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Montserrat;
+    border: 1px solid #4676D4;
+    outline: none;
+    overflow: hidden;
+    color: #4676D4;
+    background: #FFFFFF;
+    -webkit-border-radius: 0;
+    height: 36px;
+    width: 210px;
+}

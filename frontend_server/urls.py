@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import handler404, handler500
 
 from handlers.main import handle_url as handle_main
 from handlers.category import handle_url as handle_category
@@ -24,6 +25,7 @@ from handlers.auth import handle_login
 from handlers.auth import handle_logout
 from handlers.editor import handle_editor
 from handlers.user_page import handle_user_page as handle_user
+from handlers.error import handle_404, handle_500
 
 from django.views.generic.base import RedirectView
 
@@ -45,6 +47,7 @@ urlpatterns.append(path('logout/', handle_logout, name='logout'))
 
 urlpatterns.append(path('editor/', handle_editor, name='editor'))
 
+handler404 = handle_404
+handler500 = handle_500
+
 print("urls:", urls)
-
-
