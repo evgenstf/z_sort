@@ -63,14 +63,13 @@ body {
 }
 
 .header_button {
-  padding: 5px;
+  padding: 0 5px;
 }
 
 #z_sort_footer {
   background: var(--gray-color);
   color: white;
   height: 44px;
-
   font-size: 18px;
   align-items: center;
   text-align: center;
@@ -84,13 +83,11 @@ body {
   color: var(--gray-color);
   background: #ffffff88;
   z-index: 100;
-
   font-size: 36px;
   font-weight: 500;
   align-items: center;
   text-align: center;
   text-transform: uppercase;
-  line-height: 60px;
 }
 
 .fixed_position {

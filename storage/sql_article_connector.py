@@ -72,10 +72,13 @@ class SQLArticleConnector:
         output_rows = execute_sql_command(SELECT_TOP10_ARTICLES)
         return convert_article_rows_to_dicts(output_rows)
 
-
     @staticmethod
     def get_articles_by_author(owner):
-        return execute_sql_command(SELECT_ARTICLE_BY_AUTHOR.format(author=esq(author)))
+        output_rows = execute_sql_command(SELECT_ARTICLE_BY_AUTHOR.format(author=esq(owner)))
+        articles = []
+        for article_row in output_rows:
+            articles.append(convert_article_row_to_dict(article_row))
+        return articles
 
     @staticmethod
     def get_article_by_id(id):

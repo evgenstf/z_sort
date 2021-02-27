@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Editor</title>
+  <title>&error_code&</title>
   <meta name="description" content="Z-Sort">
   <meta name="author" content="evgenstf">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
@@ -26,17 +26,13 @@
 <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
 
 &base_css&
-&content_css&
 
 <body>
   <div class="header" id="ghost_header"></div>
   <div class="header" id="z_sort_header">
-    <table>
-      <tr>
-        <td id="left_side_buttons_header" style="width: 100%">
-          <a href="/" style="color:inherit;">
-            <span style="color:var(--key-color); font-weight:bold">Z</span>-SORT
-            <span style="
+  <a href="/" style="color:inherit;">
+      <span style="color:var(--key-color); font-weight:bold">Z</span>-SORT
+      <span style="
           color: #4676D4;
           font-family: Roboto Mono;
           text-transform: lowercase;
@@ -44,25 +40,8 @@
           font-style: normal;
           font-size: 24px;
           line-height: 43px;
-                  "> \editor </span>
-          </a>
-        </td>
-        <td id="right_side_buttons_header">
-            {% if request.user.is_authenticated %}
-            <div style="display: table-cell;">
-              <form action="/users/{{request.user}}" id="user_page_button">
-                <input type="submit" value="{{request.user}}" />
-              </form>
-            </div>
-            {% endif %}
-            <div style="display: table-cell;" class="header_button">
-                <form action="{% url 'logout' %}" id="logout_button">
-                    <input type="submit" value="Logout" />
-                </form>
-            </div>
-        </td>
-      </tr>
-    </table>
+                  "> \&error_code& </span>
+  </a>
   </div>
 
   <div id="content">
@@ -70,9 +49,12 @@
   </div>
 
   <div id="ghost_footer"></div>
+
+  <div class="footer" id="z_sort_footer">
+    2021, <span style="font-weight:bold">Z</span><span style="font-weight:500">-SORT</span>
+  </div>
 </body>
 
 &base_js&
-&content_js&
 
 </html>

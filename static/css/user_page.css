@@ -1,4 +1,42 @@
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 #user_page_body {
-    width: 70%;
     margin: 30px auto;
+}
+
+#user_articles {
+    margin-top: 130px;
+}
+
+#user_articles_empty {
+    margin-top: 130px;
+    text-align: center;
+    color: #C4D1D9;
+}
+
+#empty_user_page_text_header {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#empty_user_page_text_body {
+    font-weight: normal;
+    font-size: 18px;
+}
+
+#empty_user_page_img {
+    margin-top: 40px;
+}
+
+#devider_between_info_and_articles {
+    position: absolute;
+    width: 80%;
+    height: 0px;
+    left: 240px;
+    top: 310px;
+    border: 1px solid #E9F8F9;
 }

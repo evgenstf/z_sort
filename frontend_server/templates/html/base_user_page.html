@@ -4,7 +4,6 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-<!--  <title>Register</title>-->
   <meta name="description" content="Z-Sort">
   <meta name="author" content="evgenstf">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
@@ -32,7 +31,7 @@
   <div class="header" id="z_sort_header">
     <table>
       <tr>
-        <td id="left_side_buttons_header" style="width: 100%; text-align: left; padding-left: 50px">
+        <td id="left_side_buttons">
           <a href="/" style="color:inherit;">
             <span style="color:var(--key-color); font-weight:bold">Z</span>-SORT
             <span style="
@@ -43,20 +42,26 @@
           font-style: normal;
           font-size: 24px;
           line-height: 43px;
-                  "> \{{request.user}} </span>
+                  "> \{{ owner }} </span>
           </a>
         </td>
         <td id="right_side_buttons">
-          {% if request.user.is_authenticated %}
+          {% if request.user.is_authenticated and it_is_owner %}
           <div style="display: table-cell;" class="header_button">
-          <p style="font-size: 12px;">
-            {{request.user}}
-          </p>
+            <p style="font-size: 12px;">
+              {{request.user}}
+            </p>
+          </div>
+          {% elif request.user.is_authenticated %}
+          <div style="display: table-cell;">
+            <form action="/users/{{request.user}}" id="user_page_button">
+              <input type="submit" value="{{request.user}}" />
+            </form>
           </div>
           {% endif %}
           <div style="display: table-cell;" class="header_button">
             {% if request.user.is_authenticated %}
-            <form action="{% url 'editor' %}" id="editor_button">
+            <form action="{{ user_page }}" id="editor_button">
               <input type="submit" value="New article" />
             </form>
             {% else %}

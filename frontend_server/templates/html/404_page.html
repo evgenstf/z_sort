@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/error_page.css' %}">
+	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
+
+</head>
+<body>
+<div id="error_page_wrapper">
+	<p class="error_page_text_header">
+			Ooops
+	</p>
+	<p class="error_page_text_body">
+		Something somewhere went terribly wrong. <br>
+		We are on our way to fix this.
+	</p>
+    <div id="error_page_ico">
+		<img src="/sr/svg/error_ico.svg">
+	</div>
+	<p class="error_page_text_body">
+		Meanwhile you can
+	</p>
+    <div id="error_buttons">
+		<table style="margin: 0 auto;">
+			<tr>
+				<td>
+					<div style="display: table-cell;padding: 0 25px">
+						<form action="/editor" id="editor_button">
+							<input type="submit" value="Write a new article" />
+						</form>
+					</div>
+					<div style="display: table-cell;padding: 0 25px">
+						<form action="/" id="main_page_button">
+							<input type="submit" value="Read a random one" />
+						</form>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</body>
+
+</html>
