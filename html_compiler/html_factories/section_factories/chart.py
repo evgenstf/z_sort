@@ -70,8 +70,7 @@ class DrawChart:
         plt.rcParams.update({'font.size': 30})
 
         if self.chart_type == 'pie':
-            explode = list(map(lambda x: x / 8000, self.pie_ratio))
-            plt.pie(self.pie_ratio, explode=explode, labels=self.labels, autopct='%1.1f%%')
+            plt.pie(self.pie_ratio, labels=self.labels, autopct='%1.1f%%')
 
         elif self.chart_type == 'scatter':
             plt.scatter(self.x_axis, self.y_axis, s = 350, c=self.plot_color)
