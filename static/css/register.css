@@ -68,15 +68,10 @@
 }
 
 #messages_wrapper {
-    padding: 0;
+    padding-bottom: 5px;
+    text-align: left;
 }
 
 #messages_wrapper ul {
     list-style: square outside;
-    padding: 5px 10px;
-    text-align: left;
-}
-
-#messages_wrapper li {
-    padding: 5px 0;
 }

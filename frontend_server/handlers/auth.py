@@ -43,10 +43,14 @@ def handle_register(request):
             if form.is_valid():
                 form.save()
                 user = form.cleaned_data.get('username')
-                messages.success(request,user + ', welcome to Z-SORT!')
+                messages.success(request, user + ', welcome to Z-SORT!')
                 return redirect('login')
 
-        context = Context({'form': form, 'messages': get_messages(request)})
+        errors = []
+        for key in form.errors:
+            errors.append(form.errors[key])
+
+        context = Context({'form': form, 'messages': get_messages(request), 'errors': errors})
         template = Template(RegisterHtmlFactory.create())
         return HttpResponse(template.render(Context(context)))
 
