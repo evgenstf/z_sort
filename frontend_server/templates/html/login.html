@@ -47,9 +47,11 @@
 
 					</form>
 
+					{% for message in messages %}
 					<div id="messages_wrapper">
-						<p id="messages">{{messages.info}}</p>
+						<p id="messages">{{ message }}</p>
 					</div>
+					{% endfor %}
 
 					<div id="sign_up_text">
 						<a href="{% url 'register' %}">Don't have an account? Sign Up</a>
