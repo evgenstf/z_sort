@@ -66,3 +66,12 @@
     padding-top: 30px;
     padding-bottom: 15px;
 }
+
+#messages_wrapper {
+    padding-bottom: 5px;
+    text-align: left;
+}
+
+#messages_wrapper ul {
+    list-style: square outside;
+}

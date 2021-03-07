@@ -1,9 +1,10 @@
 from .forms import CreateUserForm
 
 from django.contrib import messages
+from django.contrib.messages import get_messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.template import Template, Context, RequestContext
 from django.views.decorators.csrf import csrf_exempt
 
@@ -27,10 +28,9 @@ def handle_login(request):
             else:
                 messages.info(request, 'Incorrect username or password')
 
-        context = Context({'request': request})
+        context = Context({'request': request, 'messages': get_messages(request)})
         template = Template(LoginHtmlFactory.create())
         return HttpResponse(template.render(context))
-
 
 @csrf_exempt
 def handle_register(request):
@@ -43,10 +43,14 @@ def handle_register(request):
             if form.is_valid():
                 form.save()
                 user = form.cleaned_data.get('username')
-                messages.success(request,user + ', welcome to Z-SORT!')
+                messages.success(request, user + ', welcome to Z-SORT!')
                 return redirect('login')
 
-        context = {'form': form}
+        errors = []
+        for key in form.errors:
+            errors.append(form.errors[key])
+
+        context = Context({'form': form, 'messages': get_messages(request), 'errors': errors})
         template = Template(RegisterHtmlFactory.create())
         return HttpResponse(template.render(Context(context)))
 

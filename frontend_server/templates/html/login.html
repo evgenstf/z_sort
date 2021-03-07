@@ -48,7 +48,9 @@
 					</form>
 
 					<div id="messages_wrapper">
-						<p id="messages">{{messages.info}}</p>
+					{% for message in messages %}
+						<p id="messages">{{ message }}</p>
+					{% endfor %}
 					</div>
 
 					<div id="sign_up_text">

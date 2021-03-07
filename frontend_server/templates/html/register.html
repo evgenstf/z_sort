@@ -64,11 +64,15 @@
 					</form>
 
 					<div id="messages_wrapper">
-						<p id="messages">{{form.errors}}</p>
+						{% for error in errors %}
+						<p id="messages">
+							{{ error }}
+						</p>
+						{% endfor %}
 					</div>
 
 					<div id="register_text">
-						<a href="{% url 'login' %}" class="ml-2">Already have an account?</a>
+						<a href="{% url 'login' %}">Already have an account?</a>
 					</div>
 
 				</div>
