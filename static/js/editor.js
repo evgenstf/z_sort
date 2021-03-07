@@ -1,25 +1,25 @@
-function add_article_tittle() {
+function add_article_title() {
     let current_section = document.getElementById("editor_window");
-    let article_tittle = document.createElement("div");
-    article_tittle.id = 'article_tittle';
-    let section_name = document.createTextNode("Article tittle");
+    let article_title = document.createElement("div");
+    article_title.id = 'article_title';
+    let section_name = document.createTextNode("Article title");
 
-    article_tittle.appendChild(section_name);
-    current_section.appendChild(article_tittle);
+    article_title.appendChild(section_name);
+    current_section.appendChild(article_title);
 
     let form = document.createElement('form')
     form.method = 'post'
-    form.id = 'article_tittle_form';
+    form.id = 'article_title_form';
 
     let text_area = document.createElement('textarea');
     text_area.name = 'text_area';
-    text_area.id = 'article_tittle_text_area';
-    text_area.placeholder = 'Tittle';
+    text_area.id = 'article_title_text_area';
+    text_area.placeholder = 'title';
 
     form.appendChild(text_area);
     current_section.appendChild(form);
 }
-add_article_tittle();
+add_article_title();
 
 function add_article_section(current_section) {
     let article_section = document.createElement("div");
@@ -88,11 +88,11 @@ function add_sections_buttons() {
     let section_buttons = document.createElement("div");
     section_buttons.id = 'add_section_buttons';
 
-    let section_buttons_tittle = document.createElement("p");
-    section_buttons_tittle.id = 'add_section_tittle';
+    let section_buttons_title = document.createElement("p");
+    section_buttons_title.id = 'add_section_title';
     let section_name = document.createTextNode('add section');
-    section_buttons_tittle.appendChild(section_name);
-    section_buttons.appendChild(section_buttons_tittle);
+    section_buttons_title.appendChild(section_name);
+    section_buttons.appendChild(section_buttons_title);
 
     section_buttons.appendChild(document.createElement("br"));
 
@@ -142,7 +142,7 @@ function add_sections_buttons() {
 add_sections_buttons();
 
 count_sections = 1;
-function add_section(section_tittle, section_class) {
+function add_section(section_title, section_class) {
     let current_section = document.getElementById("editor_window");
 
     let table = document.createElement("table");
@@ -184,7 +184,7 @@ function add_section(section_tittle, section_class) {
     cell.classList.add('section_name_td');
     new_section = document.createElement("div");
     new_section.classList.add('section_name');
-    let section_name = document.createTextNode(section_tittle);
+    let section_name = document.createTextNode(section_title);
     new_section.appendChild(section_name);
     cell.appendChild(new_section);
     row.appendChild(cell);
@@ -217,7 +217,7 @@ function add_section(section_tittle, section_class) {
     text_area.name = 'text_area';
     text_area.id = 'text_area_' + String(count_sections);
     text_area.classList.add('editor_text_area');
-    text_area.placeholder = section_tittle;
+    text_area.placeholder = section_title;
 
     text_area.addEventListener('focus', autoResize, false);
     text_area.addEventListener('input', autoResize, false);
@@ -262,7 +262,7 @@ function get_sections_from_editor() {
     let sections = [];
     let section = {
         "date": get_today_date(),
-        "header": ["<h1>" + document.getElementById('article_tittle_text_area').value + "</h1>"],
+        "header": ["<h1>" + document.getElementById('article_title_text_area').value + "</h1>"],
         "authors":[document.getElementById('author_name_text_area').value],
     }
     sections.push(section)
