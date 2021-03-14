@@ -16,12 +16,26 @@ import sys
 
 from html_compiler.compile import compile_article
 
+import multiprocessing as mp
+
+def compile_article_in_another_process(article_json, result_queue):
+    result_queue.put(compile_article(article_json))
+
 
 class Editor:
     @staticmethod
     def compile_article(article_json):
         try:
-            return compile_article(article_json)
+            ctx = mp.get_context('spawn')
+            result_queue = ctx.Queue()
+            compile_process = ctx.Process(
+                    target=compile_article_in_another_process,
+                    args=(article_json, result_queue,))
+            compile_process.start()
+            result = result_queue.get()
+            compile_process.join()
+            return result
+
         except Exception as e:
             print("[error] Exception:", e)
             return '<br><br><br><br>ERROR'

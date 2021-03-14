@@ -36,7 +36,7 @@ function get_editing_article_url() {
 function add_article_section(current_section) {
   let article_section = document.createElement("div");
   article_section.id = 'article_section';
-  let section_name = document.createTextNode("Section");
+  let section_name = document.createTextNode("Category");
 
   article_section.appendChild(section_name);
   current_section.appendChild(article_section);
@@ -47,8 +47,8 @@ function add_article_section(current_section) {
 
   let text_area = document.createElement('textarea');
   text_area.name = 'text_area';
-  text_area.id = 'article_section_text_area';
-  text_area.placeholder = 'Section';
+  text_area.id = 'article_category_text_area';
+  text_area.placeholder = 'Category';
 
   form.appendChild(text_area);
   current_section.appendChild(form);
@@ -292,7 +292,7 @@ function get_article_json_from_editor() {
     "authors":[document.getElementById('author_name_text_area').value],
     "sections": get_sections_from_editor(),
     "url": get_editing_article_url(),
-    "category": "kek_category",
+    "category": document.getElementById('article_category_text_area').value,
   }
   return article_json;
 }
@@ -420,17 +420,6 @@ function move_down_section(section_num) {
     new_editor_section_list.push(editor_sections_list[i]);
   }
   update_editor_section(new_editor_section_list);
-}
-
-function get_editing_article_url() {
-  let url = window.location.href.split('/');
-  console.log("current_url:", url);
-  let last_string = url[url.length - 2];
-  if (last_string == 'editor') {
-    return '';
-  } else {
-    return last_string;
-  }
 }
 
 function get_sections_from_server() {

@@ -6,7 +6,7 @@ from html_compiler.html_factories.section_factories.graph import GraphSectionFac
 from html_compiler.html_factories.section_factories.chart import ChartSectionFactory
 from html_compiler.html_factories.section_factories.steps import StepSectionFactory
 
-STATIC_STORAGE_PATH = '/Users/evgenstf/articles/static/'
+STATIC_STORAGE_PATH = os.environ.get('ARTICLE_STATIC')
 
 def calculate_reading_time(sections):
     total_length = 0
@@ -23,7 +23,9 @@ class ArticleHtmlFactory:
     def compile_sections(article_url, sections):
         section_html = ''
 
+        print("sections:", sections)
         for section in sections:
+            print("section:", section)
             if section['type'] == 'markdown' or section['type'] == 'tldr':
                 section_html += MarkdownSectionFactory.build_html(section)
             elif section['type'] == 'graph':
@@ -34,10 +36,10 @@ class ArticleHtmlFactory:
             elif section['type'] == 'chart':
                 section_html += ChartSectionFactory.build_html(
                         section,
-                        zrticle_url,
+                        article_url,
                         STATIC_STORAGE_PATH)
             elif section['type'] == 'steps':
-                section_html += StepSectionFactory.build_html(section['content'], article_url)
+                section_html += StepSectionFactory.build_html(section['content'], article_url, ArticleHtmlFactory.compile_sections)
             else:
                 print("[warning] unknown section type:", section['type'])
         return section_html

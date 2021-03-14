@@ -73,6 +73,9 @@ class DrawGraph:
                     node_colors[id] = self.node_attributes[str_id]['color']
 
 
+        print("-----here")
+
+
         nx.draw_networkx_nodes(G, pos, node_size=self.calculate_node_diameter(),
             node_color=[node_colors[id] for id in range(self.node_count)])
         nx.draw_networkx_edges(G, pos, edge_color=self.edge_color, width=4)
@@ -99,8 +102,14 @@ class GraphSectionFactory:
         if not os.path.exists(article_static_storage_path):
             os.makedirs(article_static_storage_path)
 
+
+
         graph_absolute_path = article_static_storage_path + '/' + "graph_" + str(GraphSectionFactory.graph_id) + ".svg"
         graph_relative_path = article_url + '/' + "graph_" + str(GraphSectionFactory.graph_id) + ".svg"
+
+        print("graph_absolute_path:", graph_absolute_path)
+        print("graph_relative_path:", graph_relative_path)
+
         graph = DrawGraph(section)
         graph.draw(graph_absolute_path)
         GraphSectionFactory.graph_id += 1
