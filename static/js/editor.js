@@ -312,6 +312,20 @@ function compile() {
   });
 }
 
+function publish() {
+  let article = JSON.stringify(get_article_json_from_editor());
+  $.ajax({
+      type: 'post',
+      url: '/editor/',
+      data: JSON.stringify(`{"type":"publish","article":${article}}`),
+      dataType: 'json',
+      success: function (result) {
+        console.log('article published:', result);
+        window.location.href = '/article/' + result['url'];
+      }
+  });
+}
+
 function export_article() {
   let article = document.getElementById("view_window").cloneNode(true);
   article.childNodes[1].style.padding = "40px";
