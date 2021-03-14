@@ -45,6 +45,7 @@ urlpatterns.append(path('register/', handle_register, name='register'))
 urlpatterns.append(path('login/', handle_login, name='login'))
 urlpatterns.append(path('logout/', handle_logout, name='logout'))
 
+urlpatterns.append(path('editor/<str:article_url>/', handle_editor, name='editor'))
 urlpatterns.append(path('editor/', handle_editor, name='editor'))
 
 handler404 = handle_404

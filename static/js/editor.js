@@ -14,7 +14,7 @@ function add_article_title() {
   let text_area = document.createElement('textarea');
   text_area.name = 'text_area';
   text_area.id = 'article_title_text_area';
-  text_area.placeholder = 'title';
+  text_area.placeholder = 'Title';
 
   form.appendChild(text_area);
   current_section.appendChild(form);
@@ -280,11 +280,11 @@ function get_sections_from_editor() {
 }
 
 function compile() {
-  let sections = get_sections_from_editor();
+  let sections = JSON.stringify(get_sections_from_editor());
   $.ajax({
       type: 'post',
       url: '/editor/',
-      data: JSON.stringify(sections),
+      data: JSON.stringify(`{"type":"compile","sections":"${sections}"}`),
       dataType: 'json',
       success: function (result) {
         let article_preview = document.getElementById("view_window_background");
@@ -404,3 +404,29 @@ function move_down_section(section_num) {
   update_editor_section(new_editor_section_list);
 }
 
+function get_editing_article_url() {
+  let url = window.location.href.split('/');
+  console.log("current_url:", url);
+  let last_string = url[url.length - 2];
+  if (last_string == 'editor') {
+    return '';
+  } else {
+    return last_string;
+  }
+}
+
+function get_sections_from_server() {
+  article_url = get_editing_article_url();
+  console.log("article_url:", article_url);
+  $.ajax({
+      type: 'post',
+      url: '/editor/',
+      data: JSON.stringify(`{"type":"get_sections","article_url":"${article_url}"}`),
+      dataType: 'json',
+      success: function (result) {
+        console.log("received sections from server:", result);
+      }
+  });
+}
+
+get_sections_from_server();
