@@ -49,7 +49,7 @@ class Editor:
 
         article_json['preview_html'] = ArticlePreviewHtmlFactory.build_html(article_json)
 
-        compilation_result = compile_article(article_json)
+        compilation_result = Editor.compile_article(article_json)
 
         article_json['html'] = compilation_result['html']
         article_json['js'] = compilation_result['js']
