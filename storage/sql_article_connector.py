@@ -112,5 +112,6 @@ class SQLArticleConnector:
 
     @staticmethod
     def get_next_article_id():
+
         raw_output = execute_sql_command(SELECT_NEXT_ID)
         return raw_output[0][0]

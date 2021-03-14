@@ -14,17 +14,29 @@ function add_article_title() {
   let text_area = document.createElement('textarea');
   text_area.name = 'text_area';
   text_area.id = 'article_title_text_area';
-  text_area.placeholder = 'title';
+  text_area.placeholder = 'Title';
 
   form.appendChild(text_area);
   current_section.appendChild(form);
 }
 add_article_title();
 
+function get_editing_article_url() {
+  let url = window.location.href.split('/');
+  console.log("current_url:", url);
+  let last_string = url[url.length - 2];
+  if (last_string == 'editor') {
+    return '';
+  } else {
+    return last_string;
+  }
+}
+
+
 function add_article_section(current_section) {
   let article_section = document.createElement("div");
   article_section.id = 'article_section';
-  let section_name = document.createTextNode("Section");
+  let section_name = document.createTextNode("Category");
 
   article_section.appendChild(section_name);
   current_section.appendChild(article_section);
@@ -35,8 +47,8 @@ function add_article_section(current_section) {
 
   let text_area = document.createElement('textarea');
   text_area.name = 'text_area';
-  text_area.id = 'article_section_text_area';
-  text_area.placeholder = 'Section';
+  text_area.id = 'article_category_text_area';
+  text_area.placeholder = 'Category';
 
   form.appendChild(text_area);
   current_section.appendChild(form);
@@ -223,25 +235,26 @@ function add_section(section_title, section_class) {
   text_area.addEventListener('input', autoResize, false);
 
   function autoResize() {
-    this.style.height = 'auto';
+    //this.style.height = 'auto';
     this.style.height = this.scrollHeight - 20 + 'px';
   }
 
+  let text = '';
   if (section_class == 'graph') {
-    let text = "{\n            \"type\": \"dot\",\n            \"node_color\": \"#D3D3D3\",\n            \"edge_color\": \"#909090\",\n            \"node_count\": 7,\n            \"node_attributes\": {\n                    \"0\": {\"label\":\"12\", \"color\":\"yellow\"}\n            },\n            \"edges\": [\n                    {\"from\": 0, \"to\":1},\n                    {\"from\": 0, \"to\":2},\n                    {\"from\": 1, \"to\":3},\n                    {\"from\": 1, \"to\":4},\n                    {\"from\": 2, \"to\":5},\n                    {\"from\": 2, \"to\":6}\n            ]\n}";
-    section_name = document.createTextNode(text);
-    text_area.appendChild(section_name);
+    text = "{\n            \"type\": \"dot\",\n            \"node_color\": \"#D3D3D3\",\n            \"edge_color\": \"#909090\",\n            \"node_count\": 7,\n            \"node_attributes\": {\n                    \"0\": {\"label\":\"12\", \"color\":\"yellow\"}\n            },\n            \"edges\": [\n                    {\"from\": 0, \"to\":1},\n                    {\"from\": 0, \"to\":2},\n                    {\"from\": 1, \"to\":3},\n                    {\"from\": 1, \"to\":4},\n                    {\"from\": 2, \"to\":5},\n                    {\"from\": 2, \"to\":6}\n            ]\n}";
   }
   else if (section_class == 'chart') {
-    let text = "{\n            \"type\": \"line\",\n            \"color\": \"#1e4a76\",\n            \"line_smooth\": true,\n            \"show_grid\": true,\n            \"x-axis\": [\n                    0,\n                    1,\n                    2,\n                    3,\n                    4,\n                    5\n            ],\n            \"y-axis\": [\n                    4,\n                    5,\n                    0,\n                    3,\n                    0,\n                    1\n            ]\n}";
-    section_name = document.createTextNode(text);
-    text_area.appendChild(section_name);
+    text = "{\n            \"type\": \"line\",\n            \"color\": \"#1e4a76\",\n            \"line_smooth\": true,\n            \"show_grid\": true,\n            \"x-axis\": [\n                    0,\n                    1,\n                    2,\n                    3,\n                    4,\n                    5\n            ],\n            \"y-axis\": [\n                    4,\n                    5,\n                    0,\n                    3,\n                    0,\n                    1\n            ]\n}";
   }
   else if (section_class == 'steps') {
-    let text = "[\n      [\n        {\n          \"type\":\"markdown\",\n          \"content\":\"#Ициализация\"\n        },\n        {\n          \"type\":\"markdown\",\n          \"content\":\"Начать стоит с того, что добавить в дерево первый элемент, он будет являться корнем и уже образует упорядоченную кучу сам по себе.\"\n        },\n        {\n          \"type\": \"graph\",\n          \"content\": {\n            \"type\": \"dot\",\n            \"node_color\": \"#D3D3D3\",\n            \"edge_color\": \"#909090\",\n            \"node_count\": 7,\n            \"node_attributes\": {\n              \"0\": {\"label\":\"12\", \"color\":\"yellow\"}\n            },\n            \"edges\": [\n              {\"from\": 0, \"to\":1},\n              {\"from\": 0, \"to\":2},\n              {\"from\": 1, \"to\":3},\n              {\"from\": 1, \"to\":4},\n              {\"from\": 2, \"to\":5},\n              {\"from\": 2, \"to\":6}\n            ]\n          }\n        }\n      ],\n      [\n        {\n          \"type\":\"markdown\",\n          \"content\":\"#Добавление элемента\"\n        },\n        {\n          \"type\":\"markdown\",\n          \"content\":\"Далее добавляем следующий элемент в первый незянятый слот в порядке BFS обхода.\"\n        },\n        {\n          \"type\": \"graph\",\n          \"content\": {\n            \"type\": \"dot\",\n            \"node_color\": \"#D3D3D3\",\n            \"edge_color\": \"#909090\",\n            \"node_count\": 7,\n            \"node_attributes\": {\n              \"0\": {\"label\":\"12\", \"color\":\"yellow\"},\n              \"1\": {\"label\":\"1\", \"color\":\"green\"}\n            },\n            \"edges\": [\n              {\"from\": 0, \"to\":1},\n              {\"from\": 0, \"to\":2},\n              {\"from\": 1, \"to\":3},\n              {\"from\": 1, \"to\":4},\n              {\"from\": 2, \"to\":5},\n              {\"from\": 2, \"to\":6}\n            ]\n          }\n        }\n]\n      \n      \n]";
-    section_name = document.createTextNode(text);
-    text_area.appendChild(section_name);
+    text = "[\n      [\n        {\n          \"type\":\"markdown\",\n          \"content\":\"#Ициализация\"\n        },\n        {\n          \"type\":\"markdown\",\n          \"content\":\"Начать стоит с того, что добавить в дерево первый элемент, он будет являться корнем и уже образует упорядоченную кучу сам по себе.\"\n        },\n        {\n          \"type\": \"graph\",\n          \"content\": {\n            \"type\": \"dot\",\n            \"node_color\": \"#D3D3D3\",\n            \"edge_color\": \"#909090\",\n            \"node_count\": 7,\n            \"node_attributes\": {\n              \"0\": {\"label\":\"12\", \"color\":\"yellow\"}\n            },\n            \"edges\": [\n              {\"from\": 0, \"to\":1},\n              {\"from\": 0, \"to\":2},\n              {\"from\": 1, \"to\":3},\n              {\"from\": 1, \"to\":4},\n              {\"from\": 2, \"to\":5},\n              {\"from\": 2, \"to\":6}\n            ]\n          }\n        }\n      ],\n      [\n        {\n          \"type\":\"markdown\",\n          \"content\":\"#Добавление элемента\"\n        },\n        {\n          \"type\":\"markdown\",\n          \"content\":\"Далее добавляем следующий элемент в первый незянятый слот в порядке BFS обхода.\"\n        },\n        {\n          \"type\": \"graph\",\n          \"content\": {\n            \"type\": \"dot\",\n            \"node_color\": \"#D3D3D3\",\n            \"edge_color\": \"#909090\",\n            \"node_count\": 7,\n            \"node_attributes\": {\n              \"0\": {\"label\":\"12\", \"color\":\"yellow\"},\n              \"1\": {\"label\":\"1\", \"color\":\"green\"}\n            },\n            \"edges\": [\n              {\"from\": 0, \"to\":1},\n              {\"from\": 0, \"to\":2},\n              {\"from\": 1, \"to\":3},\n              {\"from\": 1, \"to\":4},\n              {\"from\": 2, \"to\":5},\n              {\"from\": 2, \"to\":6}\n            ]\n          }\n        }\n]\n      \n      \n]";
   }
+
+  text_area.style.height = (text.match(/\n/g) || []).length * 25 + 'px';
+  console.log("text_area.style.height", text_area.style.height);
+
+  section_name = document.createTextNode(text);
+  text_area.appendChild(section_name);
 
   form.appendChild(text_area);
   current_section.appendChild(form);
@@ -260,12 +273,6 @@ function get_today_date() {
 
 function get_sections_from_editor() {
   let sections = [];
-  let section = {
-    "date": get_today_date(),
-    "header": ["<h1>" + document.getElementById('article_title_text_area').value + "</h1>"],
-    "authors":[document.getElementById('author_name_text_area').value],
-  }
-  sections.push(section)
   let sections_to_export = get_editor_sections();
   for (let index = 1; index < sections_to_export.length; index += 2) {
     let form = sections_to_export[index];
@@ -279,16 +286,42 @@ function get_sections_from_editor() {
   return sections;
 }
 
+function get_article_json_from_editor() {
+  let article_json = {
+    "date": get_today_date(),
+    "header": ["<h1>" + document.getElementById('article_title_text_area').value + "</h1>"],
+    "authors":[document.getElementById('author_name_text_area').value],
+    "sections": get_sections_from_editor(),
+    "url": get_editing_article_url(),
+    "category": document.getElementById('article_category_text_area').value,
+  }
+  return article_json;
+}
+
 function compile() {
-  let sections = get_sections_from_editor();
+  let article = JSON.stringify(get_article_json_from_editor());
   $.ajax({
       type: 'post',
       url: '/editor/',
-      data: JSON.stringify(sections),
+      data: JSON.stringify(`{"type":"compile","article":${article}}`),
       dataType: 'json',
       success: function (result) {
         let article_preview = document.getElementById("view_window_background");
-        article_preview.innerHTML = result['result'];
+        article_preview.innerHTML = result['html'];
+      }
+  });
+}
+
+function publish() {
+  let article = JSON.stringify(get_article_json_from_editor());
+  $.ajax({
+      type: 'post',
+      url: '/editor/',
+      data: JSON.stringify(`{"type":"publish","article":${article}}`),
+      dataType: 'json',
+      success: function (result) {
+        console.log('article published:', result);
+        window.location.href = '/article/' + result['url'];
       }
   });
 }
@@ -404,3 +437,18 @@ function move_down_section(section_num) {
   update_editor_section(new_editor_section_list);
 }
 
+function get_sections_from_server() {
+  article_url = get_editing_article_url();
+  console.log("article_url:", article_url);
+  $.ajax({
+      type: 'post',
+      url: '/editor/',
+      data: JSON.stringify(`{"type":"get_sections","article_url":"${article_url}"}`),
+      dataType: 'json',
+      success: function (result) {
+        console.log("received sections from server:", result);
+      }
+  });
+}
+
+get_sections_from_server();

@@ -33,7 +33,7 @@ class BaseCustomPageHtmlFactory:
 
 class BaseCustomHeaderHtmlFactory:
     @staticmethod
-    def create(content, tittle, header_name):
+    def create(content, title, header_name):
         html_template = open('templates/html/base_template.html', 'r').read()
         base_js = open('templates/js/base.js', 'r').read()
         base_css = open('templates/css/base.css', 'r').read()
@@ -42,7 +42,7 @@ class BaseCustomHeaderHtmlFactory:
         html_template = html_template.replace('&base_css&', base_css)
 
         html_template = html_template.replace('&content&', content)
-        html_template = html_template.replace('&tittle&', tittle)
+        html_template = html_template.replace('&title&', title)
         html_template = html_template.replace('&header_name&', header_name)
 
         return html_template
@@ -75,7 +75,7 @@ class BaseUserPageHtmlFactory:
 
         html_template = html_template.replace('&content&', content)
 
-        html_template = html_template.replace('&tittle&', '{{ owner }}')
+        html_template = html_template.replace('&title&', '{{ owner }}')
         html_template = html_template.replace('&header_name&', '{{ owner }}')
 
         return html_template

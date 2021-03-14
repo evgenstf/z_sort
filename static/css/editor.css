@@ -3,7 +3,7 @@ color: black;
 margin-top: 30px;
 }
 
-#add_section_tittle {
+#add_section_title {
 font-size:14px;
 margin-top:-10px;
 }
@@ -12,11 +12,11 @@ margin-top:-10px;
 margin-left:-3px;
 }
 
-#article_tittle {
+#article_title {
 margin-top:-20px;
 }
 
-#article_tittle,#article_section,#author_name {
+#article_title,#article_section,#author_name {
 color:#474747;
 font-family:Montserrat;
 font-size:14px;
@@ -29,11 +29,11 @@ text-align:left;
 width:calc(100% - 16px);
 }
 
-#article_tittle_form,#article_section_form,#author_name_form {
+#article_title_form,#article_section_form,#author_name_form {
 width:calc(100% - 16px);
 }
 
-#article_tittle_text_area,#article_section_text_area,#author_name_text_area {
+#article_category_text_area,#article_title_text_area,#author_name_text_area {
 background:#E9F8F9;
 border:0 none;
 color:black;

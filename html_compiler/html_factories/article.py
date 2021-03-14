@@ -6,6 +6,8 @@ from html_compiler.html_factories.section_factories.graph import GraphSectionFac
 from html_compiler.html_factories.section_factories.chart import ChartSectionFactory
 from html_compiler.html_factories.section_factories.steps import StepSectionFactory
 
+STATIC_STORAGE_PATH = os.environ.get('ARTICLE_STATIC')
+
 def calculate_reading_time(sections):
     total_length = 0
     for section in sections:
@@ -18,47 +20,47 @@ class ArticleHtmlFactory:
         self.template = None
 
     @staticmethod
-    def compile_section(sections, absolute_path, relative_path, static_storage_absolute_path):
+    def compile_sections(article_url, sections):
         section_html = ''
-        if type(static_storage_absolute_path) == list:
-            static_storage_absolute_path = '/'.join(static_storage_absolute_path)
+
+        print("sections:", sections)
         for section in sections:
+            print("section:", section)
             if section['type'] == 'markdown' or section['type'] == 'tldr':
                 section_html += MarkdownSectionFactory.build_html(section)
             elif section['type'] == 'graph':
                 section_html += GraphSectionFactory.build_html(
                         section,
-                        '/'.join(relative_path),
-                        static_storage_absolute_path
-                )
+                        article_url,
+                        STATIC_STORAGE_PATH)
             elif section['type'] == 'chart':
                 section_html += ChartSectionFactory.build_html(
                         section,
-                        '/'.join(relative_path),
-                        static_storage_absolute_path)
+                        article_url,
+                        STATIC_STORAGE_PATH)
             elif section['type'] == 'steps':
-                section_html += StepSectionFactory.build_html(section['content'], absolute_path, relative_path, static_storage_absolute_path, ArticleHtmlFactory.compile_section)
+                section_html += StepSectionFactory.build_html(section['content'], article_url, ArticleHtmlFactory.compile_sections)
             else:
                 print("[warning] unknown section type:", section['type'])
         return section_html
 
 
     @staticmethod
-    def build_html(*, meta, absolute_path, relative_path, parent_meta, static_storage_absolute_path):
-        sections = json.loads(open('/'.join(absolute_path) + '/sections.json').read())
+    def build_html(*, article_json):
+        sections = article_json['sections']
 
-        article_header_html = '<br>'.join(meta['header'])
+        article_header_html = '<br>'.join(article_json['header'])
 
-        article_body_html = ArticleHtmlFactory.compile_section(sections, absolute_path, relative_path, static_storage_absolute_path)
+        article_body_html = ArticleHtmlFactory.compile_sections(article_json['url'], sections)
 
         article_html = open(os.path.dirname(os.path.realpath(__file__)) + '/../templates/html/article.html', 'r').read()
         article_html = article_html.replace('&article_header&', article_header_html)
-        article_html = article_html.replace('&article_parent_link&', '/category/' + '/'.join(relative_path[:-1]))
-        article_html = article_html.replace('&article_parent_header&', ' '.join(parent_meta['header']))
-        article_html = article_html.replace('&article_parent_color&', parent_meta['color'] if 'color' in parent_meta else 'var(--gray-color)')
+        article_html = article_html.replace('&article_parent_link&', '/category/' + article_json['category'])
+        article_html = article_html.replace('&article_parent_header&', ' '.join(article_json['category']))
+        article_html = article_html.replace('&article_parent_color&', 'var(--gray-color)')
         article_html = article_html.replace('&article_reading_time&', calculate_reading_time(sections))
         article_html = article_html.replace('&article_body&', article_body_html)
-        article_html = article_html.replace('&article_authors&', '<br>'.join(meta['authors']))
-        article_html = article_html.replace('&article_date&', meta['date'])
+        article_html = article_html.replace('&article_authors&', '<br>'.join(article_json['authors']))
+        article_html = article_html.replace('&article_date&', article_json['date'])
 
         return article_html
