@@ -91,16 +91,16 @@ class GraphSectionFactory:
     graph_id = 0
 
     @staticmethod
-    def build_html(section, article_relative_path, static_resources_path):
+    def build_html(section, article_url, static_storage_path):
         import json
         if type(section['content']) == str:
             section['content'] = json.loads(''.join(str(section['content']).split()))
-        article_static_resources_path = static_resources_path + '/articles/' + article_relative_path
-        if not os.path.exists(article_static_resources_path):
-            os.makedirs(article_static_resources_path)
+        article_static_storage_path = static_storage_path + '/articles/' + article_url
+        if not os.path.exists(article_static_storage_path):
+            os.makedirs(article_static_storage_path)
 
-        graph_absolute_path = article_static_resources_path + '/' + "graph_" + str(GraphSectionFactory.graph_id) + ".svg"
-        graph_relative_path = article_relative_path + '/' + "graph_" + str(GraphSectionFactory.graph_id) + ".svg"
+        graph_absolute_path = article_static_storage_path + '/' + "graph_" + str(GraphSectionFactory.graph_id) + ".svg"
+        graph_relative_path = article_url + '/' + "graph_" + str(GraphSectionFactory.graph_id) + ".svg"
         graph = DrawGraph(section)
         graph.draw(graph_absolute_path)
         GraphSectionFactory.graph_id += 1

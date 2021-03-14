@@ -21,6 +21,18 @@ function add_article_title() {
 }
 add_article_title();
 
+function get_editing_article_url() {
+  let url = window.location.href.split('/');
+  console.log("current_url:", url);
+  let last_string = url[url.length - 2];
+  if (last_string == 'editor') {
+    return '';
+  } else {
+    return last_string;
+  }
+}
+
+
 function add_article_section(current_section) {
   let article_section = document.createElement("div");
   article_section.id = 'article_section';
@@ -260,12 +272,6 @@ function get_today_date() {
 
 function get_sections_from_editor() {
   let sections = [];
-  let section = {
-    "date": get_today_date(),
-    "header": ["<h1>" + document.getElementById('article_title_text_area').value + "</h1>"],
-    "authors":[document.getElementById('author_name_text_area').value],
-  }
-  sections.push(section)
   let sections_to_export = get_editor_sections();
   for (let index = 1; index < sections_to_export.length; index += 2) {
     let form = sections_to_export[index];
@@ -279,16 +285,28 @@ function get_sections_from_editor() {
   return sections;
 }
 
+function get_article_json_from_editor() {
+  let article_json = {
+    "date": get_today_date(),
+    "header": ["<h1>" + document.getElementById('article_title_text_area').value + "</h1>"],
+    "authors":[document.getElementById('author_name_text_area').value],
+    "sections": get_sections_from_editor(),
+    "url": get_editing_article_url(),
+    "category": "kek_category",
+  }
+  return article_json;
+}
+
 function compile() {
-  let sections = JSON.stringify(get_sections_from_editor());
+  let article = JSON.stringify(get_article_json_from_editor());
   $.ajax({
       type: 'post',
       url: '/editor/',
-      data: JSON.stringify(`{"type":"compile","sections":"${sections}"}`),
+      data: JSON.stringify(`{"type":"compile","article":${article}}`),
       dataType: 'json',
       success: function (result) {
         let article_preview = document.getElementById("view_window_background");
-        article_preview.innerHTML = result['result'];
+        article_preview.innerHTML = result['html'];
       }
   });
 }

@@ -8,32 +8,23 @@ from django.contrib.auth.decorators import login_required
 
 from html_factories.editor import EditorHtmlFactory
 
+
 import socket
 import json
 
 import sys
 
-from storage.sql_article_connector import SQLArticleConnector
+from html_compiler.compile import compile_article
 
-def update_article_from_editor(article_to_update):
-    sock = socket.socket()
-    sock.connect(('localhost', 9996))
-    sock.send(json.dumps({"type": "update_meta", "new_meta": article_to_update[0], "article_id": "editor_result"}).encode())
-    sock.close()
-    sock = socket.socket()
-    sock.connect(('localhost', 9996))
-    sock.send(json.dumps({"type": "update_sections", "new_sections": article_to_update[1:], "article_id": "editor_result"}).encode())
-    sock.close()
-    sock = socket.socket()
-    sock.connect(('localhost', 9996))
-    sock.send(json.dumps({"type": "compile", "article_id": "editor_result"}).encode())
-    sock.close()
-    sock = socket.socket()
-    sock.connect(('localhost', 9996))
-    sock.send(json.dumps({"type": "get", "article_id": "editor_result"}).encode())
-    result = sock.recv(1000000)
-    sock.close()
-    return result
+
+class Editor:
+    @staticmethod
+    def compile_article(article_json):
+        try:
+            return compile_article(article_json)
+        except Exception as e:
+            print("[error] Exception:", e)
+            return '<br><br><br><br>ERROR'
 
 def handle_post_request(request, article_url):
     try:
@@ -43,22 +34,16 @@ def handle_post_request(request, article_url):
 
         print("received post request:", received_json)
 
-        for key, value in received_json.items():
-            print("key:", key, "value:", value)
-        print("received post request:", received_json)
-
         type = received_json['type']
         print("type:", type)
+
         if type == 'compile':
-            result = compile_article(received_json['sections'])
-            template = Template('{% load static %}\n' + json.loads(result)['result'])
-            rendered_page = template.render(Context({}))
+            article_json = received_json['article']
+            result = Editor.compile_article(article_json)
+            template = Template(result['html'])
+            result['html'] = template.render(Context({}))
 
-            return JsonResponse({'result': rendered_page})
-
-        if type == 'get_sections':
-            print("return sections")
-            return JsonResponse({'result': []})
+            return JsonResponse(result)
 
     except Exception as ex:
         print("Unexpected error:", ex)
@@ -73,4 +58,3 @@ def handle_editor(request, article_url=''):
 
     context = Context({'request': request})
     return HttpResponse(template.render(context))
-

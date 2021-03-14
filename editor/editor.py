@@ -48,23 +48,9 @@ class Editor:
         return True
 
 
-def main():
-    import socketserver
-    import json
-    import argparse
-    from storage.file_article_storage import FileArticleStorage
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--host', default='localhost')
-    parser.add_argument('--port', default=9998, type=int)
-    parser.add_argument('--max-request-length', default=4024)
-    parser.add_argument('--storage-path')
 
-    args = parser.parse_args()
-
-    storage = FileArticleStorage(args.storage_path)
-    editor = Editor(storage)
-
+    """
     class TCPHandler(socketserver.BaseRequestHandler):
         def handle(self):
             self.data = self.request.recv(args.max_request_length).strip()
@@ -122,3 +108,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    """
