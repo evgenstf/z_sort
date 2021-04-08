@@ -1,38 +1,3 @@
-function add_article_title() {
-  let current_section = document.getElementById("editor_window");
-  let article_title = document.createElement("div");
-  article_title.id = 'article_title';
-  let section_name = document.createTextNode("Article title");
-
-  article_title.appendChild(section_name);
-  current_section.appendChild(article_title);
-
-  let form = document.createElement('form')
-  form.method = 'post'
-  form.id = 'article_title_form';
-
-  let text_area = document.createElement('textarea');
-  text_area.name = 'text_area';
-  text_area.id = 'article_title_text_area';
-  text_area.placeholder = 'Title';
-
-  form.appendChild(text_area);
-  current_section.appendChild(form);
-}
-add_article_title();
-
-function get_editing_article_url() {
-  let url = window.location.href.split('/');
-  console.log("current_url:", url);
-  let last_string = url[url.length - 2];
-  if (last_string == 'editor') {
-    return '';
-  } else {
-    return last_string;
-  }
-}
-
-
 function add_article_section(current_section) {
   let article_section = document.createElement("div");
   article_section.id = 'article_section';

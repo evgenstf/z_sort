@@ -4,13 +4,32 @@
 
 <div id="editor_body">
     <div id="editor">
-        <div id="editor_window"></div>
+      <div id="editor_window">
+        <div class="article_attribute_hint">Title</div>
+        <form method="post">
+          <textarea id="title_textarea" class="article_attribute_textarea" placeholder="Title"></textarea>
+        </form>
+        <div class="article_attribute_hint">Author</div>
+        <form method="post">
+          <textarea id="author_textarea" class="article_attribute_textarea" placeholder="Author"></textarea>
+        </form>
 
-        <div id="view_window">
-            <div id="view_window_background">
-                &editor_article&
-            </div>
+        <div id='editor_sections_div'>
         </div>
+        <div id="add_section_buttons">
+          <p id="add_section_tittle">add section</p><br>
+          <button id="add_markdown_section_button" class="add_section_button"><img src="/sr/svg/icon_markdown.svg">markdown</button>
+          <button id="add_graph_section_button" class="add_section_button"><img src="/sr/svg/icon_graph.svg">graph</button>
+          <button id="add_chart_section_button" class="add_section_button"><img src="/sr/svg/icon_chart.svg">chart</button>
+          <button id="add_steps_section_button" class="add_section_button"><img src="/sr/svg/icon_steps.svg">steps</button></div>
+      </div>
+
+
+      <div id="view_window">
+          <div id="view_window_background">
+              &editor_article&
+          </div>
+      </div>
     </div>
 
     <div id="editor_buttons">
@@ -30,6 +49,6 @@
         </table>
     </div>
 
-    <script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/new_editor.js' %}"></script>
 
 </div>
