@@ -95,17 +95,17 @@ const isAbove = function(mouseY, nodeB) {
 const mouseMoveHandler = function(mouse) {
   // Set position for dragging element
   draggingEle.style.position = 'absolute';
-  draggingEle.style.x = `${mouse.x - x}px`;
   draggingEle.style.y = `${mouse.y - y}px`;
 
-  console.log(draggingEle.style.left, draggingEle.style.top);
 
+  const draggingRect = draggingEle.getBoundingClientRect();
   const prevEle = draggingEle.previousElementSibling;
   const nextEle = placeholder.nextElementSibling;
 
+
   if (prevEle) {
     const prevEleRect = prevEle.getBoundingClientRect();
-    if (mouse.y < prevEleRect.top) {
+    if (mouse.y < prevEleRect.top + Math.min(draggingRect.height, prevEleRect.height)) {
       swap(prevEle, draggingEle);
       swap(prevEle, placeholder);
       return;
@@ -114,7 +114,7 @@ const mouseMoveHandler = function(mouse) {
 
   if (nextEle) {
     const nextEleRect = nextEle.getBoundingClientRect();
-    if (mouse.y > nextEleRect.top) {
+    if (mouse.y > nextEleRect.top + nextEleRect.height - Math.min(draggingRect.height, nextEleRect.height)) {
       swap(nextEle, placeholder);
       swap(nextEle, draggingEle);
     }
