@@ -1,7 +1,12 @@
+.placeholder {
+  background-color: #edf2f7;
+  border: 2px dashed #cbd5e0;
+  margin-bottom: 1rem;
+}
+
 #editor-table {
   padding-top: 10px;
   padding-bottom: 10px;
-  background: rgba(0, 0, 0, 0.03);
 }
 
 #left-editor-pane {
@@ -49,6 +54,8 @@
   border-radius: 3px;
   vertical-align: middle;
   padding-top: 1.5px;
+  cursor: move;
+  user-select: none;
 }
 
 .editor-section-type-button:hover {
