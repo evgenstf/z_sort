@@ -1,35 +1,42 @@
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
+<table width=100%>
+  <tr><td width=50% style="padding:20px;">
+    <table id="editor-table" width=100% cellspacing="0" cellpadding="0"border=0px>
+    </table>
+  </td>
+  <td width=50% style="padding:20px;">
+    <table id="preview-table" width=100% cellspacing="0" cellpadding="0"border=0px>
+      <tr>
+        <td id="central-preview-pane">
+          <div  contenteditable="true">
+            <div>asdfadsf</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </td></tr>
+</table>
+
+
+<div id="editor-buttons">
+    <table>
+        <tr>
+            <td id="left_side_buttons">
+                <button onclick="compile()" id="compile_button"> Compile </button>
+            </td>
+            <td id="right_side_buttons">
+                <button onclick="publish()" id="publish_button"> Publish </button>
+                <button onclick="export_article()" id="export_button">
+                    Export
+<!--                        <img id="export_ico" src="/sr/svg/icon_export.svg">-->
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+
 <link rel="stylesheet" href="{% static 'css/editor.css' %}">
 
-<div id="editor_body">
-    <div id="editor">
-        <div id="editor_window"></div>
-
-        <div id="view_window">
-            <div id="view_window_background">
-                &editor_article&
-            </div>
-        </div>
-    </div>
-
-    <div id="editor_buttons">
-        <table>
-            <tr>
-                <td id="left_side_buttons">
-                    <button onclick="compile()" id="compile_button"> Compile </button>
-                </td>
-                <td id="right_side_buttons">
-                    <button onclick="publish()" id="publish_button"> Publish </button>
-                    <button onclick="export_article()" id="export_button">
-                        Export
-<!--                        <img id="export_ico" src="/sr/svg/icon_export.svg">-->
-                    </button>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
-
-</div>
+<script type="text/javascript" src="{% static 'js/editor.js' %}"></script>
