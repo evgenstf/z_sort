@@ -105,7 +105,7 @@ const mouseMoveHandler = function(mouse) {
 
   if (prevEle) {
     const prevEleRect = prevEle.getBoundingClientRect();
-    if (mouse.y < prevEleRect.top + prevEleRect.height / 2) {
+    if (mouse.y < prevEleRect.top) {
       swap(prevEle, draggingEle);
       swap(prevEle, placeholder);
       return;
@@ -114,7 +114,7 @@ const mouseMoveHandler = function(mouse) {
 
   if (nextEle) {
     const nextEleRect = nextEle.getBoundingClientRect();
-    if (mouse.y > nextEleRect.top + nextEleRect.height / 2) {
+    if (mouse.y > nextEleRect.top) {
       swap(nextEle, placeholder);
       swap(nextEle, draggingEle);
     }
@@ -141,6 +141,12 @@ const finishDraggingHandler = function() {
   document.removeEventListener('mousemove', mouseMoveHandler);
   document.removeEventListener('mousedown', finishDraggingHandler);
   document.removeEventListener('mouseup', mouseUpHandler);
+
+  const list = document.getElementById('editor-table');
+  // Query all items
+  [].slice.call(list.querySelectorAll('.editor-section')).forEach(function(item) {
+    item.classList.remove('no-hover');
+  });
 };
 
 const mouseUpHandler = function() {
@@ -170,6 +176,12 @@ const startDraggingHandler = function(mouse) {
     // Attach the listeners to `document`
     document.addEventListener('mousemove', mouseMoveHandler);
     document.addEventListener('mouseup', mouseUpHandler);
+
+    const list = document.getElementById('editor-table');
+    // Query all items
+    [].slice.call(list.querySelectorAll('.editor-section')).forEach(function(item) {
+      item.classList.add('no-hover');
+    });
   }
 }
 

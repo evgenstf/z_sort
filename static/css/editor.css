@@ -80,6 +80,10 @@
   border: none;
 }
 
+.no-hover {
+  pointer-events: none;
+}
+
 table td, table td * {
   vertical-align: top;
 }
