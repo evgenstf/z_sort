@@ -1,28 +1,53 @@
-const EDITOR_SECTION_TEMPLATE = `<table  width=100% cellspacing="0" cellpadding="0" type="%section_type%"><tr><td><img class="editor-section-move-button" src="/sr/svg/icon_move.svg"></td><td><img class="editor-section-type-button" src="%section_icon%"></td><td width=10px></td><td class="editor-section-content"><div contenteditable="true">%section_content%</div></td></tr></table>`;
+const EDITOR_SECTION_TEMPLATE = `<table width=100% cellspacing="0" cellpadding="0" type="%section_type%"><tr><td><img class="editor-section-move-button" src="/sr/svg/icon_move.svg"></td>
+<td class="editor-section-type-container">
+  <img class="editor-section-type-button" src="%section_icon%">
+  <div class="editor-section-available-types">
+    %available_types%
+  </div>
+</td>
+<td width=10px></td><td class="editor-section-content"><div contenteditable="true">%section_content%</div></td><td><img class="editor-section-remove-button" src="/sr/svg/icon_remove.svg""></td></tr></table>`;
 
-function build_markdown_editor_section(content) {
-  let section_div = document.createElement('div');
-  let section = EDITOR_SECTION_TEMPLATE;
+function build_markdown_editor_section_html(content) {
+  let section_html = EDITOR_SECTION_TEMPLATE;
 
   splitted_content = '';
   for (let line of content.split('\n')) {
     splitted_content += '<div>' + line + '</div>';
   }
 
-  section = section.replace('%section_icon%', "/sr/svg/icon_markdown.svg");
-  section = section.replace('%section_content%', splitted_content);
-  section = section.replace('%section_type%', 'markdown');
-
-  console.log(section);
-  section_div.innerHTML = section;
-  section_div.className = 'editor-section';
-  return section_div;
+  section_html = section_html.replace('%section_icon%', "/sr/svg/icon_markdown.svg");
+  section_html = section_html.replace('%section_content%', splitted_content);
+  return section_html;
 }
 
-function build_editor_section(type, content) {
-  if (type === 'markdown') {
-    return build_markdown_editor_section(content);
+let icon_by_type = new Map()
+icon_by_type.set('markdown', '/sr/svg/icon_markdown.svg');
+icon_by_type.set('graph', '/sr/svg/icon_graph.svg');
+icon_by_type.set('chart', '/sr/svg/icon_chart.svg');
+icon_by_type.set('steps', '/sr/svg/icon_steps.svg');
+
+
+function build_editor_section(section_type, content) {
+  let section_div = document.createElement('div');
+  let section_html = '';
+
+  if (section_type === 'markdown') {
+    section_html = build_markdown_editor_section_html(content);
   }
+
+  section_html = section_html.replace('%section_type%', section_type);
+
+  available_types = '';
+  for (let [type, icon] of icon_by_type) {
+    if (type !== section_type) {
+      available_types += `<img class="editor-section-type-button" type="${type}" src="${icon}">`;
+    }
+  }
+  section_html = section_html.replace('%available_types%', available_types);
+
+  section_div.innerHTML = section_html;
+  section_div.className = 'editor-section';
+  return section_div;
 }
 
 function append_editor_by_section(type, content) {
@@ -41,7 +66,7 @@ function get_section_content_from_ui() {
   return section_contents;
 }
 
-append_editor_by_section('markdown', '01');
+append_editor_by_section('markdown', '01\naasasdf\nkzv\nasdf');
 append_editor_by_section('markdown', '02');
 append_editor_by_section('markdown', '03');
 append_editor_by_section('markdown', '04');
@@ -49,6 +74,7 @@ append_editor_by_section('markdown', '04');
 append_editor_by_section('markdown', '01');
 append_editor_by_section('markdown', 'lkkk');
 append_editor_by_section('markdown', '03');
+append_editor_by_section('markdown', 'alkd\nlika`\n012\n01');
 append_editor_by_section('markdown', '04');
 
 append_editor_by_section('markdown', '01');
@@ -185,9 +211,20 @@ const startDraggingHandler = function(mouse) {
   }
 }
 
+const removeSectionHandler = function(mouse) {
+  section = mouse.path.find(item => item.className == 'editor-section');
+  const list = document.getElementById('editor-table');
+  list.removeChild(section);
+}
+
 const list = document.getElementById('editor-table');
 // Query all items
 [].slice.call(list.querySelectorAll('.editor-section-move-button')).forEach(function(item) {
   item.addEventListener('mousedown', startDraggingHandler);
 });
+[].slice.call(list.querySelectorAll('.editor-section-remove-button')).forEach(function(item) {
+  item.addEventListener('mousedown', removeSectionHandler);
+});
+
+
 

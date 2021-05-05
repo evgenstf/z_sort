@@ -29,11 +29,22 @@
   margin-bottom: 10px;
 }
 
-.editor-section:hover .editor-section-type-button {
-  opacity: 1;
+.editor-section-available-types {
+  display: none;
+  position: absolute;
+  z-index: 1;
 }
 
-.editor-section:hover .editor-section-move-button {
+.editor-section-type-container {
+  position: relative;
+  display: inline-block;
+}
+
+.editor-section-type-container:hover .editor-section-available-types {
+  display: block;
+}
+
+.editor-section:hover .editor-section-type-button, .editor-section:hover .editor-section-move-button, .editor-section:hover .editor-section-remove-button {
   opacity: 1;
 }
 
@@ -49,6 +60,13 @@
   padding-top: 1.5px;
 }
 
+.editor-section-remove-button {
+  opacity: 0;
+  border-radius: 3px;
+  vertical-align: middle;
+  padding-top: 1.5px;
+}
+
 .editor-section-move-button {
   opacity: 0;
   border-radius: 3px;
@@ -58,12 +76,8 @@
   user-select: none;
 }
 
-.editor-section-type-button:hover {
-  background: yellow;
-}
-
-.editor-section-move-button:hover {
-  background: yellow;
+.editor-section-type-button:hover, .editor-section-move-button:hover, .editor-section-remove-button:hover  {
+  background: #edf2f7;
 }
 
 .editor-section-content {
