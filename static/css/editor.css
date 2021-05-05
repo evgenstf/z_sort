@@ -29,6 +29,14 @@
   margin-bottom: 10px;
 }
 
+.editor-section:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.editor-section:focus {
+  background-color: yellow;
+}
+
 .editor-section-available-types {
   display: none;
   position: absolute;

@@ -5,7 +5,7 @@ const EDITOR_SECTION_TEMPLATE = `<table width=100% cellspacing="0" cellpadding="
     %available_types%
   </div>
 </td>
-<td width=10px></td><td class="editor-section-content"><div contenteditable="true">%section_content%</div></td><td><img class="editor-section-remove-button" src="/sr/svg/icon_remove.svg""></td></tr></table>`;
+<td width=10px></td><td><div class="editor-section-content" contenteditable="true">%section_content%</div></td><td><img class="editor-section-remove-button" src="/sr/svg/icon_remove.svg""></td></tr></table>`;
 
 function build_markdown_editor_section_html(content) {
   let section_html = EDITOR_SECTION_TEMPLATE;
@@ -184,7 +184,7 @@ const startDraggingHandler = function(mouse) {
   if (!isDraggingStarted) {
     isDraggingStarted = true;
 
-    draggingEle = mouse.path.find(item => item.className == 'editor-section');
+    draggingEle = mouse.path.find(item => item.classList.contains('editor-section'));
 
     const draggingRect = draggingEle.getBoundingClientRect();
     placeholder = document.createElement('div');
@@ -212,9 +212,22 @@ const startDraggingHandler = function(mouse) {
 }
 
 const removeSectionHandler = function(mouse) {
-  section = mouse.path.find(item => item.className == 'editor-section');
+  section = mouse.path.find(item => item.classList.contains('editor-section'));
   const list = document.getElementById('editor-table');
   list.removeChild(section);
+}
+
+const editorSectionContentFocusHandler = function(mouse) {
+  section = mouse.path.find(item => item.classList.contains('editor-section'));
+  section.style.backgroundColor = "rgba(0, 0, 0, 0.1)";
+}
+
+const editorSectionContentFocusOutHandler = function(mouse) {
+  console.log('editorSectionContentOnFocusHandler');
+  section = mouse.path.find(item => item.classList.contains('editor-section'));
+  console.log(section);
+  console.log(mouse);
+  section.style.removeProperty('background-color');
 }
 
 const list = document.getElementById('editor-table');
@@ -222,8 +235,17 @@ const list = document.getElementById('editor-table');
 [].slice.call(list.querySelectorAll('.editor-section-move-button')).forEach(function(item) {
   item.addEventListener('mousedown', startDraggingHandler);
 });
+
 [].slice.call(list.querySelectorAll('.editor-section-remove-button')).forEach(function(item) {
   item.addEventListener('mousedown', removeSectionHandler);
+});
+
+[].slice.call(list.querySelectorAll('.editor-section-content')).forEach(function(item) {
+  item.addEventListener('focusin', editorSectionContentFocusHandler);
+});
+
+[].slice.call(list.querySelectorAll('.editor-section-content')).forEach(function(item) {
+  item.addEventListener('focusout', editorSectionContentFocusOutHandler);
 });
 
 
