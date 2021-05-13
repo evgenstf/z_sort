@@ -14,18 +14,14 @@ class UserPageHtmlFactory:
         for article in articles:
             html_articles += article['preview_html']
         user_page_template_html = user_page_template_html.replace('&content&', html_articles)
-        user_page_profile_pic_path = UserPageHtmlFactory.__generateUserPageProfilePicPath(username)
-        user_page_template_html = user_page_template_html.replace(
-            '<!-- user profile picture -->', 
-            user_page_profile_pic_path,
-        )
-
+        user_page_template_html = UserPageHtmlFactory.__addProfilePicture(user_page_template_html, username)
+        
         return articles_num, BaseUserPageHtmlFactory.create_from_content(user_page_template_html)
 
     @staticmethod
-    def __generateUserPageProfilePicPath(username: str) -> str:
+    def __addProfilePicture(html: str, username: str) -> str:
         expected_profile_picture_relative_path = 'media/profile_pictures/' + username
-        return settings.STATIC_URL + \
-            finders.find(expected_profile_picture_relative_path) 
-                ? expected_profile_picture_relative_path 
-                : 'svg/user_ico.svg'
+        path = settings.STATIC_URL + (expected_profile_picture_relative_path 
+            if finders.find(expected_profile_picture_relative_path) 
+            else 'svg/user_ico.svg')
+        return html.replace('<!-- user profile picture -->', path)
