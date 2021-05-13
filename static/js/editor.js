@@ -1,14 +1,17 @@
-const EDITOR_SECTION_TEMPLATE = `<table width=100% cellspacing="0" cellpadding="0" type="%section_type%"><tr><td><img class="editor-section-move-button" src="/sr/svg/icon_move.svg"></td>
-<td class="editor-section-type-container">
-  <img class="editor-section-type-button" src="%section_icon%">
-  <div class="editor-section-available-types">
-    %available_types%
-  </div>
+const EDITOR_MARKDOWN_SECTION_TEMPLATE = `<table width=100% cellspacing="0" cellpadding="0" type="%section_type%"><tr><td><img class="editor-section-move-button" src="/sr/svg/icon_move.svg"></td>
+<td style="vertical-align: bottom">
+  <img class="editor-section-add-button" src="/sr/svg/icon_add.svg">
+</td>
+<td width=10px></td><td><div class="editor-section-content" contenteditable="true">%section_content%</div></td><td><img class="editor-section-remove-button" src="/sr/svg/icon_remove.svg""></td></tr></table>`;
+
+const EDITOR_CUSTOM_SECTION_TEMPLATE = `<table width=100% cellspacing="0" cellpadding="0" type="%section_type%"><tr><td><img class="editor-section-move-button" src="/sr/svg/icon_move.svg"></td>
+<td style="vertical-align: bottom">
+  <img class="editor-section-add-button" src="/sr/svg/icon_add.svg">
 </td>
 <td width=10px></td><td><div class="editor-section-content" contenteditable="true">%section_content%</div></td><td><img class="editor-section-remove-button" src="/sr/svg/icon_remove.svg""></td></tr></table>`;
 
 function build_markdown_editor_section_html(content) {
-  let section_html = EDITOR_SECTION_TEMPLATE;
+  let section_html = EDITOR_MARKDOWN_SECTION_TEMPLATE;
 
   splitted_content = '';
   for (let line of content.split('\n')) {
@@ -16,6 +19,19 @@ function build_markdown_editor_section_html(content) {
   }
 
   section_html = section_html.replace('%section_icon%', "/sr/svg/icon_markdown.svg");
+  section_html = section_html.replace('%section_content%', splitted_content);
+  return section_html;
+}
+
+function build_custom_editor_section_html(content) {
+  let section_html = EDITOR_CUSTOM_SECTION_TEMPLATE;
+
+  splitted_content = '';
+  for (let line of content.split('\n')) {
+    splitted_content += '<div>' + line + '</div>';
+  }
+
+  section_html = section_html.replace('%section_icon%', "/sr/svg/icon_graph.svg");
   section_html = section_html.replace('%section_content%', splitted_content);
   return section_html;
 }
@@ -33,6 +49,8 @@ function build_editor_section(section_type, content) {
 
   if (section_type === 'markdown') {
     section_html = build_markdown_editor_section_html(content);
+  } else {
+    section_html = build_custom_editor_section_html(content);
   }
 
   section_html = section_html.replace('%section_type%', section_type);
@@ -68,22 +86,7 @@ function get_section_content_from_ui() {
 
 append_editor_by_section('markdown', '01\naasasdf\nkzv\nasdf');
 append_editor_by_section('markdown', '02');
-append_editor_by_section('markdown', '03');
-append_editor_by_section('markdown', '04');
-
-append_editor_by_section('markdown', '01');
-append_editor_by_section('markdown', 'lkkk');
-append_editor_by_section('markdown', '03');
-append_editor_by_section('markdown', 'alkd\nlika`\n012\n01');
-append_editor_by_section('markdown', '04');
-
-append_editor_by_section('markdown', '01');
-append_editor_by_section('markdown', '02');
-append_editor_by_section('markdown', '03');
-append_editor_by_section('markdown', '04');
-
-append_editor_by_section('markdown', '01');
-append_editor_by_section('markdown', '02');
+append_editor_by_section('custom', 'CUSTOM');
 append_editor_by_section('markdown', '03');
 append_editor_by_section('markdown', '04');
 

@@ -52,7 +52,7 @@
   display: block;
 }
 
-.editor-section:hover .editor-section-type-button, .editor-section:hover .editor-section-move-button, .editor-section:hover .editor-section-remove-button {
+.editor-section:hover .editor-section-type-button, .editor-section:hover .editor-section-add-button, .editor-section:hover .editor-section-move-button, .editor-section:hover .editor-section-remove-button {
   opacity: 1;
 }
 
@@ -66,6 +66,14 @@
   border-radius: 3px;
   vertical-align: middle;
   padding-top: 1.5px;
+}
+
+.editor-section-add-button {
+  opacity: 0;
+  border-radius: 3px;
+  vertical-align: bottom;
+  position: relative;
+  bottom: -8px;
 }
 
 .editor-section-remove-button {
@@ -84,7 +92,7 @@
   user-select: none;
 }
 
-.editor-section-type-button:hover, .editor-section-move-button:hover, .editor-section-remove-button:hover  {
+.editor-section-type-button:hover, .editor-section-add-button:hover, .editor-section-move-button:hover, .editor-section-remove-button:hover  {
   background: #edf2f7;
 }
 
