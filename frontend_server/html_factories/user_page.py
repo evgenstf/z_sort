@@ -24,4 +24,4 @@ class UserPageHtmlFactory:
         path = settings.STATIC_URL + (expected_profile_picture_relative_path 
             if finders.find(expected_profile_picture_relative_path) 
             else 'svg/user_ico.svg')
-        return html.replace('<!-- user profile picture -->', path)
+        return html.replace('&user_profile_picture&', path)
