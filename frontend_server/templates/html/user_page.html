@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <div id="user_page_body">
         <div id="user_info">
             <table>
@@ -30,7 +29,7 @@
                     </td>
                     <td>
                         <form action="edit" id="user_page_edit_button">
-                            <input type="image" src="/sr/svg/change_profile.svg" />
+                            <input type="image" src="{% static 'svg/change_profile.svg' %}" />
                         </form>
                     </td>
                 </tr>
@@ -49,15 +48,13 @@
                     {{request.user}} hasn’t published <br> any article yet.
                 </p>
                 <div id="empty_user_page_img">
-                    <img src="/sr/svg/empty_user_page.svg">
+                    <img src="{% static 'svg/empty_user_page.svg' %}">
                 </div>
             </div>
             {% endif %} &content&
         </div>
 
     </div>
-
-
 </body>
 
 </html>
