@@ -2,61 +2,59 @@
 <html>
 
 <head>
-	{% load static %}
-	<link rel="stylesheet" href="{% static 'css/user_page.css' %}">
-	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
-	</style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/user_page.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
+    </style>
 
 </head>
+
 <body>
+    <div id="user_page_body">
+        <div id="user_info">
+            <table>
+                <tr>
+                    <td>
+                        <img src=&user_profile_picture& style="border-radius: 50%; width=" 150 "; height="150 ";">
+                    </td>
+                    <td style="width: 100%">
+                        <h1 style="text-align: left; margin: 0 5%;">
+                            {{ owner }}
+                        </h1>
+                        {% if is_it_owner %}
+                        <p style="text-align: left; margin: 0 5%;">
+                            {{ request.user.email }}
+                        </p>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form action="edit" id="user_page_edit_button">
+                            <input type="image" src="{% static 'svg/change_profile.svg' %}" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-<div id="user_page_body">
-	<div id="user_info">
-		<table>
-			<tr>
-				<td>
-					<img src="/sr/svg/user_ico.svg">
-				</td>
-				<td style="width: 100%">
-					<h1 style="text-align: left; margin: 0 5%;">
-						{{ owner }}
-					</h1>
-					{% if is_it_owner %}
-					<p style="text-align: left; margin: 0 5%;">
-						{{ request.user.email }}
-					</p>
-                    {% endif %}
-				</td>
-				<td>
-					<form action="edit" id="user_page_edit_button">
-						<input type="image" src="{% static 'svg/change_profile.svg' %}"/>
-					</form>
-				</td>
-			</tr>
-		</table>
-	</div>
+        <div id="devider_between_info_and_articles"></div>
 
-    <div id="devider_between_info_and_articles"></div>
+        <div id="user_articles">
+            {% if articles_num == 0 %}
+            <div id="user_articles_empty">
+                <p id="empty_user_page_text_header">
+                    Nothing here
+                </p>
+                <p id="empty_user_page_text_body">
+                    {{request.user}} hasn’t published <br> any article yet.
+                </p>
+                <div id="empty_user_page_img">
+                    <img src="{% static 'svg/empty_user_page.svg' %}">
+                </div>
+            </div>
+            {% endif %} &content&
+        </div>
 
-    <div id="user_articles">
-		{% if articles_num == 0 %}
-		<div id="user_articles_empty">
-			<p id="empty_user_page_text_header">
-				Nothing here
-			</p>
-			<p id="empty_user_page_text_body">
-				{{request.user}} hasn’t published <br> any article yet.
-			</p>
-			<div id="empty_user_page_img">
-				<img src="/sr/svg/empty_user_page.svg">
-			</div>
-		</div>
-		{% endif %}
-		&content&
-	</div>
-
-</div>
-
-
+    </div>
 </body>
+
 </html>
